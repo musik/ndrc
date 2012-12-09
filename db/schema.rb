@@ -11,7 +11,122 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121011202638) do
+ActiveRecord::Schema.define(:version => 20121111081100) do
+
+  create_table "categories", :force => true do |t|
+    t.string  "name"
+    t.string  "slug"
+    t.integer "parent_id"
+    t.integer "lft"
+    t.integer "rgt"
+    t.integer "depth"
+    t.integer "cid"
+  end
+
+  add_index "categories", ["parent_id", "lft", "rgt"], :name => "plr"
+  add_index "categories", ["slug"], :name => "index_categories_on_slug"
+
+  create_table "cities", :force => true do |t|
+    t.string   "name"
+    t.integer  "province_id"
+    t.integer  "level"
+    t.string   "zip_code"
+    t.string   "pinyin"
+    t.string   "pinyin_abbr"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
+
+  add_index "cities", ["level"], :name => "index_cities_on_level"
+  add_index "cities", ["name"], :name => "index_cities_on_name"
+  add_index "cities", ["pinyin"], :name => "index_cities_on_pinyin"
+  add_index "cities", ["pinyin_abbr"], :name => "index_cities_on_pinyin_abbr"
+  add_index "cities", ["province_id"], :name => "index_cities_on_province_id"
+  add_index "cities", ["zip_code"], :name => "index_cities_on_zip_code"
+
+  create_table "companies", :force => true do |t|
+    t.string   "name"
+    t.string   "fuwu"
+    t.string   "hangye"
+    t.string   "location"
+    t.string   "ali_url"
+    t.datetime "created_at",                   :null => false
+    t.datetime "updated_at",                   :null => false
+    t.boolean  "delta",      :default => true, :null => false
+  end
+
+  add_index "companies", ["ali_url"], :name => "index_companies_on_ali_url"
+  add_index "companies", ["delta"], :name => "index_companies_on_delta"
+
+  create_table "company_meta", :force => true do |t|
+    t.string  "mkey"
+    t.string  "mval"
+    t.integer "company_id"
+  end
+
+  add_index "company_meta", ["company_id", "mkey"], :name => "cmeta"
+
+  create_table "company_texts", :force => true do |t|
+    t.text    "body"
+    t.integer "company_id"
+  end
+
+  add_index "company_texts", ["company_id"], :name => "index_company_texts_on_company_id"
+
+  create_table "delayed_jobs", :force => true do |t|
+    t.integer  "priority",   :default => 0
+    t.integer  "attempts",   :default => 0
+    t.text     "handler"
+    t.text     "last_error"
+    t.datetime "run_at"
+    t.datetime "locked_at"
+    t.datetime "failed_at"
+    t.string   "locked_by"
+    t.string   "queue"
+    t.datetime "created_at",                :null => false
+    t.datetime "updated_at",                :null => false
+  end
+
+  add_index "delayed_jobs", ["priority", "run_at"], :name => "delayed_jobs_priority"
+
+  create_table "districts", :force => true do |t|
+    t.string   "name"
+    t.integer  "city_id"
+    t.string   "pinyin"
+    t.string   "pinyin_abbr"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
+
+  add_index "districts", ["city_id"], :name => "index_districts_on_city_id"
+  add_index "districts", ["name"], :name => "index_districts_on_name"
+  add_index "districts", ["pinyin"], :name => "index_districts_on_pinyin"
+  add_index "districts", ["pinyin_abbr"], :name => "index_districts_on_pinyin_abbr"
+
+  create_table "provinces", :force => true do |t|
+    t.string   "name"
+    t.string   "pinyin"
+    t.string   "pinyin_abbr"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
+
+  add_index "provinces", ["name"], :name => "index_provinces_on_name"
+  add_index "provinces", ["pinyin"], :name => "index_provinces_on_pinyin"
+  add_index "provinces", ["pinyin_abbr"], :name => "index_provinces_on_pinyin_abbr"
+
+  create_table "rails_admin_histories", :force => true do |t|
+    t.text     "message"
+    t.string   "username"
+    t.integer  "item"
+    t.string   "table"
+    t.integer  "month",      :limit => 2
+    t.integer  "year",       :limit => 8
+    t.datetime "created_at",              :null => false
+    t.datetime "updated_at",              :null => false
+  end
+
+  add_index "rails_admin_histories", ["item", "table", "month", "year"], :name => "index_rails_admin_histories"
 
   create_table "roles", :force => true do |t|
     t.string   "name"

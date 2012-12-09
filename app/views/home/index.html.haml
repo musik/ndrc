@@ -1,3 +1,22 @@
-%h3 Home
-- @users.each do |user|
-  %p User: #{link_to user.name, user}
+-title t('.title'),nil,false
+-meta :description,t('.description')
+-meta :keywords,t('.keywords')
+-@hide_bread = true
+-@body_class = "home"
+%dl.cities
+  -CityHelper::BIGCITIES.each do |city|
+    %dd
+      %a{:href=>city_link(city)}= t("cities.#{city}")
+  -CityHelper::CITIES[:china].each do |state,cities|
+    -next if CityHelper::BIGCITIES.include? state
+    %dt
+      %a{:href=>city_link(state)}= t("states.#{state}")
+    -cities.each do |city|
+      %dd
+        %a{:href=>city_link(city)}= t("cities.#{city}")
+    
+.clear    
+%h1.small=yield :title
+%p.description=@meta[:description]
+%h2 最新收录  
+= render :partial => 'companies/recent',:locals=>{:limit=>90}
