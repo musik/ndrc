@@ -1,0 +1,7 @@
+
+-title @title
+
+%p.stats
+  ="找到#{@companies.total_entries}项结果,耗时(#{@companies.query_time * 1000}毫秒)"
+= render :partial => 'companies/list',:locals=>{:results=>@companies,:q=>@name}
+=nofollow_sub paginate(@companies)

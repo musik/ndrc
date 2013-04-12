@@ -1,0 +1,24 @@
+
+-if @show_catcities 
+  -@cities = states - [:macau,:hongkong]
+  %tt
+    <a href="#{cat_link(@category)}">#{@category.name}</a>
+    <small>分省浏览</small>
+  %p.cats
+    -@cities.each do |str|
+      %a{:href=>citycat_link(str,@category),:title=>[t("states.#{str}"),@category.name].join()}=t("states.#{str}")
+-if @related.present?      
+  %tt 相关企业
+  %ul.unstyled
+    -@related.each do |c|
+      %li=link_to c.name,company_link(c)
+
+-unless @hide_recent
+  -limit=15
+  -cache ["sidebar_recent",limit],:expires_in=>1.minutes do
+    -@recent = Company.recent.limit(limit)
+    %tt 最新加入
+    %ul.unstyled
+      -@recent.each do |c|
+        %li=link_to c.name,company_link(c)
+

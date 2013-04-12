@@ -1,0 +1,9 @@
+= simple_form_for(@snip) do |f|
+  = f.error_notification
+
+  .form-inputs
+    = f.input :name
+    = f.input :data,:input_html=>{:class=>"input-xxlarge",:rows=>10}
+
+  .form-actions
+    = f.button :submit

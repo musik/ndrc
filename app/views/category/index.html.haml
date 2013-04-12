@@ -1,0 +1,11 @@
+-title "行业大全"
+-@roots.each do |r|
+  .cat_family
+    %strong
+      %a{:href=>cat_link(r)}=r.name
+    -unless r.leaf?
+      %p.cats
+        -sort_by_name(r.children).each do |c|
+          %a{:href=>cat_link(c)}=c.name
+          =c.width unless c.width.zero?
+

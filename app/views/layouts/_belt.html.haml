@@ -1,0 +1,17 @@
+-unless @hide_cats
+  -unless @city_name
+    -@cats = Category.roots
+-unless @hide_cities
+  -@cities ||= states - [:macau,:hongkong]
+-if @cats or @cities  
+  .belt
+    .container
+      -if @cats
+        .cats
+          -@cats.sort{|a,b| a.name.length <=> b.name.length}.each do |c|
+            %a{:href=>cat_link(c),:title=>"#{c.name}"}=c.name
+      -if @cities
+        .cities
+          -@cities.each do |str|
+            %a{:href=>city_link(str),:title=>[t("states.#{str}"),"黄页"].join()}=t("states.#{str}")
+

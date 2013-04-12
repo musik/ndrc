@@ -1,0 +1,90 @@
+zh-CN:
+  date:
+    order: ""
+  number:
+    human:
+      storage_units:
+        units:
+          byte: byte
+        format: Kb
+  helpers:
+    submit:
+      create: 创建
+      update: 保存
+      defaults:
+        create: 创建
+        update: 保存
+      company:
+        create: "创建%{model}"
+        update: 保存
+  activerecord:
+    models:
+    attributes:
+    errors:
+      models:
+        post:
+          attributes:
+            title:
+              blank: 标题不能为空
+
+  simple_form:
+    "yes": '是'
+    "no": '否'
+    creating: "正在创建..."
+    updating: '正在更新...'
+    buttons:
+      or: '或'
+      cancel: '取消'
+    required:
+      text: '必需的'
+      mark: '*'
+      # You can uncomment the line below if you need to overwrite the whole required html.
+      # When using html, text and mark won't be used.
+      # html: '<abbr title="required">*</abbr>'
+    error_notification:
+      default_message: "请检查以下错误:"
+    # Labels and hints examples
+    options:
+    labels:
+      defaults:
+        name: 名称
+        description: 简介
+        password: '密码'
+        password_confirmation: 请再确认你的密码
+        current_password: 你的密码
+        submit: 提交
+      user:
+        remember_me: 记住我
+        name: '用户名'
+        email: '电子邮件'
+        new:
+        edit:
+          password: '新密码'
+          password_confirmation: 确认新密码
+          current_password: 旧密码
+      forum:
+        name: 产品名称
+        slug: 个性域名
+        subtitle: 社区副标题
+        website: 官方网站
+        new:
+          name: 名称
+
+      post:
+        title: 标题
+        content: 正文
+        post_type: 类型
+
+    hints:
+      defaults:
+        username: ''
+        password: ''
+      user:
+        edit:
+          password: '如不修改请留空'
+          current_password: 请输入你现在的密码
+      forum:
+        name: 前缀请填写产品名称，如“盛大云”。后缀副标题可填写如“非官场支持论坛”、“意见反馈社区”之类。<br />社区全称为『产品名称+副标题』
+        new:
+          subtitle: 如“非官场支持论坛”、“意见反馈社区”之类。社区全称为『产品名称+副标题』
+          slug: 请认真选择，过后不可修改

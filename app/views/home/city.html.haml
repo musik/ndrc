@@ -1,0 +1,22 @@
+-title t('.title',:city=>@city_title),nil,false
+-meta :description,t('.description',:city=>@city_title)
+-meta :keywords,t('.keywords',:city=>@city_title)
+-@cols = "col2r"
+
+=render :partial=>"companies/list",:locals=>{:results=>@companies,:q=>nil}
+
+=link_to "更多",citycoms_link(@city_name)
+
+-content_for :sidebar do
+  %h1="#{@city_title}黄页网"
+  %p=@meta[:description]
+  
+-content_for :partners do
+  .partners
+    -citylink = city_links(@city_title,@is_state)
+    -if citylink
+      .partners
+        合作链接:
+        -citylink.each do |link|
+          =link_to link[0],link[1],:target=>"_blank"
+

@@ -1,0 +1,35 @@
+-title @title
+-@cols = "col2r"
+.tags
+  %tt 主营
+  -#-@company.hangye.split(';').uniq.each do |str|
+    -#=link_to str,"/t-#{str}" unless str.match(/未分类/).present?
+  -@company.cats.each do |c|
+    =link_to c.name,cat_link(c)
+-if @company.locs.present?    
+  .location
+    %tt 所在地
+    -@company.locs.each do |arr|
+      =link_to arr[0],city_link(arr[1])
+.entry-content
+  =simple_format @company.text.body
+
+-if @company.metas.present?
+  %table.metas.table
+    -@company.metas.sort{|a,b| a.mkey.length<=>b.mkey.length}.each do |m|
+      -next if m.mval.blank?
+      %tr
+        %th=m.mkey
+        %td=m.mval.sub(/\[已认证\]/,'')
+
+
+-content_for :sidebar do
+  -if @company.cats.present? and @company.locs.present?
+    %tt 相关分类
+    %ul.cats.unstyled
+      -@company.locs.each do |city|
+        -@company.cats.each do |c|
+          %li
+            %a{:href=>citycat_link(city[1],c)}="#{city[0]}#{c.name}"
+            
+

@@ -1,0 +1,7 @@
+-limit ||= 15
+-cache "recent_#{limit}",:expires_in=>1.minutes do
+  -results = Company.recent.limit(limit)
+  -if results
+    %ul.comlist
+      -results.each do |c|
+        %li=link_to c.name,company_link(c)

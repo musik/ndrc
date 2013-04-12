@@ -1,0 +1,7 @@
+-title @title || "企业"
+-@cols="col1"
+= paginate(@companies,:window=>10)
+%ul.comlist
+  -@companies.each do |c|
+    %li=link_to c.name,company_link(c)
+

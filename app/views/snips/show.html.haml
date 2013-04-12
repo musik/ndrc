@@ -1,0 +1,12 @@
+%p#notice= notice
+
+%p
+  %b Name:
+  = @snip.name
+%p
+  %b Data:
+  = @snip.data
+
+= link_to 'Edit', edit_snip_path(@snip)
+\|
+= link_to 'Back', snips_path

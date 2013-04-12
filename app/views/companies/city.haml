@@ -1,0 +1,14 @@
+-title @title || "企业"
+-@cols="col2r"
+= paginate(@companies,:window=>4)
+-@companies.each do |c|
+  .company
+    %strong.fn=link_to c.name,company_link(c)
+    %small
+      =company_clean_col c.location
+    .meta
+      =c.hangye
+    .summary=c.text.body.truncate 60
+
+%br
+

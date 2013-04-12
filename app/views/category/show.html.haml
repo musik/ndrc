@@ -1,0 +1,22 @@
+-title t('.title',:name=>@category.name),@category.name
+-@cols = "col2r"
+-if @children
+  %p.cats
+    -@children.sort{|a,b| a.name.length<=>b.name.length}.each do |c|
+      =link_to c.name,cat_link(c)
+
+-unless @instead      
+  %p.stats
+    ="找到#{@companies.total_entries}项结果,耗时(#{@companies.query_time * 1000}毫秒)"
+-else
+  %p.text-info
+    暂时没有<strong>#{@category.name}公司</strong>信息,以下是一些可能的相关信息.
+
+= render :partial => 'companies/list',:locals=>{:results=>@companies,:q=>@category.name}
+=nofollow_sub paginate(@companies) unless @instead
+-if params[:debug]
+  .debug
+    %p
+      =link_to 'source',@category.source,:target=>'_blank'
+    =debug @category.parent
+    =debug @category

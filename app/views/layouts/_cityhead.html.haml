@@ -1,0 +1,32 @@
+.city-header
+  .container
+    .city-name=link_to "#{@city_title}黄页","/#{@city_name}"
+    -if cr = children_or_sibling_cities(@city_name) and cr.present?
+      .city-more
+        -#cls = {@city_name.to_sym => "active"}
+        -cr.each do |str|
+          -if @city_name != str.to_s
+            %a{:href=>city_link(str),:title=>[t("cities.#{str}"),"黄页"].join()}=t("cities.#{str}")
+          -else
+            %span=t("cities.#{str}")
+    .clearfix
+    -unless @hide_citynav
+      .navbar
+        .navbar-inner
+          %ul.nav 
+            -cats = sort_by_name(Category.roots)
+            -limit = 24
+            -cats.slice(0,limit).each do |c|
+              %li 
+                %a{:href=>citycat_link(@city_name,c),:title=>"#{@city_title}#{c.name}"}=c.name
+            %li.divider-vertical
+            %li.dropdown
+              %a{:href=>"#",:class=>"dropdown-toggle","data-toggle"=>"dropdown"}
+                更多
+                %b.caret
+              %ul.dropdown-menu
+                -cats[limit,20].each do |c|
+                  %li 
+                    %a{:href=>citycat_link(@city_name,c),:title=>"#{@city_title}#{c.name}"}=c.name
+
+      .clearfix

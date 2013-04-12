@@ -1,0 +1,25 @@
+-title t('.title',:name=>@category.name,:city=>@city_title),@title
+-@cols = "col2r"
+
+-if @children
+  %p.cats
+    -sort_by_name(@children).each do |c|
+      %a{:href=>citycat_link(@city_name,c),:title=>"#{@city_title}#{c.name}"}=c.name
+    .clearfix
+-unless @instead      
+  %p.stats
+    ="找到#{@companies.total_entries}项结果,耗时(#{@companies.query_time * 1000}毫秒)"
+-else
+  %p.text-info
+    暂时没有<strong>#{@city_title}#{@category.name}公司</strong>信息,以下是一些其它地方#{@category.name}公司.
+    %br
+    更多请看
+    <a href="#{cat_link(@category)}">全国#{@category.name}公司</a>
+= render :partial => 'companies/list',:locals=>{:results=>@companies,:q=>@category.name}
+=nofollow_sub paginate(@companies) unless @instead
+-if params[:debug]
+  .debug
+    %p
+      =link_to 'source',@category.source,:target=>'_blank'
+    =debug @category.parent
+    =debug @category

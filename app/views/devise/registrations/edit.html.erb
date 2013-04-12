@@ -1,0 +1,22 @@
+<%-title '修改密码'%>
+
+<%= simple_form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :method => :put }) do |f| %>
+  <%= f.error_notification %>
+
+  <div class="inputs">
+    <%= f.input :email, :required => true, :autofocus => true , :readonly=>true %>
+    <%= f.input :password, :autocomplete => "off", :required => false %>
+    <%= f.input :password_confirmation, :required => false %>
+    <%= f.input :current_password, :required => true %>
+  </div>
+
+  <div class="actions">
+    <%= f.button :submit, "保存" %>
+  </div>
+<% end %>
+
+<h3>销毁帐号</h3>
+
+<p>不乐意? <%= link_to "销毁帐号", registration_path(resource_name), :confirm => "你确定吗?", :method => :delete %>.</p>
+
+<%= link_to "返回", :back %>

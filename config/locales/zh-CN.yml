@@ -1,0 +1,22 @@
+# Sample localization file for English. Add more files in this directory for other locales.
+# See https://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
+
+zh-CN:
+  appname: "NDRC"
+  breadcrumbs:
+    home: 首页
+    overview: 概览
+  category:
+    show:
+      title: "%{name}_%{name}厂家_%{name}黄页"
+    city:
+      title: "%{city}%{name}厂家_%{city}%{name}黄页"
+  home:
+    index:
+      title: "NDRC"
+      keywords: "公司大全,企业名录,免费黄页"
+      description: "NDRC黄页网收录各行各业的公司企业信息,提供快捷的公司搜索服务。并面向公司企业,提供免费黄页登录、公司信息推广的服务。"
+    city:
+      title: "%{city}公司_%{city}黄页"
+      keywords: "%{city}公司,%{city}黄页"
+      description: "%{city}黄页网收录%{city}各行各业的公司企业信息,提供快捷的%{city}公司搜索服务。并面向%{city}公司企业,提供免费黄页登录、公司信息推广的服务。"

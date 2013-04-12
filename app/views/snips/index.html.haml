@@ -1,0 +1,21 @@
+%h1 Listing snips
+
+%table
+  %tr
+    %th Name
+    %th Data
+    %th
+    %th
+    %th
+
+  - @snips.each do |snip|
+    %tr
+      %td= snip.name
+      %td= snip.data
+      %td= link_to 'Show', snip
+      %td= link_to 'Edit', edit_snip_path(snip)
+      %td= link_to 'Destroy', snip, method: :delete, data: { confirm: 'Are you sure?' }
+
+%br
+
+= link_to 'New Snip', new_snip_path
