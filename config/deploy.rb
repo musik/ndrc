@@ -56,7 +56,7 @@ set :nginx_host_name,"www.ndrc.ac.cn"
 set :nginx_host_uniq,"www.ndrc.ac.cn"
 set :nginx_host_alias,"ndrc.ac.cn"
 
-require 'recipes/nginx'
+require './lib/recipes/nginx.rb'
 
 
 set :environment, 'production'
@@ -91,7 +91,7 @@ set :unicorn_user,:muzik
 require './lib/recipes/unicorn.rb'
 
 after "deploy:create_symlink","unicorn:symlink"
-after "deploy:create_symlink","app:whenever"
+#after "deploy:create_symlink","app:whenever"
 after 'deploy:start','unicorn:start'
 after 'deploy:restart', 'unicorn:restart' # app IS NOT preloaded
 #require 'recipes/unicorn'

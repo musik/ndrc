@@ -12,7 +12,7 @@
 
 *.kch
 *.sql
-*.json
+/db/db*.json
 *.xls
 db/sphinx/
 # bundler state
