@@ -14,6 +14,7 @@
 *.sql
 *.json
 *.xls
+db/sphinx/
 # bundler state
 /.bundle
 /vendor/bundle/
