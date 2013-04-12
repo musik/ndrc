@@ -9,6 +9,8 @@ class CityConstraint
   end
 end
 Hy::Application.routes.draw do
+  resources :snips
+
   get "home/topic"
 
   resources :companies,:path=>"qiye",:except=>[:show]
@@ -36,7 +38,15 @@ Hy::Application.routes.draw do
     get "/c-:id"=>"category#city"
     root :to=>"home#city"
   end
+  match 'links' => 'snips#links',:as=>'links'
   root :to => "home#index"
   devise_for :users
   resources :users, :only => [:show, :index]
+  resque_constraint = lambda do |request|
+    Rails.env.development? or 
+      (request.env['warden'].authenticate? and request.env['warden'].user.has_role?(:admin))
+  end
+  constraints resque_constraint do
+    mount Resque::Server.new, :at => "/resque"
+  end
 end

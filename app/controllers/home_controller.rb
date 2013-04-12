@@ -1,5 +1,7 @@
 #encoding: utf-8
 class HomeController < ApplicationController
+  caches_action :index,:expires_in => 5.minutes
+  caches_action :city,:expires_in => 5.minutes
   def index
     @hide_cities = true
   end

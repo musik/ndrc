@@ -31,6 +31,12 @@
         &copy; 2012 
         www.ndrc.ac.cn
         京ICP备05050413号 
+        #links
+          =link_to "友情链接",'/links'
+          -if is_home?
+            =':'
+            =Snip.get('home').html_safe
     = javascript_include_tag "application"
     =render "layouts/iefixjs"
     = render :partial => 'layouts/ga'
+    ='<script type="text/javascript" src="http://js.tongji.linezing.com/3085226/tongji.js"></script><noscript><a href="http://www.linezing.com"><img src="http://img.tongji.linezing.com/3085226/tongji.gif"/></a></noscript>'.html_safe

@@ -14,6 +14,7 @@ class ApplicationController < ActionController::Base
           @city_title = I18n.t("states.#{@city_name}")
         elsif is_city? @city_name
           @city_title = I18n.t("cities.#{@city_name}")
+          @hide_citynav = true if !is_capital? @city_name
 
         else
           @city_name = false

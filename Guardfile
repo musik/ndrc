@@ -24,7 +24,7 @@ guard 'rails',:port=>4001 do
 end
 
 
-guard 'rspec' do
+guard 'rspec',:all_after_pass => false,:all_on_start=>false do
   watch(%r{^spec/.+_spec\.rb$})
   watch(%r{^lib/aliparser.rb$})     { |m| "spec/lib/ali_spec.rb" }
   watch(%r{^lib/(.+)\.rb$})     { |m| "spec/lib/#{m[1]}_spec.rb" }
