@@ -77,3 +77,5 @@ group :development do
   gem 'capistrano-resque'
   gem 'thin'
 end
+gem 'wash_out'
+gem 'savon', '~> 2.1.0'

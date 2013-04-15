@@ -10,6 +10,7 @@ class CityConstraint
 end
 Hy::Application.routes.draw do
   resources :snips
+  wash_out :ws
 
   get "home/topic"
 
