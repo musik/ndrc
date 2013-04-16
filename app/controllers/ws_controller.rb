@@ -5,6 +5,10 @@ class WsController < ApplicationController
     :return=>{:CmdState=>:integer}
   def company_add
     #insert company
-    render :soap=>2
+    render :soap=>{:CmdState=>1}
+  end
+  before_filter :dump_parameters
+  def dump_parameters
+    Rails.logger.debug params.inspect
   end
 end

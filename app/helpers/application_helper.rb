@@ -51,4 +51,13 @@ module ApplicationHelper
   def city_links name,is_state
     city_link_ynshangji(name,is_state) + city_link_sdmec(name,is_state)
   end
+  def adsense slot,name,args={}
+    defaults={
+      :width => 336,
+      :height => 280,
+      :slot => slot,
+      :name => name
+    }
+    render :partial=>'layouts/adsense',:locals=>defaults.merge(args)
+  end
 end
