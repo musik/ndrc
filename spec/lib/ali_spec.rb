@@ -39,4 +39,22 @@ describe Ali do
       end
     end
   end
+  it "should parse info" do
+    if 1==1
+      ["1008412155",
+ "1228235391",
+ "1232497426",
+ "1188621543",
+ "714813151",
+ "859876848",
+ "745884210",
+ "587433003",
+ "1101516030",
+ "1231577132",
+ "1130163689"].each do |id|
+        Ali::Robot.new.parse_info id
+        break
+      end
+    end
+  end
 end 

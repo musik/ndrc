@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121227205225) do
+ActiveRecord::Schema.define(:version => 20130518081056) do
 
   create_table "categories", :force => true do |t|
     t.string  "name"
@@ -145,6 +145,25 @@ ActiveRecord::Schema.define(:version => 20121227205225) do
   end
 
   add_index "snips", ["name"], :name => "index_snips_on_name"
+
+  create_table "topic_slugs", :force => true do |t|
+    t.string  "slug"
+    t.integer "topic_id"
+  end
+
+  add_index "topic_slugs", ["id"], :name => "index_topic_slugs_on_id"
+  add_index "topic_slugs", ["slug"], :name => "index_topic_slugs_on_slug"
+
+  create_table "topics", :force => true do |t|
+    t.string   "name"
+    t.string   "slug"
+    t.boolean  "published"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "topics", ["name"], :name => "index_topics_on_name"
+  add_index "topics", ["slug"], :name => "index_topics_on_slug"
 
   create_table "users", :force => true do |t|
     t.string   "email",                  :default => "", :null => false

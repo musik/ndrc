@@ -63,6 +63,8 @@ class Company < ActiveRecord::Base
         end
         data[:text_attributes] = {:body=>data.delete(:desc)}
         create data
+      else
+        e
       end
     end
   end
