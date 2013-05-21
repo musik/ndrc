@@ -1,0 +1,7 @@
+-if results.present?
+  -results.each do |c|
+    .entries
+      %strong.fn=link_to highlight(c.title,q),c
+      %small
+      .summary=highlight(excerpt(strip_tags(c.text.body),q,:radius=>70) || strip_tags(c.text.body).truncate(140),q)
+

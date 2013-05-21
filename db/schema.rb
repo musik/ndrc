@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130518081056) do
+ActiveRecord::Schema.define(:version => 20130520081353) do
 
   create_table "categories", :force => true do |t|
     t.string  "name"
@@ -50,9 +50,10 @@ ActiveRecord::Schema.define(:version => 20130518081056) do
     t.string   "hangye"
     t.string   "location"
     t.string   "ali_url"
-    t.datetime "created_at",                   :null => false
-    t.datetime "updated_at",                   :null => false
-    t.boolean  "delta",      :default => true, :null => false
+    t.datetime "created_at",                      :null => false
+    t.datetime "updated_at",                      :null => false
+    t.boolean  "delta",         :default => true, :null => false
+    t.integer  "entries_count", :default => 0
   end
 
   add_index "companies", ["ali_url"], :name => "index_companies_on_ali_url"
@@ -102,6 +103,34 @@ ActiveRecord::Schema.define(:version => 20130518081056) do
   add_index "districts", ["name"], :name => "index_districts_on_name"
   add_index "districts", ["pinyin"], :name => "index_districts_on_pinyin"
   add_index "districts", ["pinyin_abbr"], :name => "index_districts_on_pinyin_abbr"
+
+  create_table "entries", :force => true do |t|
+    t.string   "title"
+    t.decimal  "price",         :precision => 10, :scale => 2
+    t.integer  "ali_id"
+    t.integer  "company_id"
+    t.string   "location_name"
+    t.datetime "created_at",                                   :null => false
+    t.datetime "updated_at",                                   :null => false
+  end
+
+  add_index "entries", ["ali_id"], :name => "index_entries_on_ali_id"
+  add_index "entries", ["company_id"], :name => "index_entries_on_company_id"
+
+  create_table "entry_meta", :force => true do |t|
+    t.string  "mkey"
+    t.string  "mval"
+    t.integer "entry_id"
+  end
+
+  add_index "entry_meta", ["entry_id"], :name => "index_entry_meta_on_entry_id"
+
+  create_table "entry_texts", :force => true do |t|
+    t.text    "body"
+    t.integer "entry_id"
+  end
+
+  add_index "entry_texts", ["entry_id"], :name => "index_entry_texts_on_entry_id"
 
   create_table "provinces", :force => true do |t|
     t.string   "name"

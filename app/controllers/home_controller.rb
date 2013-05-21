@@ -5,6 +5,14 @@ class HomeController < ApplicationController
   def index
     @hide_cities = true
   end
+  def status
+    @data = {
+      :companies => Company.count,
+      :entries => Entry.count,
+      :topics => Topic.count
+    }
+    render :xml=>@data
+  end
   def city
     @title = "#{@city_title}黄页"
     @companies =  Company.search(

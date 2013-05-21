@@ -6,7 +6,7 @@ describe Topic do
     #pp Topic.create :name=>'b',:slug=>'a'
     #pp Topic.create :name=>'a-1',:slug=>'a'
     #pp Topic.where(:name=>'a-1').first_or_create
-    Topic.find_or_create_by_name '艾条'
-    Topic.first.update!
+    #Topic.find_or_create_by_name '艾条'
+    #Topic.first.update!
   end
 end

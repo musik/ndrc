@@ -23,34 +23,50 @@ module Ali
       @parser ||= Aliparser.new
     end
     def parse_info id
+      return if Entry.exists? :ali_id=>id
       url = "http://detail.china.alibaba.com/offer/#{id}.html"
       page = http.fetch_page url
       return false if page.code != 200
       doc = page.doc
-      company_slug = doc.at_css('.logo a').attr('href').match(/\/\/(.+?)\.cn/)[1]
+      company_slug = doc.at_css('.top-nav-bar a').attr('href').match(/\/\/(.+?)\.cn/)[1]
       company = parse_company company_slug
       if company.present?
-        logm company
+        #logm company
         data = {
+          :ali_id => id,
+          :company_id => company.id,
           :title => doc.at_css('h1').text(),
         }
         prices = doc.css('#mod-detail-price tbody tr').collect do |tr|
-          JSON.parse(tr.attr('data-range'))
-        end
+          JSON.parse(tr.attr('data-range')) if tr.attr('data-range').present?
+        end.compact
         data[:price] = prices.first["price"] if prices.present?
+        data[:location_name] = doc.at_css('.mod-detail-parcel .de-line-r').text().split(' ').compact.join(' ') rescue nil
 
-        features = doc.css('.de-feature').collect{|node| node.text()}
+        features = doc.css('.de-feature').collect{|node| node.text()}.compact.join
         data[:meta] = {
           :prices => prices,
           :features => features
         }
+        data[:desc] = parse_info_desc id,company_slug
 
-        logm data
+        #logm data
+        Entry.import data
       end
     end
+    def parse_info_desc id,company_slug
+      url = sprintf 'http://laputa.china.alibaba.com/offer/ajax/OfferDesc.do?offerId=%s&memberId=%s&callback=json_decode',id,company_slug
+      #pp url
+      page = http.fetch_page url
+      return nil if page.code != 200
+      JSON.parse(page.body.encode('UTF-8','GBK').match(/^json_decode\((.+)\)$/)[1])["offerDesc"]
+    end
     def parse_company ali_url
+      e = Company.select("id").where(:ali_url=>ali_url).first
+      return e if e.present?
       homeurl = "http://#{ali_url}.cn.alibaba.com"
       url = "#{homeurl}/page/creditdetail.htm"
+      #logm url
       page = http.fetch_page url
       return false if page.code != 200
       doc = page.doc
@@ -58,20 +74,25 @@ module Ali
         :ali_url => ali_url
       }
       meta = {}
-      data[:name] = doc.at_css(".chinaname").text.strip rescue nil
+      data[:name] = doc.at_css("title").text.sub(/诚信档案$/,'').strip rescue nil
       return false if data[:name].nil?
       doc.xpath("//td[@class='ta2']").each do |td|
         val = td.text.strip.gsub(/\s+/,' ')
-        next if ['&nbsp;',''].include? val
+        next if val == '&nbsp;' or val.blank?
         next if val.match(/^ $/).present?
         key = td.previous_element().text.strip.sub(/：/,'')
         meta[key] = val
       end
+      locations = doc.at_css('.footer-alibaba').parent().previous_element().text().gsub(/\s+/,' ').match(/地址：(.+)$/)[1].split(' ')
+      locations.delete "中国"
+      data[:location] = locations.join(" ")
+      meta.delete " "
+      meta.delete "公司名称"
       meta.delete "证书及荣誉"
       meta.delete "工商注册信息"
       meta["公司主页"] = meta["公司主页"].gsub(homeurl,"").strip if meta.has_key? "公司主页"
       data[:meta] = meta
-      data[:desc] = doc.at_css("#company-more").text.strip rescue nil
+      data[:desc] = doc.at_css("#company-more").text.strip.sub(/ 收起$/,'') rescue nil
       #logm data
       Company.import_data data
     end

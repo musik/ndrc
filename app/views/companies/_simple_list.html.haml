@@ -1,0 +1,6 @@
+-if results.present?
+  %ul.company
+    -results.each do |c|
+      %li.fn=link_to highlight(c.name,q),company_link(c)
+-#=debug results
+

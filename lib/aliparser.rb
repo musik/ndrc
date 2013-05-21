@@ -48,7 +48,9 @@ module Aliparser
   end
   def find_more_infos page
     links = parse_info_links page.ali_links
-    pp links
+    links.each do |id|
+      Resque.enqueue EntryImport,id
+    end
   end
   def parse_info_links page_links
     links = []
@@ -100,6 +102,12 @@ module Aliparser
   def url_like? pattern,str
     str.match(pattern).present?
   end
+  class EntryImport 
+    @queue = :entry_import
+    def self.perform id
+      Ali::Robot.new.parse_info id
+    end
+  end      
   class Cat 
     @queue = :com_by_cat
     def self.perform cid

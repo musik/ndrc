@@ -6,6 +6,8 @@ class Company < ActiveRecord::Base
   has_many :metas , :dependent => :destroy , :class_name => "CompanyMeta"
   accepts_nested_attributes_for :text,:metas
 
+  has_many :entries
+
   scope :recent,order("id desc")
 
   def to_params
@@ -14,10 +16,8 @@ class Company < ActiveRecord::Base
   define_index do
     indexes :name,:fuwu,:hangye,:location
     indexes text(:body),:as=>:description
-
     has :id
     set_property :delta => ThinkingSphinx::Deltas::ResqueDelta
-   #set_property :delta => :datetime, :threshold => 70.minutes 
   end
   sphinx_scope :any do
     {:match_mode=>:any}

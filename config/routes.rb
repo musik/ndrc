@@ -9,10 +9,14 @@ class CityConstraint
   end
 end
 Hy::Application.routes.draw do
-  resources :snips
-  wash_out :ws
+  match 'topic/:id'=>'topics#show',:as=>'topic'
+  match 'entry/:id'=>'entries#show',:as=>'entry'
+  match ':controller(/:action)', :controller => /topics|entries/
 
-  get "home/topic"
+  resources :snips
+  #wash_out :ws
+
+  get "status"=>'home#status'
 
   resources :companies,:path=>"qiye",:except=>[:show]
 
@@ -24,7 +28,6 @@ Hy::Application.routes.draw do
   get "t-:id" => "home#topic"
   get "cities" => "home#cities"
 
-  get "home/city"
 
   #include CityHelper 
 

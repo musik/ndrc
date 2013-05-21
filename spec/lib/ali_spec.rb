@@ -33,15 +33,17 @@ describe Ali do
         yosungift
         ltbzjw
         xydgysb
+        yjb4321
       ).each do |url|
-        logm url 
         Ali::Robot.new.parse_company url
       end
     end
   end
   it "should parse info" do
-    if 1==1
-      ["1008412155",
+    if 1==2
+        [
+          "428434350",
+      "1008412155",
  "1228235391",
  "1232497426",
  "1188621543",

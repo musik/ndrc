@@ -1,0 +1,4 @@
+-if topics.present?
+  %ul.topics
+    -topics.each do |t|
+      =link_to t.name,t
