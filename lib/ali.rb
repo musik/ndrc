@@ -22,7 +22,42 @@ module Ali
     def parser
       @parser ||= Aliparser.new
     end
+    def parse_contact ali_url,doc
+      logm data
+    end
     def parse_info id
+      return if Entry.exists? :ali_id=>id
+      url = "http://detail.china.alibaba.com/offer/#{id}.html"
+      logm url
+      page = http.fetch_page url
+      return false if page.code != 200
+      doc = page.doc
+      company_slug = doc.at_css('.top-nav-bar a').attr('href').match(/\/\/(.+?)\.cn/)[1]
+      company = Company.where(:ali_url=>company_slug).select(:id).first
+      if company.nil?
+        company = parse_contact company_slug
+      end
+      data = {
+        :ali_id => id,
+        :title => doc.at_css('h1').text(),
+      }
+      prices = doc.css('#mod-detail-price tbody tr').collect do |tr|
+        JSON.parse(tr.attr('data-range')) if tr.attr('data-range').present?
+      end.compact
+      data[:price] = prices.first["price"] if prices.present?
+      data[:location_name] = doc.at_css('.mod-detail-parcel .de-line-r').text().split(' ').compact.join(' ') rescue nil
+
+      features = doc.css('.de-feature').collect{|node| node.text()}.compact.join
+      data[:meta] = {
+        :prices => prices,
+        :features => features
+      }
+      data[:desc] = parse_info_desc id,company_slug
+
+      logm data
+      #Entry.import data
+    end
+    def parse_info_with_company id
       return if Entry.exists? :ali_id=>id
       url = "http://detail.china.alibaba.com/offer/#{id}.html"
       page = http.fetch_page url

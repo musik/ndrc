@@ -6,7 +6,7 @@ GIT
       capistrano
 
 GEM
-  remote: https://rubygems.org/
+  remote: http://ruby.taobao.org/
   specs:
     RedCloth (4.2.9)
     actionmailer (3.2.8)

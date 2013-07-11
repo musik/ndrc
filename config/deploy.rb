@@ -1,14 +1,13 @@
 
 set :application, "ndrc"
-set :repository,  "git@gitcafe.com:muzik/ndrc.git"
-#set :repository,  "git@github.com:musik/sdmec.git"
+set :repository,  "git@github.com:musik/ndrc.git"
 
 set :scm, :git
 
-set :deploy_to, "/home/muzik/ndrc"
-role :web, "rho2"                          # Your HTTP server, Apache/etc
-role :app, "rho2"                          # This may be the same as your `Web` server
-role :db,  "rho2", :primary => true # This is where Rails migrations will run
+set :deploy_to, "/dat/www/ndrc"
+role :web, "gxr"                          # Your HTTP server, Apache/etc
+role :app, "gxr"                          # This may be the same as your `Web` server
+role :db,  "gxr", :primary => true # This is where Rails migrations will run
 #role :db,  "your slave db-server here"
 set :user, "muzik"
 set :group, "muzik"
