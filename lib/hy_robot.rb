@@ -4,8 +4,7 @@ module HyRobot
     core.run
   end
   class Core
-    REG_CAT_URL = /http:\/\/search\.china\.alibaba\.com\/selloffer\/--(\d+).html/
-    REG_TOPIC_URL = /http:\/\/search\.china\.alibaba\.com\/selloffer\/-([A-F\d]+)(-\d+)*.html/
+    REG_CAT_URL = /http:\/\/s\.1688\.com\/selloffer\/--(\d+).html/
     REG_LIST_URL = /http:\/\/search\.china\.alibaba\.com\/company\/-([\w\d]+)\.html/
     REG_COM_URL = /http:\/\/([a-z0-9\-]).cn.alibaba.com/
     def run homepage=nil
@@ -32,9 +31,9 @@ module HyRobot
     def fetch_roots
       response = Typhoeus::Request.get('http://m.1688.com/touch/category/index/')
       doc = Nokogiri::HTML(response.body)
-      arr = ['http://china.alibaba.com/'] 
+      arr = ['http://www.1688.com/'] 
       doc.css('a.parentSN').each do |a|
-        arr << sprintf('http://search.china.alibaba.com/selloffer/--%s.html',a.attr("href").match(/--(\d+)/)[1])
+        arr << sprintf('http://s.1688.com/selloffer/--%s.html',a.attr("href").match(/--(\d+)/)[1])
       end
       arr
     end
@@ -53,6 +52,22 @@ module HyRobot
         }
       end
     end
+    def import_topics links
+      parse_topics(links).each do |link|
+        Topic.where(:name=>link).first_or_create
+      end
+    end
+    def parse_topics page_links
+      links = []
+      page_links.each do |link|
+        links << to_topic_id(link.to_s)
+      end
+      links.compact.uniq
+    end
+    REG_TOPIC_URL = /http:\/\/s\.1688\.com\/selloffer\/-([A-F\d]+)(-\d+)*.html/
+    def to_topic_id link
+      to_utf8(link.to_s.match(REG_TOPIC_URL)[1]).gsub(' ','') rescue nil
+    end
     def run_cats homepage=nil
       homepage ||= 'http://page.china.alibaba.com/buy/index.html'
       depth = 5
@@ -66,11 +81,6 @@ module HyRobot
         }.on_pages_like(REG_CAT_URL){|page|
           parse_cat_page page
         }
-      end
-    end
-    def import_topics links
-      parse_topics(links).each do |link|
-        Topic.find_or_create_by_name link
       end
     end
     def recheck_pages
@@ -113,13 +123,6 @@ module HyRobot
       end
       links.compact.uniq.map{|str| URI(str)}
     end
-    def parse_topics page_links
-      links = []
-      page_links.each do |link|
-        links << to_topic_id(link.to_s)
-      end
-      links.compact.uniq
-    end
     def parse_list_links page_links
       links = []
       page_links.each do |link|
@@ -138,13 +141,10 @@ module HyRobot
       link.to_s.match(/^http:\/\/([a-z\d\-]+)\.cn\.alibaba\.com/)[0] rescue nil
     end
     def to_cat_url link
-      link.to_s.match(/^http:\/\/search\.china\.alibaba\.com\/selloffer\/\-\-[0-9]+\.html/)[0] rescue nil
+      link.to_s.match(REG_CAT_URL)[0] rescue nil
     end
     def to_topic_url link
       sprintf('http://search.china.alibaba.com/selloffer/-%s.html',link.to_s.match(REG_TOPIC_URL)[1]) rescue nil
-    end
-    def to_topic_id link
-      to_utf8(link.to_s.match(REG_TOPIC_URL)[1]).gsub(' ','') rescue nil
     end
     def to_utf8 str
       CGI.unescape(str.scan(/.{2}/).collect{|s| "%#{s}"}.join("")).encode "UTF-8",'GBK'

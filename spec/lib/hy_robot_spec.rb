@@ -8,7 +8,7 @@ describe HyRobot do
   it "should run" do
    #HyRobot.run
     #HyRobot::Core.new.recheck_pages
-    #HyRobot::Core.new.run_topics 'http://china.alibaba.com/'
+    HyRobot::Core.new.run_topics 'http://www.1688.com/'
   end
   it "should be topic" do
     #%w(

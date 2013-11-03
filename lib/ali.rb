@@ -27,12 +27,12 @@ module Ali
     end
     def parse_info id
       return if Entry.exists? :ali_id=>id
-      url = "http://detail.china.alibaba.com/offer/#{id}.html"
+      url = "http://detail.1688.com/offer/#{id}.html"
       logm url
       page = http.fetch_page url
       return false if page.code != 200
       doc = page.doc
-      company_slug = doc.at_css('.top-nav-bar a').attr('href').match(/\/\/(.+?)\.cn/)[1]
+      company_slug = doc.at_css('.top-nav-bar-box a').attr('href').match(/\/\/(.+?)\.1688/)[1]
       company = Company.where(:ali_url=>company_slug).select(:id).first
       if company.nil?
         company = parse_contact company_slug

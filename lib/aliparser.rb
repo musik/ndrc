@@ -2,7 +2,7 @@ module Aliparser
     REG_CAT_URL = /http:\/\/search\.china\.alibaba\.com\/selloffer\/--(\d+).html/
     REG_LIST_URL = /http:\/\/search\.china\.alibaba\.com\/company\/-([\w\d]+)\.html/
     REG_COM_URL = /http:\/\/([a-z0-9\-]).cn.alibaba.com/
-    REG_INFO_URL = /http:\/\/detail.china.alibaba.com\/offer\/(\d+).html/
+    REG_INFO_URL = /http:\/\/detail.1688.com\/offer\/(\d+).html/
   def cats_links page_links
     links = []
     page_links.each do |link|
@@ -59,6 +59,9 @@ module Aliparser
     end
     links.compact.uniq
   end
+  def to_info_id link
+    link.to_s.match(REG_INFO_URL)[1].to_i rescue nil
+  end
   def find_more_coms page
     @redis ||= Redis::Namespace.new("resque:ali",:redis=>Resque.redis.redis)
     links = parse_companies_links page.ali_links
@@ -89,9 +92,6 @@ module Aliparser
       links << to_list_url(link.to_s)
     end
     links.compact.uniq
-  end
-  def to_info_id link
-    link.to_s.match(REG_INFO_URL)[1].to_i rescue nil
   end
   def to_company_url link
     link.to_s.match(/^http:\/\/([a-z\d\-]+)\.cn\.alibaba\.com/)[0] rescue nil

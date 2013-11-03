@@ -41,6 +41,13 @@ class Company < ActiveRecord::Base
   end
   
   class << self
+    def fuwus
+      arr = CompanyMeta.where(:mkey=>'主营产品或服务').pluck(:mval).join(";").gsub(/[· ]/,'').gsub(/[，、]/,';').split(";")
+      arr1 = arr.uniq.collect{|str|
+        [str,arr.count(str)]
+      }.sort{|b,a| b[1] <=> a[1]}
+      Hash[arr1]
+    end
     def parse_ali_url url
       url.match(/\/\/([\w\d]+?)\./)[1]
     end

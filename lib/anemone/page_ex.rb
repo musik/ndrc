@@ -24,7 +24,7 @@ module Anemone
       @links
     end    
     def in_alibaba?(uri)
-      uri.host.match(/.+\.alibaba.com/).present?
+      uri.host.match(/.+\.1688.com/).present?
     end    
     
   end
