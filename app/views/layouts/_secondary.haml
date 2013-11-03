@@ -7,11 +7,7 @@
   %p.cats
     -@cities.each do |str|
       %a{:href=>citycat_link(str,@category),:title=>[t("states.#{str}"),@category.name].join()}=t("states.#{str}")
--if @related.present?      
-  %tt 相关企业
-  %ul.unstyled
-    -@related.each do |c|
-      %li=link_to c.name,company_link(c)
+
 
 -unless @hide_recent
   -limit=15

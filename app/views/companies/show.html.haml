@@ -1,6 +1,5 @@
 -title @title
 -@cols = "col2r"
-=adsense 6424432246,"ndrc-company-before"
 .tags
   %tt 主营
   -#-@company.hangye.split(';').uniq.each do |str|
@@ -22,6 +21,15 @@
       %tr
         %th=m.mkey
         %td=m.mval.sub(/\[已认证\]/,'')
+
+-if @related.present?      
+  %h3 你可能会感兴趣
+  %ul.unstyled
+    -@related.each do |c|
+      %li
+        =link_to c.name,company_link(c)
+        %br
+        %small=c.text.body.truncate(50)
 
 
 -content_for :sidebar do

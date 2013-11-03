@@ -2,7 +2,7 @@
 -meta :description,t('.description',:city=>@city_title)
 -meta :keywords,t('.keywords',:city=>@city_title)
 -@cols = "col2r"
-=adsense 5087299842,"ndrc-city-home-before"
+-#=adsense 5087299842,"ndrc-city-home-before"
 =render :partial=>"companies/list",:locals=>{:results=>@companies,:q=>nil}
 
 =link_to "更多",citycoms_link(@city_name)

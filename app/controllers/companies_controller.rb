@@ -32,7 +32,9 @@ class CompaniesController < ApplicationController
   # GET /companies/1.json
   def show
     @company = Company.find_by_ali_url(params[:id])
-    @related = Company.any.search @company.name,:without=>{id:@company.id},:per_page=>15
+    @related = Company.any.search @company.name,
+        :without=>{id:@company.id},:per_page=>15,
+        :include=>[:text]
 
     @title = @company.name
     breadcrumbs.add @company.name
