@@ -13,6 +13,9 @@ class HomeController < ApplicationController
     }
     render :xml=>@data
   end
+  def test
+    render :text=>Company.fuwus
+  end
   def city
     @title = "#{@city_title}黄页"
     @companies =  Company.search(

@@ -42,11 +42,23 @@ class Company < ActiveRecord::Base
   
   class << self
     def fuwus
-      arr = CompanyMeta.where(:mkey=>'主营产品或服务').pluck(:mval).join(";").gsub(/[· ]/,'').gsub(/[，、]/,';').split(";")
-      arr1 = arr.uniq.collect{|str|
-        [str,arr.count(str)]
-      }.sort{|b,a| b[1] <=> a[1]}
-      Hash[arr1]
+      arr = Company.pluck(:fuwu)
+      arr += Company.pluck(:hangye)
+      arr = arr.join(";").gsub(/[·． \\]/,'').gsub(/[，、]/,';').split(";")
+      pp arr.size
+      pp arr.uniq.size
+      #arru = arr.uniq.reject{|r| r.bytesize > 27}
+      File.open("#{Rails.root}/tmp/fuwus.csv","w") do |f|
+        arr1 = arr.uniq.collect{|str|
+          #[str,arr.count(str)]
+          f.write "#{str},#{arr.count(str)}\n"
+        }
+        #arr1.sort!{|a,b| b[1] <=> a[1]}
+        #Hash[arr1].each do |k,v|
+          #f.write "#{k},#{v}\n"
+        #end
+      end
+      nil
     end
     def parse_ali_url url
       url.match(/\/\/([\w\d]+?)\./)[1]

@@ -53,4 +53,5 @@ Hy::Application.routes.draw do
   constraints resque_constraint do
     mount Resque::Server.new, :at => "/resque"
   end
+  get "/page-:action" => "home"
 end
