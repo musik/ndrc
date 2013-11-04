@@ -1,18 +1,20 @@
 -title @title
 -@cols = "col2r"
-.tags
-  %tt 主营
-  -#-@company.hangye.split(';').uniq.each do |str|
-    -#=link_to str,"/t-#{str}" unless str.match(/未分类/).present?
-  -@company.cats.each do |c|
-    =link_to c.name,cat_link(c)
+-rcats =  Category.search_pair [@company.text.body,@company.fuwu,@company.hangye].join(',')
+-patt = Regexp.new(rcats.keys.join("|"))
 -if @company.locs.present?    
   .location
-    %tt 所在地
+    %strong 所在地
     -@company.locs.each do |arr|
       =link_to arr[0],city_link(arr[1])
+%strong 主营产品
+=@company.fuwu.gsub(patt){|s|"<a href=\"/fenlei-#{rcats[s].to_params}\">#{s}</a>"}.html_safe
+%br
+%strong 主营行业
+=@company.hangye.gsub(patt){|s|"<a href=\"/fenlei-#{rcats[s].to_params}\">#{s}</a>"}.html_safe
+%br
 .entry-content
-  =simple_format @company.text.body
+  =@company.text.body.gsub(patt){|s|"<a href=\"/fenlei-#{rcats[s].to_params}\">#{s}</a>"}.html_safe
 
 -if @company.metas.present?
   %table.metas.table

@@ -6,6 +6,9 @@ class Category < ActiveRecord::Base
   def to_params
     (name.bytesize < 9 or slug.length < 13 and !slug.include?('-')) ? slug : id
   end
+  define_index do
+    indexes :name
+  end
   def width
     @width ||= (rgt - lft) / 2
   end
@@ -38,6 +41,11 @@ class Category < ActiveRecord::Base
 
   end
   class << self
+    def search_pair str,limit=100
+        Hash[Category.search(str,:select=>"id,name,slug",:match_mode=>:any,:per_page=>limit).collect{|r|
+          [r.name,r]
+        }]
+    end
     def redo_slugs
       #update_all :slug=>nil
       find_each do |c|
