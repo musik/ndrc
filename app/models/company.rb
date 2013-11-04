@@ -45,8 +45,8 @@ class Company < ActiveRecord::Base
       arr = Company.pluck(:fuwu)
       arr += Company.pluck(:hangye)
       arr = arr.join(";").gsub(/[·． \\]/,'').gsub(/[，、]/,';').split(";")
-      pp arr.size
-      pp arr.uniq.size
+      puts arr.size
+      puts arr.uniq.size
       #arru = arr.uniq.reject{|r| r.bytesize > 27}
       File.open("#{Rails.root}/tmp/fuwus.csv","w") do |f|
         arr1 = arr.uniq.collect{|str|
