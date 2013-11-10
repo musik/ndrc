@@ -14,6 +14,10 @@ Capistrano::Configuration.instance.load do
       run "rm -rf #{release_path}/config/resque.yml && ln -nfs #{shared_path}/config/resque.yml #{release_path}/config/resque.yml"
       #run "rm -rf #{release_path}/config/taobao.yml && ln -nfs #{shared_path}/config/taobao.yml #{release_path}/config/taobao.yml"
     end
+    task :download_yml do
+      download "#{shared_path}/config/resque.yml",'./config/resque.yml'
+      download "#{shared_path}/config/database.yml",'./config/database.yml'
+    end
     task :whenever do
       "cd #{current_path} && bundle exec rake whenever -w"
     end

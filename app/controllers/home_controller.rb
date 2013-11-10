@@ -5,6 +5,8 @@ class HomeController < ApplicationController
   def index
     @hide_cities = true
   end
+  def welcome
+  end
   def status
     @data = {
       :companies => Company.count,

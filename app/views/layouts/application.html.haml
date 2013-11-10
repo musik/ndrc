@@ -11,23 +11,28 @@
     = csrf_meta_tags
     = yield(:head)
     =render "layouts/iefix"
-  %body{:class=>@body_class}
+  %body{:class=>@body_class.nil? ? "#{controller_name} #{action_name} #{controller_name}_#{action_name}" : @body_class}
     %header.navbar.navbar-fixed-top
       %nav.navbar-inner
         .container
           = render 'layouts/navigation'
-    #main{:role => "main"}
+    %main{:role => "main"}
       = render :partial => 'layouts/cityhead' if @city_name
-      .container
-        .content
-          =render 'layouts/messages'
-          -unless @hide_bread
-            .breadcrumbx= breadcrumbs.render :format=>:inline, :separator => '/'
-          .row
-            =render "layouts/#{@cols || 'col1'}"
-      = render :partial => 'layouts/belt'
+      -if @nocontent
+        =yield
+      -else
+        .container
+          .content
+            =render 'layouts/messages'
+            -unless @hide_bread
+              .breadcrumbx
+                当前位置:
+                = breadcrumbs.render :format=>:inline, :separator => '>'
+            .row
+              =render "layouts/#{@cols || 'col1'}"
     %footer
-      .container
+      = render :partial => 'layouts/belt'
+      .text-center
         =yield :partners
         &copy; 2012 
         www.ndrc.ac.cn

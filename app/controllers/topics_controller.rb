@@ -17,6 +17,8 @@ class TopicsController < ApplicationController
         :order => "@relevance DESC",
         :per_page => 10
         )
+    breadcrumbs.add :sitemap,zeig_url
+    breadcrumbs.add @topic.name,nil
   end
 
   def index

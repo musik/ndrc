@@ -1,7 +1,7 @@
 require 'rbconfig'
 HOST_OS = RbConfig::CONFIG['host_os']
 source 'http://ruby.taobao.org'
-gem 'rails', '3.2.8'
+gem 'rails', '3.2.14'
 gem 'mysql2'
 gem 'execjs'
 group :assets do
@@ -56,7 +56,7 @@ gem "ts-resque-delta", "~> 1.2.2"
 #gem 'ts-datetime-delta', '1.0.3',:require => 'thinking_sphinx/deltas/datetime_delta'
 #gem 'ts-delayed-delta', '1.1.3',:require => 'thinking_sphinx/deltas/delayed_delta'
 
-gem 'chinese_pinyin'
+gem 'chinese_pinyin', "0.4.1"
 gem "RedCloth", "~> 4.2.9"
 
 gem 'unicorn'
@@ -79,3 +79,5 @@ group :development do
 end
 gem 'wash_out'
 gem 'savon', '~> 2.1.0'
+gem 'settingslogic'
+gem 'high_voltage'

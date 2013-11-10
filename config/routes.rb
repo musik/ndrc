@@ -9,7 +9,8 @@ class CityConstraint
   end
 end
 Hy::Application.routes.draw do
-  match 'topic/:id'=>'topics#show',:as=>'topic'
+  match 's-:id'=>'topics#show',:as=>'topic'
+  match 'zeig'=>'topics#zeig',:as=>'zeig'
   match 'entry/:id'=>'entries#show',:as=>'entry'
   match ':controller(/:action)', :controller => /topics|entries/
 
@@ -43,7 +44,7 @@ Hy::Application.routes.draw do
     root :to=>"home#city"
   end
   match 'links' => 'snips#links',:as=>'links'
-  root :to => "home#index"
+  root :to => "home#welcome"
   devise_for :users
   resources :users, :only => [:show, :index]
   resque_constraint = lambda do |request|
@@ -53,5 +54,5 @@ Hy::Application.routes.draw do
   constraints resque_constraint do
     mount Resque::Server.new, :at => "/resque"
   end
-  get "/page-:action" => "home"
+  #get "/page-:action" => "home"
 end

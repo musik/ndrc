@@ -33,6 +33,7 @@ db/*.sqlite3
 .sass-cache
 /config/config.yml
 /config/resque.yml
+/config/settings.yml
 /config/database.yml
 /coverage.data
 /coverage/

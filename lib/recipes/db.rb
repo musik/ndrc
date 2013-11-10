@@ -82,7 +82,7 @@ Capistrano::Configuration.instance.load do
       # Sets database variables from remote database.yaml
       def prepare_from_yaml
         set(:db_file) { "#{application}-dump.sql.bz2" }
-        set(:db_remote_file) { "#{shared_path}/backup/#{db_file}" }
+        set(:db_remote_file) { "#{shared_path}/#{db_file}" }
         set(:db_local_file)  { "tmp/#{db_file}" }
         set(:db_user) { db_config[rails_env]["username"] }
         set(:db_pass) { db_config[rails_env]["password"] }
