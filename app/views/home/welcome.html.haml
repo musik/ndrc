@@ -1,0 +1,14 @@
+-@nocontent = true
+-@nonav = true
+-@hide_search = true
+.welcome
+  .container
+    .logo
+      <a href="" class="logo-main">#{Settings.sitename}</a>
+      <a href="" class="logo-en">#{Settings.domain}</a>
+    %form.form-inline{:action=>'/search'}
+      %input.input-xlarge{type: 'text',name: 'q',id: 'q'}
+      %button.btn.btn-primary{type: 'submit'} 企业搜索
+      %span.help-block
+        <a href="/search?q=散热器" rel="nofollow">散热器<a/>
+        <a href="/search?q=广东散热器" rel="nofollow">广东散热器<a/>

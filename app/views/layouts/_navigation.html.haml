@@ -1,8 +1,10 @@
 = link_to t('appname'), root_url, :class => 'brand'
-%ul.nav
-  %li=link_to "首页","/",:rel=>'nofollow'
-  %li=link_to "分类","/fenlei"
-  %li=link_to "企业","/qiye"
+-unless @hide_search
+  %form.navbar-form.pull-left{:action=>'/search',:method=>'get'}
+    -a={:id=>'q',:type=>"text",:name=>"q"}
+    -a.merge! @q.nil?  ? {:placeholder=>t('search')} : {:value=>@q}
+    %input.span4{a}
+    %button.btn.btn-primary{type: 'submit'} 企业搜索
 %ul.nav.pull-right
   - if user_signed_in? 
     %li= link_to('退出', destroy_user_session_path(), :method=>'delete')
@@ -10,7 +12,7 @@
     - if current_user.has_role? :admin
       %li= link_to('管理', '/admin')
   - else
-    %li
-      = link_to('登录', new_user_session_path(),:rel=>"nofollow")
+    -#%li
+      -#= link_to('登录', new_user_session_path(),:rel=>"nofollow")
     -#%li
       -#= link_to('免费注册', new_user_registration_path(),:rel=>"nofollow")

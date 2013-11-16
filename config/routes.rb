@@ -28,6 +28,7 @@ Hy::Application.routes.draw do
   get "qiye-:id" => "companies#show"
   get "t-:id" => "home#topic"
   get "cities" => "home#cities"
+  match ':action' => "home",:constraints=>{:action=>/search/}
 
 
   #include CityHelper 

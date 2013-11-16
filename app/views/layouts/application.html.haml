@@ -11,11 +11,14 @@
     = csrf_meta_tags
     = yield(:head)
     =render "layouts/iefix"
-  %body{:class=>@body_class.nil? ? "#{controller_name} #{action_name} #{controller_name}_#{action_name}" : @body_class}
-    %header.navbar.navbar-fixed-top
-      %nav.navbar-inner
-        .container
-          = render 'layouts/navigation'
+  -@body_class ||= "#{controller_name} #{action_name} #{controller_name}_#{action_name}"
+  -@body_class += " nonav " if @nonav
+  %body{:class=>@body_class}
+    -unless @nonav
+      %header.navbar.navbar-fixed-top
+        %nav.navbar-inner
+          .container
+            = render 'layouts/navigation'
     %main{:role => "main"}
       = render :partial => 'layouts/cityhead' if @city_name
       -if @nocontent
@@ -37,6 +40,8 @@
         &copy; 2012 
         www.ndrc.ac.cn
         京ICP备05050413号 
+        =link_to "分类","/fenlei"
+        =link_to "企业","/qiye"
         #links
           =link_to "友情链接",'/links'
           -if is_home?

@@ -2,9 +2,10 @@
 # See https://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
 
 zh-CN:
-  appname: "商机搜索"
+  appname: "企业搜索"
+  search: 关键词
   breadcrumbs:
-    home: 商机搜索
+    home: 企业搜索
     overview: 概览
     sitemap: 网站地图
   category:

@@ -7,6 +7,19 @@ class HomeController < ApplicationController
   end
   def welcome
   end
+  def search
+    @q = params[:q]
+    @title = @q
+    @companies =  Company.search(
+        @q.gsub(/、/,' '),
+        :page=>params[:page] || 1,
+        :include=>[:text],
+        :sort_mode => :extended,
+        :order => "@relevance DESC",
+        :per_page => 25
+        )
+    breadcrumbs.add @q,nil
+  end
   def status
     @data = {
       :companies => Company.count,
