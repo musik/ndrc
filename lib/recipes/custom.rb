@@ -5,6 +5,7 @@ Capistrano::Configuration.instance.load do
     desc "|Custom| Create database.yml in shared path with settings for current stage and test env"
     task :yml do      
       upload './config/resque.yml', "#{shared_path}/config/resque.yml"
+      upload './config/settings.yml', "#{shared_path}/config/settings.yml"
       #upload './config/taobao.yml', "#{shared_path}/config/taobao.yml"
     end 
     task :symlink do
