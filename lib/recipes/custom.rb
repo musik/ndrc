@@ -13,6 +13,7 @@ Capistrano::Configuration.instance.load do
       run "rm -rf #{release_path}/public/cache && ln -nfs #{shared_path}/html #{release_path}/public/cache"
       run "rm -rf #{release_path}/config/database.yml && ln -nfs #{shared_path}/config/database.yml #{release_path}/config/database.yml"
       run "rm -rf #{release_path}/config/resque.yml && ln -nfs #{shared_path}/config/resque.yml #{release_path}/config/resque.yml"
+      run "rm -rf #{release_path}/config/settings.yml && ln -nfs #{shared_path}/config/settings.yml #{release_path}/config/settings.yml"
       #run "rm -rf #{release_path}/config/taobao.yml && ln -nfs #{shared_path}/config/taobao.yml #{release_path}/config/taobao.yml"
     end
     task :download_yml do

@@ -1,5 +1,11 @@
 -title @title
 -@cols = "col2r"
+<script type="text/javascript">
+var sogou_ad_id=286475;
+var sogou_ad_height=200;
+var sogou_ad_width=500;
+</script>
+<script language='JavaScript' type='text/javascript' src='http://images.sohu.com/cs/jsfile/js/c.js'></script>
 -rcats =  Category.search_pair [@company.fuwu,@company.hangye,@company.text.body].join(',').truncate(600)
 -patt = Regexp.new(rcats.keys.join("|"))
 -if @company.locs.present?    
