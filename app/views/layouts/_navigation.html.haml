@@ -4,6 +4,8 @@
     -a={:id=>'q',:type=>"text",:name=>"q"}
     -a.merge! @q.nil?  ? {:placeholder=>t('search')} : {:value=>@q}
     %input.span4{a}
+      =select_tag :l,options_from_collection_for_select(Province.select('id,short_name').all,:short_name,:short_name,params[:l]),class: "input-small", prompt: "全国"
+    -#%input.input-mini{type: 'text',name: 'l',id: 'l',placeholder: "全国",value: params[:l]}
     %button.btn.btn-primary{type: 'submit'} 企业搜索
 %ul.nav.pull-right
   - if user_signed_in? 

@@ -9,16 +9,26 @@ class HomeController < ApplicationController
   end
   def search
     @q = params[:q]
+    if @q.blank? && params[:l].blank?
+      redirect_to root_url
+      return
+    end
     @title = @q
+    conditions = {}
+    if params[:l].present?
+      conditions[:location] = params[:l]
+      @title = params[:l] + @q
+    end
     @companies =  Company.search(
         @q.gsub(/、/,' '),
+        :conditions=>conditions,
         :page=>params[:page] || 1,
         :include=>[:text],
         :sort_mode => :extended,
         :order => "@relevance DESC",
         :per_page => 25
         )
-    breadcrumbs.add @q,nil
+    breadcrumbs.add @title,nil
   end
   def status
     @data = {

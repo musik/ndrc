@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130520081353) do
+ActiveRecord::Schema.define(:version => 20131119104244) do
 
   create_table "categories", :force => true do |t|
     t.string  "name"
@@ -136,8 +136,9 @@ ActiveRecord::Schema.define(:version => 20130520081353) do
     t.string   "name"
     t.string   "pinyin"
     t.string   "pinyin_abbr"
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
+    t.datetime "created_at",               :null => false
+    t.datetime "updated_at",               :null => false
+    t.string   "short_name",  :limit => 9
   end
 
   add_index "provinces", ["name"], :name => "index_provinces_on_name"
@@ -174,14 +175,6 @@ ActiveRecord::Schema.define(:version => 20130520081353) do
   end
 
   add_index "snips", ["name"], :name => "index_snips_on_name"
-
-  create_table "topic_slugs", :force => true do |t|
-    t.string  "slug"
-    t.integer "topic_id"
-  end
-
-  add_index "topic_slugs", ["id"], :name => "index_topic_slugs_on_id"
-  add_index "topic_slugs", ["slug"], :name => "index_topic_slugs_on_slug"
 
   create_table "topics", :force => true do |t|
     t.string   "name"

@@ -11,4 +11,12 @@ namespace :dev do
       c.queue_companies
     end
   end
+  desc "province short names"
+  task :province_short_names => :environment do
+    Province.all.each do |p|
+      short = p.name[0,2]
+      short = p.name[0,3] if %w(内蒙 黑龙).include?(short)
+      p.update_attribute :short_name,short
+    end
+  end
 end
