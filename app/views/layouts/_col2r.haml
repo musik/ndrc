@@ -1,7 +1,14 @@
 .span8#content
   -if show_title?
     %h1=yield :header
+  <script type="text/javascript">
+  var sogou_ad_id=287089;
+  var sogou_ad_height=280;
+  var sogou_ad_width=336;
+  </script>
+  <script language='JavaScript' type='text/javascript' src='http://images.sohu.com/cs/jsfile/js/c.js'></script>
   = yield
+
 .span4#secondary
   =yield :sidebar
   =render 'layouts/secondary'
