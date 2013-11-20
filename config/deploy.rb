@@ -99,7 +99,8 @@ after 'deploy:restart', 'unicorn:restart' # app IS NOT preloaded
 #Resque
 
 #set :resque_service,'resque-sdmec'
-#require './lib/recipes/resque.rb'
+require './lib/recipes/resque.rb'
+after 'deploy:restart', 'resque:pool:restart' 
 #before 'deploy:restart','resque:restart'
 #role :resque_worker, "rho"
 #role :resque_scheduler, "rho"

@@ -8,7 +8,7 @@ development:
 production:
   bin_path: /usr/local/coreseek/bin
   max_children: 5
-  mem_limit: 256M
+  mem_limit: 1280M
   # workers: prefork
   charset_type: zh_cn.utf-8
   charset_dictpath: /usr/local/mmseg3/etc/

@@ -1,6 +1,7 @@
 -title @title
 -@cols = "col2r"
--rcats =  Category.search_pair [@company.fuwu,@company.hangye,@company.text.body].join(',').truncate(600)
+-#-rcats =  Category.search_pair [@company.fuwu,@company.hangye,@company.text.body].join(',').truncate(600)
+-rcats =  Category.search_pair [@company.fuwu,@company.hangye].join(',').truncate(600)
 -patt = Regexp.new(rcats.keys.join("|"))
 -if @company.locs.present?    
   .location
