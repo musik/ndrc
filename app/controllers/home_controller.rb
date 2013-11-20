@@ -28,6 +28,7 @@ class HomeController < ApplicationController
         :order => "@relevance DESC",
         :per_page => 25
         )
+    #@groups = Company.search(@q,:group_by=>:location,:order_group_by=>"count(*) desc")
     breadcrumbs.add @title,nil
   end
   def status

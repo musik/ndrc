@@ -3,9 +3,17 @@
 -@cols = :col2r
 -@hide_recent = true
 
+
 %p.stats
   ="找到#{@companies.total_entries}项结果,耗时(#{@companies.query_time * 1000}毫秒)"
 .pull-right=nofollow_sub paginate(@companies)
 .clearfix
 = render :partial => 'companies/list',:locals=>{:results=>@companies,:q=>@q}
 .pull-right=nofollow_sub paginate(@companies)
+-content_for :sidebar do
+  -#-debug @groups
+  -#%ul
+    -#-@groups.each_with_group_and_count do |e,group,count|
+      -#%li
+        -#-#=group
+        -#=count
