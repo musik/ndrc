@@ -1,0 +1,13 @@
+%table.table.table-bordered
+  %tr 
+    %th Companies
+    %td=Company.count
+  %tr 
+    %th Province null
+    %td=Company.where(:province_id=>nil).count
+  %tr 
+    %th Topics
+    %td=Topic.count
+  %tr 
+    %th Topics unpublished
+    %td=Topic.where(:published=>nil).count

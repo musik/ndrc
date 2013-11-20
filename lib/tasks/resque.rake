@@ -1,6 +1,8 @@
 namespace :resque do
   task :setup => :environment do
-
+    ENV["QUEUE"] ||= '*'
+    Resque.before_fork = Proc.new { ActiveRecord::Base.establish_connection }
+    Resque.schedule = YAML.load_file('config/scheduler.yml')
   end
   task "pool:setup" do
     # close any sockets or files in pool manager

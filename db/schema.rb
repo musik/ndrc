@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131119104244) do
+ActiveRecord::Schema.define(:version => 20131120104939) do
 
   create_table "categories", :force => true do |t|
     t.string  "name"
@@ -54,6 +54,9 @@ ActiveRecord::Schema.define(:version => 20131119104244) do
     t.datetime "updated_at",                      :null => false
     t.boolean  "delta",         :default => true, :null => false
     t.integer  "entries_count", :default => 0
+    t.integer  "district_id"
+    t.integer  "city_id"
+    t.integer  "province_id"
   end
 
   add_index "companies", ["ali_url"], :name => "index_companies_on_ali_url"

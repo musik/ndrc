@@ -4,4 +4,9 @@ class Province < ActiveRecord::Base
   
 	has_many :cities, dependent: :destroy
 	has_many :districts, through: :cities
+  def self.cached_all
+    Rails.cache.fetch "provinces_all" do
+      all
+    end
+  end
 end

@@ -1,0 +1,3 @@
+index_delta_by_time:
+  cron: "14 * * * *"
+  class: CustomIndexDelta

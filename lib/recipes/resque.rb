@@ -10,6 +10,19 @@ Capistrano::Configuration.instance.load do
       run "kill -QUIT `cat ~/.god/pids/resque-ecn-delta.pid`"
       #run "cd #{current_path} && bundle exec god -c god/resque.god"
     end
+    namespace :pool do
+      set(:pool_pid) { File.join(pids_path, "pool.pid") } unless exists?(:pool_pid)
+      desc "Restart all workers"
+      task :restart, :roles => :app do
+        run <<-CMD
+          if [ -f '#{pool_pid}' ];then
+            kill -QUIT `cat #{pool_pid}`;
+          fi;
+          cd #{current_path} && RAILS_ENV=production bundle exec resque-pool -p #{pool_pid} -c config/pool.yml --daemon
+        CMD
+        #run "cd #{current_path} && RAILS_ENV=production bundle exec resque-pool -p #{pool_pid} --daemon"
+      end  
+    end
     namespace :worker do
       desc "|DarkRecipes| List all workers"
       task :list, :roles => :app do

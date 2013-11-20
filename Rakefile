@@ -6,6 +6,7 @@ require File.expand_path('../config/application', __FILE__)
 
 require 'resque/tasks'
 require 'resque_scheduler/tasks'
+
+require 'thinking_sphinx/deltas/datetime_delta/tasks'
 #require 'thinking_sphinx/deltas/delayed_delta/tasks'
-#require 'thinking_sphinx/deltas/datetime_delta/tasks'
 Hy::Application.load_tasks
