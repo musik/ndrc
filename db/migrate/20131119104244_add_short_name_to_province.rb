@@ -1,4 +1,4 @@
-#encoding: 
+#encoding: UTF-8
 class AddShortNameToProvince < ActiveRecord::Migration
   def change
     add_column :provinces,:short_name,:string,:limit=>9
