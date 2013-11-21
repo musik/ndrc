@@ -12,6 +12,7 @@ Hy::Application.routes.draw do
   match 'zeig(-:c(-:page))'=>'topics#zeig',:as=>'zeig',:constraints=>{:page=>/[0-9]+/,:c=>/./}
   #match 'zeig-:c'=>'topics#zeig',:as=>'zeig'
   #match 'zeig'=>'topics#zeig',:as=>'zeig'
+  get "tc-:id" => "topics#category"
   match 'entry/:id'=>'entries#show',:as=>'entry'
   match ':controller(/:action)', :controller => /topics|entries/
 

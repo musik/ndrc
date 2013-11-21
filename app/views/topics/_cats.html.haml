@@ -1,0 +1,8 @@
+-@_cats = Category.roots
+-if @_cats
+  %p.links
+    关键词行业分类:
+    -@_cats.sort{|a,b| a.name.length <=> b.name.length}.each do |c|
+      %a{:href=>tcat_link(c),:title=>"#{c.name}"}=c.name
+
+-@hide_cats = true

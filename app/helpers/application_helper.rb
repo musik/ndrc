@@ -6,6 +6,9 @@ module ApplicationHelper
   def cat_link c
     "/fenlei-#{c.to_params}"
   end
+  def tcat_link c
+    "/tc-#{c.to_params}"
+  end
   def citycat_link city_name,c
     "#{city_link(city_name)}-#{c.to_params}"
   end

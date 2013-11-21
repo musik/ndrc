@@ -9,7 +9,7 @@
       -if @cats
         .cats
           -@cats.sort{|a,b| a.name.length <=> b.name.length}.each do |c|
-            %a{:href=>cat_link(c),:title=>"#{c.name}"}=c.name
+            %a{:href=>tcat_link(c),:title=>"#{c.name}"}=c.name
       -if @cities
         .cities
           -@cities.each do |str|

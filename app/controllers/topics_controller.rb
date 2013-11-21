@@ -34,6 +34,16 @@ class TopicsController < ApplicationController
     breadcrumbs.add "热门关键词",nil
     breadcrumbs.add @abbr_title
   end
+  def category
+    @category = Category.find_smart(params[:id])
+    @topics = Topic.search(@category.name,
+                match_mode: :any,
+                :page=>params[:page],
+                #:sort_mode => :extended,
+                :order => "@relevance DESC",
+                :per_page => 100
+                )
+  end
 
   def recent
   end
