@@ -1,12 +1,12 @@
 .city-header
   .container
-    .city-name=link_to "#{@city_title}黄页","/#{@city_name}"
+    .city-name=link_to "#{@city_title}企业名录","/#{@city_name}"
     -if cr = children_or_sibling_cities(@city_name) and cr.present?
       .city-more
         -#cls = {@city_name.to_sym => "active"}
         -cr.each do |str|
           -if @city_name != str.to_s
-            %a{:href=>city_link(str),:title=>[t("cities.#{str}"),"黄页"].join()}=t("cities.#{str}")
+            %a{:href=>city_link(str),:title=>[t("cities.#{str}"),"企业名录"].join()}=t("cities.#{str}")
           -else
             %span=t("cities.#{str}")
     .clearfix

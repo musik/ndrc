@@ -19,8 +19,8 @@ zh-CN:
       keywords: "公司大全,企业名录,免费黄页"
       description: "NDRC黄页网收录各行各业的公司企业信息,提供快捷的公司搜索服务。并面向公司企业,提供免费黄页登录、公司信息推广的服务。"
     city:
-      title: "%{city}公司_%{city}黄页"
-      keywords: "%{city}公司,%{city}黄页"
+      title: "%{city}企业名录_%{city}黄页/名录搜索"
+      keywords: "%{city}企业名录,%{city}黄页"
       description: "%{city}黄页网收录%{city}各行各业的公司企业信息,提供快捷的%{city}公司搜索服务。并面向%{city}公司企业,提供免费黄页登录、公司信息推广的服务。"
   topics:
     show:
