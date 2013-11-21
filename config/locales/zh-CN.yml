@@ -25,3 +25,4 @@ zh-CN:
   topics:
     show:
       title: "【%{name}】_%{name}生产厂家/供应商"
+      keywords: "%{name},%{name}生产厂家,%{name}供应商"
