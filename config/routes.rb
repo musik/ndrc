@@ -9,7 +9,9 @@ class CityConstraint
 end
 Hy::Application.routes.draw do
   match 's-:id'=>'topics#show',:as=>'topic'
-  match 'zeig'=>'topics#zeig',:as=>'zeig'
+  match 'zeig(-:c(-:page))'=>'topics#zeig',:as=>'zeig',:constraints=>{:page=>/[0-9]+/,:c=>/./}
+  #match 'zeig-:c'=>'topics#zeig',:as=>'zeig'
+  #match 'zeig'=>'topics#zeig',:as=>'zeig'
   match 'entry/:id'=>'entries#show',:as=>'entry'
   match ':controller(/:action)', :controller => /topics|entries/
 
