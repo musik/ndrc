@@ -9,6 +9,10 @@ class Topic < ActiveRecord::Base
   scope :recent,order("id asc")
   @queue = 'topic'
   include ResqueEx
+  define_index do
+    indexes :name
+    has :id
+  end
   def to_param
     slug
   end

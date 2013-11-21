@@ -13,11 +13,15 @@ class TopicsController < ApplicationController
         #)
     @companies =  Company.search(
         @topic.name,
-        #:include=>[:text],
+        :page=>params[:page],
+        :include=>[:text],
         :sort_mode => :extended,
         :order => "@relevance DESC",
         :per_page => 10
         )
+    @relates = Topic.search(@topic.name,
+                            without: {id: @topic.id},
+                            match_mode: :any,per_page: 8)
     breadcrumbs.add :sitemap,zeig_url
     breadcrumbs.add @topic.name,nil
   end

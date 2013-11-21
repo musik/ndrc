@@ -5,7 +5,12 @@
 
 %p.stats
   ="找到#{@companies.total_entries}项结果,耗时(#{@companies.query_time * 1000}毫秒)"
-.pull-right=nofollow_sub paginate(@companies)
-.clearfix
+-if @relates.present?
+  %p.links
+    相关搜索
+    -@relates.each do |r|
+      =link_to r.name,topic_url(r)
 = render :partial => 'companies/list',:locals=>{:results=>@companies,:q=>@q}
-.pull-right=nofollow_sub paginate(@companies)
+.pull-right=nofollow_sub paginate(@companies,window: 5)
+-#.pull-right=xpaginate(@companies,theme: "etao",window: 10)
+.clearfix
