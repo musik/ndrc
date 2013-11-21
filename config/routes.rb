@@ -1,4 +1,3 @@
-
 class CityConstraint
   include CityHelper::ViewHelper
   def initialize

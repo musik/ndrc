@@ -1,13 +1,11 @@
--title @topic.name
-.row
-  .span8
-    %p.stats
-      ="找到#{@entries.total_entries}项结果,耗时(#{@entries.query_time * 1000}毫秒)"
-    = render :partial => 'entries/list',:locals=>{:results=>@entries,:q=>@topic.name}
-    =nofollow_sub paginate(@entries)
-  .span3.pull-right
-    %h2 #{@topic.name}厂家
-    %p.stats
-      ="找到#{@companies.total_entries}项结果,耗时(#{@companies.query_time * 1000}毫秒)"
-    = render :partial => 'companies/simple_list',:locals=>{:results=>@companies,:q=>@topic.name}
+-title t(".title",:name=>@topic.name),@topic.name
+-@cols = :col2r
+-@hide_recent = true
 
+
+%p.stats
+  ="找到#{@companies.total_entries}项结果,耗时(#{@companies.query_time * 1000}毫秒)"
+.pull-right=nofollow_sub paginate(@companies)
+.clearfix
+= render :partial => 'companies/list',:locals=>{:results=>@companies,:q=>@q}
+.pull-right=nofollow_sub paginate(@companies)

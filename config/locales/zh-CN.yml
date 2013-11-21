@@ -22,3 +22,6 @@ zh-CN:
       title: "%{city}公司_%{city}黄页"
       keywords: "%{city}公司,%{city}黄页"
       description: "%{city}黄页网收录%{city}各行各业的公司企业信息,提供快捷的%{city}公司搜索服务。并面向%{city}公司企业,提供免费黄页登录、公司信息推广的服务。"
+  topics:
+    show:
+      title: "【%{name}】_%{name}厂家/企业"
