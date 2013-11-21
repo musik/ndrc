@@ -1,22 +1,22 @@
 -title @title
 -@cols = "col2r"
--#-rcats =  Category.search_pair [@company.fuwu,@company.hangye,@company.text.body].join(',').truncate(600)
--rcats =  Category.search_pair [@company.fuwu,@company.hangye].join(',').truncate(600)
--patt = Regexp.new(rcats.keys.join("|"))
+-#-rcats =  Category.search_pair [@company.fuwu,@company.hangye].join(',').truncate(600)
+-#-patt = Regexp.new(rcats.keys.join("|"))
 -if @company.locs.present?    
   .location
     %strong 所在地
     -@company.locs.each do |arr|
       =link_to arr[0],city_link(arr[1])
-%strong 主营产品
-=@company.fuwu.gsub(patt){|s|"<a href=\"/fenlei-#{rcats[s].to_params}\">#{s}</a>"}.html_safe
-%br
-%strong 主营行业
-=@company.hangye.gsub(patt){|s|"<a href=\"/fenlei-#{rcats[s].to_params}\">#{s}</a>"}.html_safe
-%br
+-#%strong 主营产品
+-#=@company.fuwu.gsub(patt){|s|"<a href=\"/fenlei-#{rcats[s].to_params}\">#{s}</a>"}.html_safe
+-#=@company.fuwu
+-#%br
+-#%strong 主营行业
+-#=@company.hangye.gsub(patt){|s|"<a href=\"/fenlei-#{rcats[s].to_params}\">#{s}</a>"}.html_safe
+-#%br
 .entry-content
-  =@company.text.body.gsub(patt){|s|"<a href=\"/fenlei-#{rcats[s].to_params}\">#{s}</a>"}.html_safe
-
+  =simple_format @company.text.body
+  -#=@company.text.body.gsub(patt){|s|"<a href=\"/fenlei-#{rcats[s].to_params}\">#{s}</a>"}.html_safe
 -if @company.metas.present?
   %table.metas.table
     -@company.metas.sort{|a,b| a.mkey.length<=>b.mkey.length}.each do |m|
@@ -26,6 +26,7 @@
         %td=m.mval.sub(/\[已认证\]/,'')
 
 -if @related.present?      
+  = render :partial => 'topics/relates',:locals=>{q: @company.fuwu,limit: 20}
   %h3 你可能会感兴趣
   %ul.unstyled
     -@related.each do |c|
@@ -36,12 +37,12 @@
 
 
 -content_for :sidebar do
-  -if @company.cats.present? and @company.locs.present?
-    %tt 相关分类
-    %ul.cats.unstyled
-      -@company.locs.each do |city|
-        -@company.cats.each do |c|
-          %li
-            %a{:href=>citycat_link(city[1],c)}="#{city[0]}#{c.name}"
+  -#-if @company.cats.present? and @company.locs.present?
+    -#%tt 相关分类
+    -#%ul.cats.unstyled
+      -#-@company.locs.each do |city|
+        -#-@company.cats.each do |c|
+          -#%li
+            -#%a{:href=>citycat_link(city[1],c)}="#{city[0]}#{c.name}"
             
 

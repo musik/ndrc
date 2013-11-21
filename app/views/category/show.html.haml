@@ -12,6 +12,7 @@
   %p.text-info
     暂时没有<strong>#{@category.name}公司</strong>信息,以下是一些可能的相关信息.
 
+= render :partial => 'topics/relates',:locals=>{q: @category.name}
 = render :partial => 'companies/list',:locals=>{:results=>@companies,:q=>@category.name}
 =nofollow_sub paginate(@companies) unless @instead
 -if params[:debug]
