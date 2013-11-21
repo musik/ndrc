@@ -6,7 +6,11 @@
     %meta{:name => "viewport", :content => "width=device-width, initial-scale=1, maximum-scale=1"}
     <meta name="baidu-site-verification" content="k1Oxej4vzIPBL6De" />
     %title
-      =content_for?(:title) ? [yield(:title),'(NDRC)'].join('') : t('appname')
+      -#=content_for?(:title) ? [yield(:title),'(NDRC)'].join('') : t('appname')
+      -if content_for?(:title)
+        =[yield(:title),@title_suffix || "(企业搜索)"].join()
+      -else
+        =t('appname')
     = stylesheet_link_tag    "application", :media => "all"
     = csrf_meta_tags
     = yield(:head)
