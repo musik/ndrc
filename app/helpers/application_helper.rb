@@ -18,6 +18,10 @@ module ApplicationHelper
   def company_link c
     "/qiye-#{c.to_params}"
   end
+  def xpaginate scope, options = {}, &block
+    paginator = Xpaginator.new self, options.reverse_merge(:current_page => scope.current_page, :total_pages => scope.total_pages, :per_page => scope.limit_value, :param_name => Kaminari.config.param_name, :remote => false)
+    paginator.to_s
+  end
   def highlight(text, phrases, *args)
     options = args.extract_options!
     options.reverse_merge!(:highlighter => '<span class="highlight">\1</span>')

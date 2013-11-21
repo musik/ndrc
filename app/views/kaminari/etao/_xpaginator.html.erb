@@ -1,0 +1,22 @@
+<%# The container tag
+  - available local variables
+    current_page:  a page object for the currently displayed page
+    num_pages:     total number of pages
+    per_page:      number of items to fetch per page
+    remote:        data-remote
+    paginator:     the paginator that renders the pagination tags inside
+-%>
+
+
+<%= paginator.render do -%>
+  <div class="xpagination">
+    <ul class="divide">
+    <% each_page do |page| -%>
+      <% if page.first? -%>
+        <div class="clearfix"></div>
+      <% end -%>
+      <%= page_tag page %>
+    <% end -%>
+    </ul>
+  </div>
+<% end -%>

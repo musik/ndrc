@@ -6,7 +6,9 @@ describe Topic do
     #pp Topic.create :name=>'b',:slug=>'a'
     #pp Topic.create :name=>'a-1',:slug=>'a'
     #pp Topic.where(:name=>'a-1').first_or_create
-    #Topic.find_or_create_by_name '艾条'
+    #pp Topic.find_or_create_by_name '9艾条'
+    #pp Topic.find_or_create_by_name '09艾条'
     #Topic.first.update!
+    #Topic.import_from_csv
   end
 end

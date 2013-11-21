@@ -19,4 +19,12 @@ namespace :dev do
       p.update_attribute :short_name,short
     end
   end
+  desc "abbr for topics"
+  task :topics_abbr => :environment do
+    Topic.where(:abbr=>nil).find_each do |t|
+      abbr = t.slug[0,1]
+      abbr = "0" unless abbr.to_i.zero? 
+      t.update_attribute :abbr,abbr
+    end
+  end
 end

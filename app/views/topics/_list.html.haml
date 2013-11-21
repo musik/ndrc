@@ -1,4 +1,5 @@
 -if topics.present?
   %ul.topics
     -topics.each do |t|
-      =link_to t.name,t
+      %li=link_to t.name,t
+    .clearfix

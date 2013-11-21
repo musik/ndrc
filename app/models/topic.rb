@@ -1,8 +1,9 @@
 class Topic < ActiveRecord::Base
-  attr_accessible :name, :published, :slug
+  paginates_per 100
+  attr_accessible :name, :published, :slug,:companies_count,:abbr
   #after_initialize :gen_slug
   before_create :ensure_uniq
-  after_create :async_update
+  #after_create :async_update
 
   scope :published,where(:published=>true)
   scope :recent,order("id asc")
@@ -28,6 +29,10 @@ class Topic < ActiveRecord::Base
       i+=1
     end
     self[:slug] = current_slug
+    str = current_slug[0,1]
+    str = "0" unless str.to_i.zero? 
+    self[:abbr] = str
+    self
   end
   def ali_url
     sprintf 'http://search.china.alibaba.com/selloffer/-%s.html',CGI.escape(name.encode('GBK','UTF-8')).gsub('%','')
@@ -56,6 +61,12 @@ class Topic < ActiveRecord::Base
       #end
       self.where(:published=>nil).select(:id).all.each do |r|
         r.async 'update!'
+      end
+    end
+    def import_from_csv
+      file = "#{Rails.root}/db/topics.csv"
+      File.read(file).split("\n").collect{|r| r.split(",")}.each do |arr|
+        where(:name=>arr[0]).first_or_create :companies_count=>arr[1],:published=>true
       end
     end
   end

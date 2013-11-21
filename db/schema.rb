@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131120104939) do
+ActiveRecord::Schema.define(:version => 20131121062419) do
 
   create_table "categories", :force => true do |t|
     t.string  "name"
@@ -154,7 +154,7 @@ ActiveRecord::Schema.define(:version => 20131120104939) do
     t.integer  "item"
     t.string   "table"
     t.integer  "month",      :limit => 2
-    t.integer  "year",       :limit => 8
+    t.integer  "year",       :limit => 5
     t.datetime "created_at",              :null => false
     t.datetime "updated_at",              :null => false
   end
@@ -183,10 +183,13 @@ ActiveRecord::Schema.define(:version => 20131120104939) do
     t.string   "name"
     t.string   "slug"
     t.boolean  "published"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at",                   :null => false
+    t.datetime "updated_at",                   :null => false
+    t.integer  "companies_count"
+    t.string   "abbr",            :limit => 1
   end
 
+  add_index "topics", ["abbr"], :name => "index_topics_on_abbr"
   add_index "topics", ["name"], :name => "index_topics_on_name"
   add_index "topics", ["slug"], :name => "index_topics_on_slug"
 

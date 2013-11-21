@@ -70,12 +70,20 @@ class Company < ActiveRecord::Base
       arr = arr.join(";").gsub(/[·． \\]/,'').gsub(/[，、]/,';').split(";")
       puts arr.size
       puts arr.uniq.size
-      #arru = arr.uniq.reject{|r| r.bytesize > 27}
-      File.open("#{Rails.root}/tmp/fuwus.csv","w") do |f|
-        arr1 = arr.uniq.collect{|str|
-          #[str,arr.count(str)]
-          f.write "#{str},#{arr.count(str)}\n"
-        }
+      arru = arr.uniq.reject{|r| r.bytesize > 27}
+      puts arru.uniq.size
+      arrn = []
+      hash = Hash.new 0
+      arr.each{|str|
+        hash[str] += 1
+      }
+      hash.delete_if{|k,v| v < 3}
+      puts hash.keys.size
+      File.open("#{Rails.root}/tmp/fuwus_more_than_twice.csv","w") do |f|
+        f.write hash.collect{|r| r.join(',')}.join("\n")
+        #arr.uniq.each{|str|
+          #f.write "#{str},#{arr.count(str)}\n"
+        #}
         #arr1.sort!{|a,b| b[1] <=> a[1]}
         #Hash[arr1].each do |k,v|
           #f.write "#{k},#{v}\n"

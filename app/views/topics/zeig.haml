@@ -1,0 +1,13 @@
+-title "#{@abbr_title}开头_热门关键词分类","热门关键词分类(#{@abbr_title}开头)"
+%p.links
+  按字母分类:
+  -("a".."z").to_a.each do |a|
+    =link_to a.upcase,zeig_url(c: a)
+  =link_to "0-9",zeig_url(c: "0")
+= render :partial => 'list',:locals=>{:topics=>@topics}
+-#-results=Kaminari.paginate_array([], total_count: 100).page(params[:page]).per(1)
+-#=paginate results,:window=>100
+-#=paginate @topics,:window=>50,:theme=>'etao'
+=xpaginate @topics,:theme=>'etao',:window=>100
+.clearfix
+

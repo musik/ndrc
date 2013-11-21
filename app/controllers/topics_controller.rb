@@ -21,8 +21,13 @@ class TopicsController < ApplicationController
     breadcrumbs.add @topic.name,nil
   end
 
-  def index
-    @topics = Topic.published.recent.limit(100)
+  def zeig
+    params[:c] ||= "a" 
+    @abbr = params[:c]
+    @abbr_title = @abbr == "0" ? "0-9" : @abbr.upcase
+    @topics = Topic.published.where(abbr: @abbr).recent.page(params[:page])
+    breadcrumbs.add "热门关键词",nil
+    breadcrumbs.add @abbr_title
   end
 
   def recent
