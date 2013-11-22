@@ -81,6 +81,7 @@ class Topic < ActiveRecord::Base
     def fix_slugs
       find_each do |r|
         (r.destroy and next) if r.name.match(/^[0-9\.\#]+$/).present?
+        (r.destroy and next) if r.slug.match(/^[0-9\.\#]+$/).present?
         next if r.slug.match(/^[[a-z][0-9]-]+$/i).present?
         (r.destroy and next) if %(* . \ / ! @ # $ % ^ & ( ) ×).include?(r.name[-1])
         (r.destroy and next) if r.name.empty?
