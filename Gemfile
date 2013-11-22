@@ -85,3 +85,4 @@ gem 'wash_out'
 gem 'savon', '~> 2.1.0'
 gem 'settingslogic'
 gem 'high_voltage'
+gem "stringex"

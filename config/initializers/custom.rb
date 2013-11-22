@@ -19,3 +19,4 @@ class CustomJob
   end
 end
 
+#require "stringex/string_extensions"

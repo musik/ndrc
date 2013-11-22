@@ -1,6 +1,9 @@
+#encoding: utf-8
 class Topic < ActiveRecord::Base
   paginates_per 100
   attr_accessible :name, :published, :slug,:companies_count,:abbr
+  validates_presence_of :name
+  validates_presence_of :slug
   #after_initialize :gen_slug
   before_create :ensure_uniq
   #after_create :async_update
@@ -17,11 +20,13 @@ class Topic < ActiveRecord::Base
     slug
   end
   def gen_slug
-    return unless slug.nil?
-    self[:slug] = Pinyin.t(name,'')
-    if slug.length > 12
-      self[:slug] = Pinyin.t(name).split(' ').collect{|str| str[0,1]}.join()
-    end
+    #return unless slug.nil?
+    self[:slug] = Pinyin.t(name,'').gsub(/[^[a-z][0-9]-]/i,'')[0,15]
+    self[:slug] = name.to_url if self[:slug].empty?
+    self[:slug]
+    #if slug.length > 12
+      #self[:slug] = Pinyin.t(name).split(' ').collect{|str| str[0,1]}.join()
+    #end
   end
   def ensure_uniq
     gen_slug
@@ -72,6 +77,16 @@ class Topic < ActiveRecord::Base
       File.read(file).split("\n").collect{|r| r.split(",")}.each do |arr|
         where(:name=>arr[0]).first_or_create :companies_count=>arr[1],:published=>true
       end
+    end
+    def fix_slugs
+      find_each do |r|
+        (r.destroy and next) if r.name.match(/^[0-9\.\#]+$/).present?
+        next if r.slug.match(/^[[a-z][0-9]-]+$/i).present?
+        (r.destroy and next) if %(* . \ / ! @ # $ % ^ & ( ) ×).include?(r.name[-1])
+        (r.destroy and next) if r.name.empty?
+        r.update_attribute :slug,r.gen_slug
+      end
+      nil
     end
   end
 end
