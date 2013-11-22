@@ -3,10 +3,9 @@ class Topic < ActiveRecord::Base
   paginates_per 100
   attr_accessible :name, :published, :slug,:companies_count,:abbr
   validates_presence_of :name
-  validates_presence_of :slug
   #after_initialize :gen_slug
-  before_create :ensure_uniq
   #after_create :async_update
+  before_create :ensure_uniq
 
   scope :published,where(:published=>true)
   scope :recent,order("id asc")
@@ -20,13 +19,7 @@ class Topic < ActiveRecord::Base
     slug
   end
   def gen_slug
-    #return unless slug.nil?
-    self[:slug] = Pinyin.t(name,'').gsub(/[^[a-z][0-9]-]/i,'')[0,15]
-    self[:slug] = name.to_url if self[:slug].empty?
-    self[:slug]
-    #if slug.length > 12
-      #self[:slug] = Pinyin.t(name).split(' ').collect{|str| str[0,1]}.join()
-    #end
+    self.slug = name.to_url.gsub(/-/,'')[0,16]
   end
   def ensure_uniq
     gen_slug
