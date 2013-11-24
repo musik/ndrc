@@ -10,7 +10,7 @@ class Topic < ActiveRecord::Base
   scope :published,where(:published=>true)
   scope :recent,order("id asc")
   @queue = 'topic'
-  include ResqueEx
+  #include ResqueEx
   define_index do
     indexes :name
     has :id
@@ -40,30 +40,24 @@ class Topic < ActiveRecord::Base
   def ali_url
     sprintf 'http://search.china.alibaba.com/selloffer/-%s.html',CGI.escape(name.encode('GBK','UTF-8')).gsub('%','')
   end
-  def async_update
-    async 'update!'
+  def import_companies
+    Company.ali_search name
   end
-  def update!
-    logm ali_url
-    page = Anemone::HTTP.new.fetch_page ali_url
-    if page.code == 200
-      Ali::Robot.new.find_more_infos page
-      HyRobot::Core.new.import_topics page.links
-      @status = true
-    end
-    @status ||= false
-    update_attribute :published,@status
-  end
+  async_method :import_companies
   class << self
     def db_init
       HyRobot::Core.new.run_topics
     end
     def import_all
-      #while r = self.where(:published=>nil).first and r.present?
-        #r.update!
-      #end
       self.where(:published=>nil).select(:id).all.each do |r|
         r.async 'update!'
+      end
+    end
+    def import_from_str str
+      str.gsub(/[·． \\]/,'').gsub(/[，、]/,';').split(";").uniq.compact.each do |s|
+        next if s.blank?
+        next if s.match(/^[0-9\.\#\%]+$/).present?
+        where(name: s).first_or_create
       end
     end
     def import_from_csv

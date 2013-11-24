@@ -43,13 +43,23 @@ class Company < ActiveRecord::Base
       }.compact.uniq
   end
   def detect_locations
-    return if location.nil?
-    pid = _detect_id(location,Province.cached_all)
+    return if location.nil? && address.nil?
+    str = address || location
+    pid = _detect_id(str,Province.cached_all)
     return nil if pid.nil?
     data = {province_id: pid}
-    cid = _detect_id(location,City.where(province_id: pid).all)
+    cid = _detect_id(str,City.where(province_id: pid).all)
     data[:city_id] = cid unless cid.nil?
     update_attributes data
+  end
+  def auto_province
+    return if location.nil? && address.nil?
+    str = address || location
+    pid = _detect_id(str,Province.cached_all)
+    return nil if pid.nil?
+    self.province_id = pid
+    cid = _detect_id(str,City.where(province_id: pid).all)
+    self.city_id = cid unless cid.nil?
   end
   async_method :detect_locations
   def _detect_id str,results
@@ -115,7 +125,10 @@ class Company < ActiveRecord::Base
       end
       data[:metas_attributes] = metas_attributes
       data[:text_attributes] = {:body=>data.delete(:desc)}
-      create data
+      e = new data
+      e.auto_province
+      e.save
+      Topic.import_from_str [e.fuwu,e.hangye].join(";")
     end
   end
 end

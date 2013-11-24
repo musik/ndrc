@@ -6,6 +6,6 @@ describe Company do
     #c = Company.create :location=>"江苏徐州"
     #c.detect_locations
     Company.ali_search "美体仪器"
-    Company.ali_search "美体仪器"
+    #Company.ali_search "美体仪器"
   end
 end
