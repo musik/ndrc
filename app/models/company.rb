@@ -1,7 +1,9 @@
 #encoding: utf-8
 class Company < ActiveRecord::Base
     include CityHelper::ViewHelper
-  attr_accessible :ali_url, :fuwu, :hangye, :location, :name , :text_attributes , :metas_attributes,:province_id,:city_id,:district_id
+  attr_accessible :ali_url, :fuwu, :hangye, :location, :name , :text_attributes , :metas_attributes,:province_id,:city_id,:district_id,
+    :contact,:address,:phone,:mobile
+  validates_uniqueness_of :ali_url
   has_one :text , :dependent => :destroy , :class_name => "CompanyText"
   has_many :metas , :dependent => :destroy , :class_name => "CompanyMeta"
   accepts_nested_attributes_for :text,:metas
@@ -102,6 +104,7 @@ class Company < ActiveRecord::Base
       end
     end
     def import_data data
+      #return if where(ali_url: data[:ali_url]).exists?
       metas = data.delete :metas
       {fuwu: "主营产品或服务",hangye: "主营行业"}.each do |k,v|
         data[k] = metas.delete(v) if metas.has_key?(v)
@@ -112,8 +115,7 @@ class Company < ActiveRecord::Base
       end
       data[:metas_attributes] = metas_attributes
       data[:text_attributes] = {:body=>data.delete(:desc)}
-      pp data
-      #create data
+      create data
     end
   end
 end

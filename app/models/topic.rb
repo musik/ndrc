@@ -14,6 +14,7 @@ class Topic < ActiveRecord::Base
   define_index do
     indexes :name
     has :id
+    where sanitize_sql(["published", true])
   end
   def to_param
     slug
