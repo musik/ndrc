@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131124073759) do
+ActiveRecord::Schema.define(:version => 20131124155440) do
 
   create_table "categories", :force => true do |t|
     t.string  "name"
@@ -191,6 +191,7 @@ ActiveRecord::Schema.define(:version => 20131124073759) do
     t.datetime "updated_at",                   :null => false
     t.integer  "companies_count"
     t.string   "abbr",            :limit => 1
+    t.datetime "imported_at"
   end
 
   add_index "topics", ["abbr"], :name => "index_topics_on_abbr"

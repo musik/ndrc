@@ -13,3 +13,9 @@
 //= require jquery
 //= require jquery_ujs
 //= require bootstrap-alert
+
+$(function(){
+  $('#check_all').on('click',function(){
+    $(this).closest('fieldset').find(':checkbox').prop('checked',this.checked);
+  })
+})

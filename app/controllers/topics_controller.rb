@@ -1,5 +1,9 @@
 #encoding: utf-8
 class TopicsController < ApplicationController
+  def admin
+    @topics = Topic.page(params[:page])
+    @topics = @topics.where(published: nil) if  params[:published] == "0"
+  end
   def show
     @topic = Topic.find_by_slug params[:id]
     @q= @topic.name

@@ -2,16 +2,21 @@
 module Bot1688
   class Company
     EXCLUDES = %w(主营产品 仓库信息 是否提供加工/定制 加工方式 工艺 主要销售区域 主要客户群体 质量控制 厂房面积 研发部门人数 年出口额 年营业额 员工人数 服务领域 代理级别 仓库地址 企业类型 公司名称)
+    include Resque::Plugins::Async::Method
     def initialize slug
       @url = "http://#{slug}.1688.com/"
       @data = {ali_url: slug}
       self
     end
     def details
-      return @details if @details.present?
+      @details ||= fetch_details
+      @details
+    end
+    def fetch_details
       details_url = @url + "page/creditdetail.htm"
-      page = Anemone::HTTP.new.fetch_page details_url
+      page = Anemone::HTTP.new(redirect_limit: 1).fetch_page details_url
       raise "Bot1688::Company page fetch error: #{page.url}" if !page.fetched?
+      return if page.code != 200
       @data[:name] = page.doc.at_css(".company-title span").attr("title")
       @data[:metas] = parse_matas(page.doc)
       #Address
@@ -26,8 +31,9 @@ module Bot1688
       #Contact
       @data.merge! parse_contact(page.doc)
       @data[:desc] = page.doc.at_css("#company-more").text.strip.sub(/ 收起$/,'') rescue nil
-      @details = @data
+      @data
     end
+    #async_method :fetch_details
     def parse_contact doc
       hash = {}
       doc.css("#memberinfo dd span.attrkey").each do |s|
@@ -62,8 +68,8 @@ module Bot1688
         @q = q
         url = "http://s.1688.com/company/company_search.htm?keywords=#{CGI.escape(q.encode('GBK','UTF-8'))}"
         page = Anemone::HTTP.new.fetch_page url
+        @slugs = []
         if page.fetched?
-          @slugs = []
           page.doc.css(".sm-offerResult h2 a.sw-ui-font-title14").each do |a|
             u = a['href']
             next if u.nil? or u.empty?

@@ -1,5 +1,5 @@
 class CustomIndexDelta
-  def perform
+  def self.perform
     ThinkingSphinx::Deltas::DatetimeDelta.index
   end
 end

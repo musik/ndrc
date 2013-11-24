@@ -44,6 +44,7 @@ gem 'breadcrumbs'
 gem 'kaminari'
 
 gem 'resque','~> 1.25'
+gem "rufus-scheduler", "~> 2.0"
 gem 'resque-scheduler', :require => 'resque_scheduler'
 #gem 'resque-retry'
 gem 'resque-cleaner'

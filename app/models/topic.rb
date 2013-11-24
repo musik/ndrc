@@ -4,7 +4,7 @@ class Topic < ActiveRecord::Base
   attr_accessible :name, :published, :slug,:companies_count,:abbr
   validates_presence_of :name
   #after_initialize :gen_slug
-  #after_create :async_update
+  after_create :import_companies
   before_create :ensure_uniq
 
   scope :published,where(:published=>true)
@@ -27,7 +27,7 @@ class Topic < ActiveRecord::Base
     base_str = slug
     current_slug = base_str
     i = 1
-    while Topic.where(:slug=>current_slug).exists?
+    while Topic.exists?(slug: current_slug)
       current_slug = base_str + '-' + i.to_s
       i+=1
     end
@@ -42,22 +42,19 @@ class Topic < ActiveRecord::Base
   end
   def import_companies
     Company.ali_search name
+    update_attribute :imported_at,Time.now
   end
   async_method :import_companies
   class << self
     def db_init
       HyRobot::Core.new.run_topics
     end
-    def import_all
-      self.where(:published=>nil).select(:id).all.each do |r|
-        r.async 'update!'
-      end
-    end
     def import_from_str str
       str.gsub(/[·． \\]/,'').gsub(/[，、]/,';').split(";").uniq.compact.each do |s|
         next if s.blank?
         next if s.match(/^[0-9\.\#\%]+$/).present?
-        where(name: s).first_or_create
+        #Topic.where(name: s).first_or_create
+        Topic.find_or_create_by_name(s)
       end
     end
     def import_from_csv

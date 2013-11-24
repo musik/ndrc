@@ -328,8 +328,8 @@ GEM
       rspec-mocks (~> 2.14.0)
     ruby-ole (1.2.11.7)
     rubyzip (1.1.0)
-    rufus-scheduler (3.0.0)
-      tzinfo
+    rufus-scheduler (2.0.24)
+      tzinfo (>= 0.3.22)
     safe_yaml (0.9.7)
     sass (3.2.12)
     sass-rails (3.2.6)
@@ -396,7 +396,7 @@ GEM
       simple_oauth (~> 0.1.4)
     typhoeus (0.6.5)
       ethon (~> 0.6.1)
-    tzinfo (0.3.37)
+    tzinfo (0.3.38)
     uglifier (2.2.1)
       execjs (>= 0.3.0)
       multi_json (~> 1.0, >= 1.0.2)
@@ -465,6 +465,7 @@ DEPENDENCIES
   rolify (>= 3.1.0)
   roo
   rspec-rails (>= 2.11.0)
+  rufus-scheduler (~> 2.0)
   sass-rails (~> 3.2.3)
   savon (~> 2.1.0)
   settingslogic
