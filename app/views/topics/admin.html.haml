@@ -2,22 +2,32 @@
 %p
   =link_to "All"
   =link_to "Unpublished",published: 0
+  =link_to "Hidden",published: -1
 -if @topics.present?
-  %fieldset
-    %ul.topics
-      -@topics.each do |t|
-        %li 
-          =check_box_tag "topics[]",t.id,t.published?
-          =link_to t.name.truncate(13),t
-      .clearfix
-    .actions
-      %label{for: 'check_all'}
-        =check_box_tag 'check_all'
-        全选
-        %br
-      =button_tag "保存",class: "btn btn-primary",name: "save_all"
-      =button_tag "删除选中",class: "btn btn-danger",name: "delete_checked"
+  %form{method: 'POST',action: "/topics/set"}
+    %fieldset
+      %ul.topics
+        -@topics.each do |t|
+          %li 
+            =check_box_tag "topics[]",t.id,t.published?
+            =link_to t.name.truncate(13),t
+        .clearfix
 
+      .actions
+        %label{for: 'check_all'}
+          =check_box_tag 'check_all'
+          全选
+      .form-inline
+        ACTION:
+        -%w(publish unpublish hide delete).each do |a|
+          %label{for: "act_#{a}"}
+            =radio_button_tag 'act',a
+            =a.humanize
+
+      .actions
+        =button_tag "Submit"
+        -#=button_to_function "保存",'save_all()',class: "btn btn-primary"
+        -#=button_to_function "删除选中",'delete_checked()',class: "btn btn-danger"
 
 =paginate @topics
 

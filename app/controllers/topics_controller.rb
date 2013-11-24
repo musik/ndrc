@@ -3,6 +3,21 @@ class TopicsController < ApplicationController
   def admin
     @topics = Topic.page(params[:page])
     @topics = @topics.where(published: nil) if  params[:published] == "0"
+    @topics = @topics.where(published: false) if  params[:published] == "-1"
+  end
+  def set
+    @topics = Topic.where(id: params[:topics])
+    case params[:act]
+    when 'delete'
+      @topics.delete_all
+    when 'unpublish'
+      @topics.update_all( published: nil)
+    when 'hide'
+      @topics.update_all( published: false)
+    else
+      @topics.update_all( published: true)
+    end
+    redirect_to request.referer
   end
   def show
     @topic = Topic.find_by_slug params[:id]
