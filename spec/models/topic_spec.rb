@@ -12,5 +12,6 @@ describe Topic do
     #pp "".to_url :replace_whitespace_with=>'|'
     #Topic.first.update!
     #Topic.import_from_csv
+    Topic.test_alizhishu
   end
 end

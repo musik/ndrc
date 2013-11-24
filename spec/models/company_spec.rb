@@ -2,8 +2,9 @@
 require 'spec_helper'
 
 describe Company do
-  #it "should detect_locations" do
+  it "should detect_locations" do
     #c = Company.create :location=>"江苏徐州"
     #c.detect_locations
-  #end
+    Company.ali_search "美体仪器"
+  end
 end

@@ -82,5 +82,18 @@ class Topic < ActiveRecord::Base
       end
       nil
     end
+    def test_alizhishu
+      get_cat 70
+    end
+    def get_cat cat
+      %w(rise hot new word).product(%w(week month)).each do |arr|
+        get_words cat,arr[0],arr[1]
+      end
+    end
+    def get_words cat,type,period
+      url = "http://index.1688.com/alizs/word/listRankType.json?cat=#{cat}&rankType=#{type}&period=#{period}"
+      pp url
+      #page = Anemone::HTTP.new.fetch_page(url)
+    end
   end
 end

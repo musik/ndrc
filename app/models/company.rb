@@ -94,28 +94,26 @@ class Company < ActiveRecord::Base
     def parse_ali_url url
       url.match(/\/\/([\w\d]+?)\./)[1]
     end
-    def import_data data
-      e = where(:ali_url=>data[:ali_url]).first      
-      if e.nil?
-        metas = []
-        data[:meta].each do |k,v|
-          metas << {:mkey=>k,:mval=>v}
-        end
-        data[:metas_attributes] = metas
-        meta = data.delete :meta
-
-        {
-          :fuwu => "主营产品或服务",
-          :hangye => "主营行业",
-          :location => "公司注册地",
-        }.each do |k,v|
-          data[k] = meta.delete v if meta.has_key? v
-        end
-        data[:text_attributes] = {:body=>data.delete(:desc)}
-        create data
-      else
-        e
+    def ali_search q
+      slugs = Bot1688::Company.search(q).slugs
+      slugs.each do |s|
+        next if where(ali_url: s).exists?
+        import_data(Bot1688::Company.new(s).details)
       end
+    end
+    def import_data data
+      metas = data.delete :metas
+      {fuwu: "主营产品或服务",hangye: "主营行业"}.each do |k,v|
+        data[k] = metas.delete(v) if metas.has_key?(v)
+      end
+      metas_attributes = []
+      metas.each do |k,v|
+        metas_attributes << {:mkey=>k,:mval=>v}
+      end
+      data[:metas_attributes] = metas_attributes
+      data[:text_attributes] = {:body=>data.delete(:desc)}
+      pp data
+      #create data
     end
   end
 end
