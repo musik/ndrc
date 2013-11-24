@@ -1,13 +1,31 @@
+
 %table.table.table-bordered
-  %tr 
-    %th Companies
+  %caption Companys
+  %tr
+    %th today
+    %th last 7 days
+    %th last 30 days
+    %th all
+  %tr
+    %td=Company.where("created_at > ?",1.day.ago).count
+    %td=Company.where("created_at > ?",7.day.ago).count
+    %td=Company.where("created_at > ?",30.day.ago).count
     %td=Company.count
   %tr 
     %th Province null
-    %td=Company.where(:province_id=>nil).count
-  %tr 
-    %th Topics
+    %td{colspan: 3}=Company.where(:province_id=>nil).count
+%table.table.table-bordered
+  %caption Topics
+  %tr
+    %th today
+    %th last 7 days
+    %th last 30 days
+    %th all
+  %tr
+    %td=Topic.where("created_at > ?",1.day.ago).count
+    %td=Topic.where("created_at > ?",7.day.ago).count
+    %td=Topic.where("created_at > ?",30.day.ago).count
     %td=Topic.count
   %tr 
-    %th Topics unpublished
-    %td=Topic.where(:published=>nil).count
+    %th Unpublished
+    %td{colspan: 3}=Topic.where(:published=>nil).count
