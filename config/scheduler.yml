@@ -1,4 +1,4 @@
 index_delta_by_time:
-  cron: "*/1 * * * *"
+  cron: "17 * * * *"
   class: CustomIndexDelta
   queue: 'daemon'

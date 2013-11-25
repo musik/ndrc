@@ -2,7 +2,7 @@ namespace :resque do
   task :setup => :environment do
     ENV["QUEUE"] ||= '*'
     Resque.before_fork = Proc.new { ActiveRecord::Base.establish_connection }
-    Resque::Scheduler.dynamic = true
+    #Resque::Scheduler.dynamic = true
     #Resque::Scheduler.verbose = true
     Resque.schedule = YAML.load_file("#{Rails.root}/config/scheduler.yml")
   end
