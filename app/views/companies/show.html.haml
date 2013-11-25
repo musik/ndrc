@@ -2,6 +2,15 @@
 -@cols = "col2r"
 -#-rcats =  Category.search_pair [@company.fuwu,@company.hangye].join(',').truncate(600)
 -#-patt = Regexp.new(rcats.keys.join("|"))
+.contact
+  -if @company.contact.present?
+    %p 联系人: #{@company.contact}
+  -if @company.address.present?
+    %p 地址: #{@company.address}
+  -if @company.mobile.present?
+    %p 手机: #{@company.mobile}
+  -if @company.phone.present?
+    %p 电话: #{@company.phone}
 -if @company.locs.present?    
   .location
     %strong 所在地
