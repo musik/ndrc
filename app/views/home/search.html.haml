@@ -8,7 +8,7 @@
   %h4 分省浏览
   %p.links
     -@provinces.each do |p|
-      =link_to "#{p.name} (#{p.companies_count})",{q: params[:q],l: p.short_name}
+      =link_to "#{p.short_name} (#{p.companies_count})",{q: params[:q],l: p.short_name},:rel=>"nofollow"
 -#-@facets.each do |facet, facet_options| 
   -#%h5=facet
   -#%ul

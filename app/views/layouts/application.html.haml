@@ -27,6 +27,7 @@
     %main{:role => "main"}
       = render :partial => 'layouts/cityhead' if @city_name
       -if @nocontent
+        = render 'layouts/messages'
         =yield
       -else
         .container

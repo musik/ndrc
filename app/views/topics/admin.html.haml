@@ -1,10 +1,14 @@
 -title "Topics"
-%p
+%p.links
   =link_to "All"
   =link_to "Unpublished",published: 0
   =link_to "Hidden",published: -1
+  %br
+  Special:
+  -'。.“”"'.split("").each do |r|
+    =link_to r,special: r
 -if @topics.present?
-  %form{method: 'POST',action: "/topics/set"}
+  %form{method: 'POST',action: "/topics/save"}
     %fieldset
       %ul.topics
         -@topics.each do |t|
@@ -29,5 +33,5 @@
         -#=button_to_function "保存",'save_all()',class: "btn btn-primary"
         -#=button_to_function "删除选中",'delete_checked()',class: "btn btn-danger"
 
-=paginate @topics
+=xpaginate @topics
 

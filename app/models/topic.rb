@@ -54,7 +54,7 @@ class Topic < ActiveRecord::Base
       HyRobot::Core.new.run_topics
     end
     def import_from_str str
-      str.gsub(/[·． \\]/,'').gsub(/[，、]/,';').split(";").uniq.compact.each do |s|
+      str.gsub(/[·． \\” “"]/,'').gsub(/[，、]/,';').split(";").uniq.compact.each do |s|
         next if s.blank?
         next if s.match(/^[0-9\.\#\%]+$/).present?
         #Topic.where(name: s).first_or_create
