@@ -75,7 +75,7 @@ class TopicsController < ApplicationController
   def recent
     breadcrumbs.add "热门关键词",zeig_url
     breadcrumbs.add "最新搜索",nil
-    @topics = Topic.published.recent.limit(100)
+    @topics = Topic.search(order: "id desc",per_page: 100,page: params[:page])
   end
 
   def hot

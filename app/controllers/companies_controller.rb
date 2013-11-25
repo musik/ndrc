@@ -9,14 +9,17 @@ class CompaniesController < ApplicationController
   # GET /companies.json
   def index
     #@companies = Company.recent.includes(:text).page(params[:page] || 1).per(120)
-    @companies = Company.recent.limit(100)
-    @hide_recent = true
+    @recent = Company.recent.limit(30)
+    @random = Company.search order: "@random",per_page: 30
    @title = "企业名录"
    breadcrumbs.add @title,companies_url,:rel=>"nofollow"
    breadcrumbs.add "第#{params[:page]}页",nil  if params[:page]
+   @hide_paginate = true
   end
   def recent
-    @companies = Company.recent.page(params[:page]).per(120)
+    #@companies = Company.recent.page(params[:page]).per(120)
+   @companies = Company.search page: params[:page],order: "id desc",
+        per_page: 100
    breadcrumbs.add "企业名录",companies_url,:rel=>"nofollow"
    breadcrumbs.add "最新注册"
    breadcrumbs.add "第#{params[:page]}页",nil  if params[:page]
@@ -28,10 +31,11 @@ class CompaniesController < ApplicationController
         #:include=>[:text],
         :sort_mode => :extended,
         :order => "@relevance DESC,id desc",
-        :per_page => 120
+        :per_page => 50
         )
    @title = "#{@city_title}企业名录"
-    render "index"
+   breadcrumbs.add "企业名录"
+    #render "city-index"
   end
 
   # GET /companies/1

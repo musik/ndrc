@@ -1,3 +1,5 @@
 -title "最新搜索"
 = render :partial => 'list',:locals=>{:topics=>@topics}
+=xpaginate @topics
+%span 仅显示前10页
 

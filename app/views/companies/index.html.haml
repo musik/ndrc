@@ -8,10 +8,20 @@ var sogou_ad_width=500;
 </script>
 <script language='JavaScript' type='text/javascript' src='http://images.sohu.com/cs/jsfile/js/c.js'></script>
 
+%h2 随机企业
 %ul.comlist
-  -@companies.each do |c|
-    %li=link_to c.name,company_link(c)
+  -@random.each do |c|
+    %li=link_to c.name.truncate(18),company_link(c)
+.clearfix
+%h2 最新注册
+%ul.comlist
+  -@recent.each do |c|
+    %li=link_to c.name.truncate(18),company_link(c)
 .clearfix
 %hr
-%p
-  =link_to "更多",recent_companies_url
+-unless @hide_paginate
+  -params.delete :l
+  =xpaginate @companies,:theme=>"etao",:window=>100
+-else
+  %p
+    =link_to "更多",recent_companies_url

@@ -1,6 +1,7 @@
 -title @title || "企业"
 -@cols="col2r"
-= paginate(@companies,:window=>4)
+-params.delete :l
+= xpaginate(@companies,:window=>50)
 -@companies.each do |c|
   .company
     %strong.fn=link_to c.name,company_link(c)

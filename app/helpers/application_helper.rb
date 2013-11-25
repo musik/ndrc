@@ -22,7 +22,7 @@ module ApplicationHelper
     "/qiye-#{c.to_params}"
   end
   def xpaginate scope, options = {}, &block
-    paginator = Xpaginator.new self, options.reverse_merge(:current_page => scope.current_page, :total_pages => scope.total_pages, :per_page => scope.limit_value, :param_name => Kaminari.config.param_name, :remote => false)
+    paginator = Xpaginator.new self, options.reverse_merge(:current_page => scope.current_page, :total_pages => scope.total_pages, :per_page => scope.limit_value, :param_name => Kaminari.config.param_name, :remote => false, :theme=>"etao",:window=>100)
     paginator.to_s
   end
   def highlight(text, phrases, *args)
