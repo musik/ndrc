@@ -99,13 +99,21 @@ after 'deploy:restart', 'unicorn:restart' # app IS NOT preloaded
 #Resque
 
 #set :resque_service,'resque-sdmec'
-require './lib/recipes/resque.rb'
-after 'deploy:restart', 'resque:pool:restart' 
+#require './lib/recipes/resque.rb'
+#after 'deploy:restart', 'resque:pool:restart' 
 #before 'deploy:restart','resque:restart'
 #role :resque_worker, "rho"
 #role :resque_scheduler, "rho"
 #set :workers, { "update_keywords,update_items" => 1 }
-#require 'capistrano-resque'
+require 'capistrano-resque'
+role :resque_worker, "gxr"
+role :resque_scheduler, "gxr"
+set :workers, {daemon: 1,topics: 2 }
+set :resque_environment_task, true
+after "deploy:restart", "resque:restart"
+after "deploy:restart", "resque:scheduler:restart"
+
+
 
 require "bundler/capistrano"
 

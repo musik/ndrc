@@ -21,12 +21,13 @@ Capistrano::Configuration.instance.load do
           fi;
           if [ -f '#{scheduler_pid}' ];then
             kill -QUIT `cat #{scheduler_pid}`;
+            rm #{scheduler_pid};
           fi;
         CMD
         sleep 3
         run <<-CMD
-          cd #{current_path} && RAILS_ENV=production bundle exec resque-pool -p #{pool_pid} -c config/pool.yml --daemon
-          cd #{current_path} && RAILS_ENV=production bundle exec rake resque:scheduler PIDFILE=#{scheduler_pid} BACKGROUND=yes
+          cd #{current_path} && RAILS_ENV=production bundle exec resque-pool -p #{pool_pid} -c config/pool.yml --daemon;
+          cd #{current_path} && RAILS_ENV=production bundle exec rake resque:scheduler PIDFILE=#{scheduler_pid} BACKGROUND=yes;
         CMD
         #run "cd #{current_path} && RAILS_ENV=production bundle exec resque-pool -p #{pool_pid} --daemon"
       end  
@@ -34,7 +35,7 @@ Capistrano::Configuration.instance.load do
     namespace :worker do
       desc "|DarkRecipes| List all workers"
       task :list, :roles => :app do
-        run "cd #{current_path} && #{sudo} resque list"
+        run "cd #{current_path} && resque list"
       end
     
       desc "|DarkRecipes| Starts the workers"

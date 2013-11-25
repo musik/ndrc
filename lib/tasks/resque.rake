@@ -2,7 +2,9 @@ namespace :resque do
   task :setup => :environment do
     ENV["QUEUE"] ||= '*'
     Resque.before_fork = Proc.new { ActiveRecord::Base.establish_connection }
-    Resque.schedule = YAML.load_file('config/scheduler.yml')
+    Resque::Scheduler.dynamic = true
+    #Resque::Scheduler.verbose = true
+    Resque.schedule = YAML.load_file("#{Rails.root}/config/scheduler.yml")
   end
   task "pool:setup" do
     # close any sockets or files in pool manager
@@ -10,6 +12,7 @@ namespace :resque do
     # and re-open them in the resque worker parent
     Resque::Pool.after_prefork do |job|
       ActiveRecord::Base.establish_connection
+      Resque.redis.client.reconnect
     end    
   end
   task "pool:delta"=> %w[resque:setup resque:pool:setup] do
