@@ -44,7 +44,7 @@ class CompaniesController < ApplicationController
     @company = Company.find_by_ali_url(params[:id])
     #@related = Company.any.search [@company.name,@company.fuwu,@company.hangye].join(','),
     @related = Company.any.search @company.name,
-        :without=>{id:@company.id},:per_page=>15,
+        :without=>{id:@company.id},:per_page=>9,
         :include=>[:text]
 
     @title = @company.name
