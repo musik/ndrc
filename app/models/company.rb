@@ -18,7 +18,8 @@ class Company < ActiveRecord::Base
   define_index do
     indexes :name,:fuwu,:hangye,:location,:address
     indexes text(:body),:as=>:description
-    has :id,:province_id,:city_id
+    has :id
+    has :province_id,:city_id,:facet=>true
     #set_property :delta => ThinkingSphinx::Deltas::ResqueDelta
     set_property :delta => :datetime, :threshold => 75.minutes
   end

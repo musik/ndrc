@@ -30,6 +30,11 @@ class HomeController < ApplicationController
         )
     @relates = Topic.search(@q,
                     match_mode: :any,per_page: 9)
+    @province_counts = Company.facets(@q,facets: :province_id)[:province_id]
+    @provinces = Province.where(id: @province_counts.keys)
+    @provinces.each do |r|
+      r[:companies_count] = @province_counts[r.id]
+    end
     #@groups = Company.search(@q,:group_by=>:location,:order_group_by=>"count(*) desc")
     breadcrumbs.add @title,nil
   end

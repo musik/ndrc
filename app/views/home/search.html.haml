@@ -1,10 +1,19 @@
 -title @title
 -meta :robots,"noindex"
+-params.delete :l
 -@cols = :col2r
 -@hide_recent = true
 -@hide_ad = true if @companies.total_entries == 0
-
-
+-if @provinces.present?
+  .links
+    %h4 分省浏览
+    -@provinces.each do |p|
+      =link_to "#{p.name} (#{p.companies_count})",{q: params[:q],l: p.short_name}
+-#-@facets.each do |facet, facet_options| 
+  -#%h5=facet
+  -#%ul
+    -#-facet_options.each do |option, count| 
+      -#%li=link_to "#{option} (#{count})",params: {facet=> option}
 %p.stats
   ="找到#{@companies.total_entries}项结果,耗时(#{@companies.query_time * 1000}毫秒)"
 -if @relates.present? && @relates.size > 1
