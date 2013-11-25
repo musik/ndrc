@@ -296,10 +296,6 @@ GEM
       resque
     resque-cleaner (0.2.11)
       resque (~> 1.0)
-    resque-pool (0.3.0)
-      rake
-      resque (~> 1.20)
-      trollop (~> 1.16)
     resque-scheduler (2.0.1)
       redis (>= 2.0.1)
       resque (>= 1.20.0)
@@ -387,7 +383,6 @@ GEM
     treetop (1.4.15)
       polyglot
       polyglot (>= 0.3.1)
-    trollop (1.16.2)
     ts-datetime-delta (1.0.3)
       thinking-sphinx (>= 1.3.8)
     twitter-stream (0.1.16)
@@ -460,7 +455,6 @@ DEPENDENCIES
   resque (~> 1.25)
   resque-async-method
   resque-cleaner
-  resque-pool
   resque-scheduler
   rolify (>= 3.1.0)
   roo

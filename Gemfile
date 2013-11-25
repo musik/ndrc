@@ -48,7 +48,7 @@ gem "rufus-scheduler", "~> 2.0"
 gem 'resque-scheduler', :require => 'resque_scheduler'
 #gem 'resque-retry'
 gem 'resque-cleaner'
-gem 'resque-pool'
+#gem 'resque-pool'
 #gem "resque-lock-timeout"
 gem 'resque-async-method'
 gem 'god'
