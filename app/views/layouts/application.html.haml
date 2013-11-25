@@ -58,5 +58,4 @@
             =Snip.get('home').html_safe
     =render "layouts/iefixjs"
     -if Rails.env.production?
-      = render :partial => 'layouts/ga'
-      ='<script type="text/javascript" src="http://js.tongji.linezing.com/3085226/tongji.js"></script><noscript><a href="http://www.linezing.com"><img src="http://img.tongji.linezing.com/3085226/tongji.gif"/></a></noscript>'.html_safe
+      .hidden= render :partial => 'layouts/ga'
