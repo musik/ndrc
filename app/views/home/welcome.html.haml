@@ -17,6 +17,6 @@
       =select_tag :l,options_from_collection_for_select(Province.select('id,short_name').all,:short_name,:short_name),class: "input-small", prompt: "全国"
       %button.btn.btn-primary{type: 'submit'} 企业搜索
       -#=region_select_tag [:province, :city], province_prompt: "全国", city_prompt: "全省", class: 'input-small'
-      -#%span.help-block
-        -#<a href="/search?q=散热器" rel="nofollow">散热器<a/>
-        -#<a href="/search?q=广东散热器" rel="nofollow">广东散热器<a/>
+      %p.stats
+        收录企业: #{Company.search_count}
+        今日新增: #{Company.where("created_at > ?",1.day.ago).count}

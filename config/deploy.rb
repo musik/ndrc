@@ -85,7 +85,7 @@ before 'deploy:restart','sphinx:restart'
 require './lib/recipes/sphinx.rb'
 
 #Unicorn
-set :unicorn_workers,2
+set :unicorn_workers,3
 set :unicorn_user,:muzik
 require './lib/recipes/unicorn.rb'
 
@@ -108,7 +108,7 @@ after 'deploy:restart', 'unicorn:restart' # app IS NOT preloaded
 require 'capistrano-resque'
 role :resque_worker, "gxr"
 role :resque_scheduler, "gxr"
-set :workers, {daemon: 1,topics: 2 }
+set :workers, {daemon: 1,topics: 3 }
 set :resque_environment_task, true
 after "deploy:restart", "resque:restart"
 after "deploy:restart", "resque:scheduler:restart"
