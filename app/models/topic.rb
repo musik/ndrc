@@ -15,6 +15,7 @@ class Topic < ActiveRecord::Base
     indexes :name
     has :id
     where sanitize_sql(["published", true])
+    set_property :delta => :datetime, :threshold => 75.minutes
   end
   def to_param
     slug
