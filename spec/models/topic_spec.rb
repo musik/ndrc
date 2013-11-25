@@ -5,6 +5,7 @@ describe Topic do
   it "should ensure slug uniq" do
     #pp Topic.create :name=>'b',:slug=>'a'
     #pp Topic.create :name=>'a-1',:slug=>'a'
+    #pp Topic.create :name=>'a-1',:slug=>'a',:published=>true
     #pp Topic.where(:name=>'a-1').first_or_create
     #pp Topic.find_or_create_by_name '9艾条'
     #Topic.find_or_create_by_name('艾条')#.import_companies

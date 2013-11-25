@@ -4,7 +4,7 @@ class Topic < ActiveRecord::Base
   attr_accessible :name, :published, :slug,:companies_count,:abbr
   validates_presence_of :name
   #after_initialize :gen_slug
-  after_create :import_companies
+  after_save :import_companies_when_publish
   before_create :ensure_uniq
 
   scope :published,where(:published=>true)
@@ -40,6 +40,9 @@ class Topic < ActiveRecord::Base
   end
   def ali_url
     sprintf 'http://search.china.alibaba.com/selloffer/-%s.html',CGI.escape(name.encode('GBK','UTF-8')).gsub('%','')
+  end
+  def import_companies_when_publish
+    import_companies if changes.key?("published") && changes["published"][1] == true
   end
   def import_companies
     Company.ali_search name
