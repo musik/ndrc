@@ -15,7 +15,11 @@ class TopicsController < ApplicationController
     when 'hide'
       @topics.update_all( published: false)
     else
-      @topics.update_all( published: true)
+      @results = @topics.where(published: [nil,false]).all
+      @topics.update_all({published: true,updated_at: Time.now})
+      @results.each do |t|
+        t.import_companies
+      end
     end
     redirect_to request.referer
   end
