@@ -6,7 +6,7 @@ namespace :init do
   end
   desc "current topics import companies"
   task :import_companies => :environment do
-    Topic.find_each do |r|
+    Topic.where(imported_at: nil).find_each do |r|
       r.import_companies
     end
   end
