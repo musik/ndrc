@@ -12,13 +12,21 @@ Capistrano::Configuration.instance.load do
     end
     namespace :pool do
       set(:pool_pid) { File.join(pids_path, "pool.pid") } unless exists?(:pool_pid)
+      set(:scheduler_pid) { File.join(pids_path, "scheduler.pid") } unless exists?(:scheduler_pid)
       desc "Restart all workers"
       task :restart, :roles => :app do
         run <<-CMD
           if [ -f '#{pool_pid}' ];then
             kill -QUIT `cat #{pool_pid}`;
           fi;
+          if [ -f '#{scheduler_pid}' ];then
+            kill -QUIT `cat #{scheduler_pid}`;
+          fi;
+        CMD
+        sleep 3
+        run <<-CMD
           cd #{current_path} && RAILS_ENV=production bundle exec resque-pool -p #{pool_pid} -c config/pool.yml --daemon
+          cd #{current_path} && RAILS_ENV=production bundle exec rake resque:scheduler PIDFILE=#{scheduler_pid} BACKGROUND=yes
         CMD
         #run "cd #{current_path} && RAILS_ENV=production bundle exec resque-pool -p #{pool_pid} --daemon"
       end  

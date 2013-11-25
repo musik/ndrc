@@ -32,7 +32,7 @@ Capistrano::Configuration.instance.load do
   namespace :nginx do
     task :restart2, :roles => :app , :except => { :no_release => true } do
       set :user,'root'
-      run "service nginx restart"
+      run "service nginx reload"
     end
   end
   namespace :ss do

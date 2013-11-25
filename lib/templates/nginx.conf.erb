@@ -53,9 +53,6 @@
         break;
         <% end %>
       }
-      location ~ ^/(categories|topics|mai)/ {
-           return 410;
-      }
       location ~ ^/(images|javascripts|stylesheets|system)/ {
         root <%deploy_to%>/current/public;
         expires max;

@@ -1,6 +1,7 @@
 # RailsAdmin config file. Generated on October 12, 2012 04:53
 # See github.com/sferik/rails_admin for more informations
 
+ENV['SKIP_RAILS_ADMIN_INITIALIZER'] = 'true'
 RailsAdmin.config do |config|
 
 
