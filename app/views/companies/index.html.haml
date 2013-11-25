@@ -8,8 +8,10 @@ var sogou_ad_width=500;
 </script>
 <script language='JavaScript' type='text/javascript' src='http://images.sohu.com/cs/jsfile/js/c.js'></script>
 
-= paginate(@companies,:window=>10)
 %ul.comlist
   -@companies.each do |c|
     %li=link_to c.name,company_link(c)
-
+.clearfix
+%hr
+%p
+  =link_to "更多",recent_companies_url

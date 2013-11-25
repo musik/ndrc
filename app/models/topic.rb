@@ -8,7 +8,7 @@ class Topic < ActiveRecord::Base
   before_create :ensure_uniq
 
   scope :published,where(:published=>true)
-  scope :recent,order("id asc")
+  scope :recent,order("id desc")
   @queue = 'topic'
   #include ResqueEx
   define_index do

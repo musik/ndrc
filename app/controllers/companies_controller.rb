@@ -9,10 +9,16 @@ class CompaniesController < ApplicationController
   # GET /companies.json
   def index
     #@companies = Company.recent.includes(:text).page(params[:page] || 1).per(120)
-    @companies = Company.recent.page(params[:page] || 1).per(120)
+    @companies = Company.recent.limit(100)
     @hide_recent = true
    @title = "企业名录"
    breadcrumbs.add @title,companies_url,:rel=>"nofollow"
+   breadcrumbs.add "第#{params[:page]}页",nil  if params[:page]
+  end
+  def recent
+    @companies = Company.recent.page(params[:page]).per(120)
+   breadcrumbs.add "企业名录",companies_url,:rel=>"nofollow"
+   breadcrumbs.add "最新注册"
    breadcrumbs.add "第#{params[:page]}页",nil  if params[:page]
   end
   def city

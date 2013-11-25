@@ -68,9 +68,14 @@ class TopicsController < ApplicationController
                 :order => "@relevance DESC",
                 :per_page => 100
                 )
+    breadcrumbs.add "热门关键词",zeig_url
+    breadcrumbs.add @category.name
   end
 
   def recent
+    breadcrumbs.add "热门关键词",zeig_url
+    breadcrumbs.add "最新搜索",nil
+    @topics = Topic.published.recent.limit(100)
   end
 
   def hot

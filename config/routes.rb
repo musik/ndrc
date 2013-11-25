@@ -21,7 +21,9 @@ Hy::Application.routes.draw do
 
   get "status"=>'home#status'
 
-  resources :companies,:path=>"qiye",:except=>[:show]
+  resources :companies,:path=>"qiye",:except=>[:show] do
+    get :recent,on: :collection
+  end
 
   get "fenlei" => "category#index"
   get "category/popular"
