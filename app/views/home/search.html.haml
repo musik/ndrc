@@ -5,8 +5,8 @@
 -@hide_recent = true
 -@hide_ad = true if @companies.total_entries == 0
 -if @provinces.present?
-  .links
-    %h4 分省浏览
+  %h4 分省浏览
+  %p.links
     -@provinces.each do |p|
       =link_to "#{p.name} (#{p.companies_count})",{q: params[:q],l: p.short_name}
 -#-@facets.each do |facet, facet_options| 
