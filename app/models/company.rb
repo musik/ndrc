@@ -114,6 +114,7 @@ class Company < ActiveRecord::Base
       end
     end
     def import_data data
+      return if data.nil?
       #return if where(ali_url: data[:ali_url]).exists?
       metas = data.delete :metas
       {fuwu: "主营产品或服务",hangye: "主营行业"}.each do |k,v|

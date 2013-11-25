@@ -3,7 +3,7 @@ require 'spec_helper'
 
 describe Bot1688::Company do
   it "should fetch details" do
-    #slugs = Bot1688::Company.search("天狗IT商城").slugs
+    #slugs = Bot1688::Company.search("铝合金背篓").slugs
     #slugs[0,20].each do |s|
       #Bot1688::Company.new(s).details
     #end
