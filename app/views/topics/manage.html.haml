@@ -3,7 +3,7 @@
   -#%lable{for: :published} Status
   =select_tag "published",options_for_select({Published: 1,Unpublished: 0, Hidden: -1},params[:published]),class: "input-medium",prompt: "Status"
   -#%lable{for: :length} Length
-  =select_tag "length",options_for_select(1..60,params[:length]),class: "input-mini",prompt: "Length"
+  =select_tag "length",options_for_select(1..30,params[:length]),class: "input-mini",prompt: "Length"
   %lable{for: :start} Start
   =text_field_tag "start",params[:start],class: "input-small"
   %lable{for: :end} End

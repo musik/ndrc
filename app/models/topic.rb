@@ -57,7 +57,8 @@ class Topic < ActiveRecord::Base
       str.gsub(/[·． \\” “"。]/,'').gsub(/[，、]/,';').split(";").uniq.compact.each do |s|
         next if s.blank?
         next if s.count(".") > 1
-        next if %(* . \ / ! @ # $ % ^ & ( ) ×).include?(s[-1])
+        next if s.bytesize > 30
+        next if %(* . \ / ! @ ？ ? # $ % ^ & ( ) ×).include?(s[-1])
         next if s.match(/^[0-9\.\#\%]+$/).present?
         next if s.match(/^各类|各种|其他|其它/).present?
         #Topic.where(name: s).first_or_create

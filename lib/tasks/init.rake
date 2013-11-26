@@ -10,4 +10,8 @@ namespace :init do
       r.import_companies
     end
   end
+  desc "delete topics bytesize > 30"
+  task :limit_topic_namesize => :environment do
+    Topic.where("LENGTH(name) > 30").delete_all
+  end
 end
