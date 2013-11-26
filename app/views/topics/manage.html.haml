@@ -1,4 +1,19 @@
 -title "Topics"
+=form_tag "/topics/manage",method: :get,class: "form-inline" do
+  -#%lable{for: :published} Status
+  =select_tag "published",options_for_select({Published: 1,Unpublished: 0, Hidden: -1},params[:published]),class: "input-medium",prompt: "Status"
+  -#%lable{for: :length} Length
+  =select_tag "length",options_for_select(1..60,params[:length]),class: "input-mini",prompt: "Length"
+  %lable{for: :start} Start
+  =text_field_tag "start",params[:start],class: "input-small"
+  %lable{for: :end} End
+  =text_field_tag "end",params[:end],class: "input-small"
+  %lable{for: :special} Special
+  =text_field_tag "special",params[:special],class: "input-small"
+
+  %button.btn 筛选
+
+
 %p.links
   =link_to "All"
   =link_to "Unpublished",published: 0
