@@ -7,6 +7,8 @@ class TopicsController < ApplicationController
     @topics = @topics.where(published: false) if  params[:published] == "-1"
     @topics = @topics.where(published: true) if  params[:published] == "1"
     @topics = @topics.where("name like ?","%#{params[:special]}%") if params[:special].present?
+    @topics = @topics.where("name like ?","%#{params[:end]}") if params[:end].present?
+    @topics = @topics.where("name like ?","#{params[:start]}%") if params[:start].present?
   end
   def save
     authorize! :manage,Topic
