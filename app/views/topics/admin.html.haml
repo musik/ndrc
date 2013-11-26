@@ -14,7 +14,7 @@
         -@topics.each do |t|
           %li 
             =check_box_tag "topics[]",t.id,t.published?
-            =link_to t.name.truncate(13),t
+            =link_to t.name.truncate(13),t,title: t.name
         .clearfix
 
       .actions
