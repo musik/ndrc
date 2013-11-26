@@ -14,7 +14,12 @@ Hy::Application.routes.draw do
   #match 'zeig'=>'topics#zeig',:as=>'zeig'
   get "tc-:id" => "topics#category"
   match 'entry/:id'=>'entries#show',:as=>'entry'
-  match ':controller(/:action)', :controller => /topics|entries/
+  #match ':controller(/:action)', :controller => /topics|entries/
+  resources :topics,:path=>"topics",:except=>[:show] do
+    get :manage,on: :collection
+    get :recent,on: :collection
+    post :save,on: :collection
+  end
 
   resources :snips
   #wash_out :ws

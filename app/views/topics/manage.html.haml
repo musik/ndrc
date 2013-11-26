@@ -8,7 +8,8 @@
   -'。.“”"'.split("").each do |r|
     =link_to r,special: r
 -if @topics.present?
-  %form{method: 'POST',action: "/topics/save"}
+  -#%form{method: 'POST',action: "/topics/save"}
+  =form_tag "/topics/save" do
     %fieldset
       %ul.topics
         -@topics.each do |t|
