@@ -5,6 +5,7 @@ class TopicsController < ApplicationController
     @topics = Topic.page(params[:page]).per(500)
     @topics = @topics.where(published: nil) if  params[:published] == "0"
     @topics = @topics.where(published: false) if  params[:published] == "-1"
+    @topics = @topics.where(published: true) if  params[:published] == "1"
     @topics = @topics.where("name like ?","%#{params[:special]}%") if params[:special].present?
   end
   def save

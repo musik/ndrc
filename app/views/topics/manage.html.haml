@@ -6,7 +6,9 @@
   %br
   Special:
   -'。.“”"'.split("").each do |r|
-    =link_to r,special: r
+    =link_to r,{special: r,published: 0}
+  -%w(各类 其它 其他).each do |r|
+    =link_to r,{special: r,published: 0}
 -if @topics.present?
   -#%form{method: 'POST',action: "/topics/save"}
   =form_tag "/topics/save" do
