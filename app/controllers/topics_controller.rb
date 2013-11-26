@@ -1,14 +1,14 @@
 #encoding: utf-8
 class TopicsController < ApplicationController
   def admin
-    redirect_to root_url unless current_user.try(:is_admin?)
+    (redirect_to root_url and return) unless current_user.try(:is_admin?)
     @topics = Topic.page(params[:page]).per(500)
     @topics = @topics.where(published: nil) if  params[:published] == "0"
     @topics = @topics.where(published: false) if  params[:published] == "-1"
     @topics = @topics.where("name like ?","%#{params[:special]}%") if params[:special].present?
   end
   def save
-    redirect_to root_url unless current_user.try(:is_admin?)
+    (redirect_to root_url and return) unless current_user.try(:is_admin?)
     @topics = Topic.where(id: params[:topics])
     case params[:act]
     when 'delete'
