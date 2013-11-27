@@ -23,7 +23,9 @@
   -'。.“”"'.split("").each do |r|
     =link_to r,{special: r,published: 0}
   -%w(各类 各种 其它 其他 等).each do |r|
-    =link_to r,{special: r,published: 0}
+    =link_to r,{start: r,published: 0}
+  -%w(等 类).each do |r|
+    =link_to r,{end: r,published: 0}
 -if @topics.present?
   -#%form{method: 'POST',action: "/topics/save"}
   =form_tag "/topics/save" do
