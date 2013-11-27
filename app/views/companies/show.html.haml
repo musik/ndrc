@@ -16,13 +16,16 @@
     %strong 所在地
     -@company.locs.each do |arr|
       =link_to arr[0],city_link(arr[1])
--#%strong 主营产品
--#=@company.fuwu.gsub(patt){|s|"<a href=\"/fenlei-#{rcats[s].to_params}\">#{s}</a>"}.html_safe
--#=@company.fuwu
--#%br
--#%strong 主营行业
--#=@company.hangye.gsub(patt){|s|"<a href=\"/fenlei-#{rcats[s].to_params}\">#{s}</a>"}.html_safe
--#%br
+-if @company.fuwu.present?
+  %p
+    %strong 主营产品
+    -#=@company.fuwu.gsub(patt){|s|"<a href=\"/fenlei-#{rcats[s].to_params}\">#{s}</a>"}.html_safe
+    =@company.fuwu
+-if @company.hangye.present?
+  %p
+    %strong 主营行业
+    =@company.hangye
+    -#=@company.hangye.gsub(patt){|s|"<a href=\"/fenlei-#{rcats[s].to_params}\">#{s}</a>"}.html_safe
 .entry-content
   =simple_format @company.text.body
   -#=@company.text.body.gsub(patt){|s|"<a href=\"/fenlei-#{rcats[s].to_params}\">#{s}</a>"}.html_safe
