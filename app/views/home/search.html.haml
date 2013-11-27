@@ -20,7 +20,7 @@
   %p.links
     相关搜索
     -@relates.each do |r|
-      -next if r.name == @q
+      -next if r.nil? or r.name == @q
       =link_to r.name,topic_url(r)
 = render :partial => 'companies/list',:locals=>{:results=>@companies,:q=>@q}
 .pull-right=nofollow_sub paginate(@companies)
