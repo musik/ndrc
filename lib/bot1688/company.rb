@@ -17,7 +17,11 @@ module Bot1688
       page = Anemone::HTTP.new(redirect_limit: 1).fetch_page details_url
       raise "Bot1688::Company page fetch error: #{page.url}" if !page.fetched?
       return if page.code != 200
-      @data[:name] = page.doc.at_css(".company-title span").attr("title")
+      begin
+        @data[:name] = page.doc.at_css(".company-title span").attr("title")
+      rescue 
+        @data[:name] = page.doc.at_css("title").text.gsub(/ 诚信档案/,'')
+      end
       @data[:metas] = parse_matas(page.doc)
       #Address
       unless @data[:metas].key?("实际经营地址")
