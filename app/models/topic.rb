@@ -4,7 +4,8 @@ class Topic < ActiveRecord::Base
   attr_accessible :name, :published, :slug,:companies_count,:abbr
   validates_presence_of :name
   #after_initialize :gen_slug
-  after_save :import_companies_when_publish
+  #after_save :import_companies_when_publish
+  after_create :import_companies
   before_create :ensure_uniq
 
   scope :published,where(:published=>true)

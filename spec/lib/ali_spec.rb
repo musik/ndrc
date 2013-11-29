@@ -40,7 +40,7 @@ describe Ali do
     end
   end
   it "should parse info" do
-    if 1==1
+    if 1==2
         [
           "428434350",
       "1008412155",
