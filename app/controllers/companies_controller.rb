@@ -48,6 +48,7 @@ class CompaniesController < ApplicationController
         :include=>[:text]
 
     @title = @company.name
+    @page_title = [@title,@company.hangye,@company.fuwu].compact.slice(0,2).join(":")
     breadcrumbs.add @company.name
     respond_to do |format|
       format.html # show.html.erb

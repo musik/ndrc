@@ -1,4 +1,4 @@
--title @title
+-title @page_title,@title
 -@cols = "col2r"
 -#-rcats =  Category.search_pair [@company.fuwu,@company.hangye].join(',').truncate(600)
 -#-patt = Regexp.new(rcats.keys.join("|"))
@@ -27,7 +27,12 @@
     =@company.hangye
     -#=@company.hangye.gsub(patt){|s|"<a href=\"/fenlei-#{rcats[s].to_params}\">#{s}</a>"}.html_safe
 .entry-content
-  =simple_format @company.text.body
+  -@arr = [@company.text.body[0,255],@company.text.body[255,@company.text.body.length]].compact
+  =@arr[0]
+  -if @arr[1].present?
+    -#%a{:href=>"#"} 详细
+    =js_write @arr[1]
+
   -#=@company.text.body.gsub(patt){|s|"<a href=\"/fenlei-#{rcats[s].to_params}\">#{s}</a>"}.html_safe
 -if @company.metas.present?
   %table.metas.table
