@@ -5,7 +5,8 @@
       %small
         =company_clean_col c.location
       .meta=highlight(excerpt(c.tagwords.join('/'),q,:radius=>10) || c.tagwords.join('/').truncate(50),q)
-      .summary=highlight(excerpt(c.text.body,q,:radius=>60) || c.text.body.truncate(120),q)
+      -unless c.text.body.nil?
+        .summary=highlight(excerpt(c.text.body,q,:radius=>60) || c.text.body.truncate(120),q)
       .address
         =[c.address,c.mobile,c.phone].compact.join(" / ")
 -#=debug results
