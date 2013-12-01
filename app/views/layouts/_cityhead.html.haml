@@ -10,6 +10,7 @@
           -else
             %span=t("cities.#{str}")
     .clearfix
+    -@hide_citynav = true
     -unless @hide_citynav
       .navbar
         .navbar-inner
