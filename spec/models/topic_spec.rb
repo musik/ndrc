@@ -14,5 +14,6 @@ describe Topic do
     #Topic.first.update!
     #Topic.import_from_csv
     #Topic.test_alizhishu
+    Topic.import_from_str "哈哈"
   end
 end
