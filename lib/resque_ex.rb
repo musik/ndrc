@@ -3,11 +3,11 @@ module ResqueEx
     base.extend ClassMethods
   end
   def async(method, *args)
-    Resque.enqueue(self.class, id,method, *args)
+    Resque.enqueue(self.class, method, *args)
   end
   module ClassMethods
-    def perform id,method,*args
-      find(id).send(method, *args)
+    def perform method,*args
+      new.send(method, *args)
     end
   end
 end

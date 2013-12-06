@@ -46,6 +46,7 @@ class Topic < ActiveRecord::Base
     import_companies if changes.key?("published") && changes["published"][1] == true
   end
   def import_companies
+    return if Rails.env.test?
     Company.ali_search name
     update_attribute :imported_at,Time.now
   end
@@ -54,8 +55,8 @@ class Topic < ActiveRecord::Base
     def db_init
       HyRobot::Core.new.run_topics
     end
-    def import_from_str str
-      str.gsub(/[·． \\” “"。]/,'').gsub(/[，、,]/,';').split(";").uniq.compact.each do |s|
+    def import_from_str str,publish=nil
+      str.gsub(/[·． \\” “"。]/,'').gsub(/[，、,；]/,';').split(";").uniq.compact.each do |s|
         s.strip!
         next if s.blank?
         next if s.count(".") > 1
@@ -63,8 +64,7 @@ class Topic < ActiveRecord::Base
         next if %(* ： . \ / ! @ ？ ? # $ % ^ & ( )  】 ] ） ×).include?(s[-1])
         next if s.match(/^[0-9\.\#\%]+$/).present?
         next if s.match(/^各类|各种|其他|其它/).present?
-        #Topic.where(name: s).first_or_create
-        Topic.find_or_create_by_name(s)
+        Topic.find_by_name(s) || Topic.create(name: s,published: publish)
       end
     end
     def import_from_csv
