@@ -3,6 +3,6 @@ index_delta_by_time:
   class: CustomIndexDelta
   queue: 'daemon'
 index1688:
-  cron: "27 1 * * *"
-  class: Index1688
+  cron: "17 2 * * *"
+  class: IndexJob
   queue: 'daemon'
