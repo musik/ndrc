@@ -55,7 +55,7 @@ class Topic < ActiveRecord::Base
     def db_init
       HyRobot::Core.new.run_topics
     end
-    def import_from_str str,publish=nil
+    def import_from_str str,publish=true
       str.gsub(/[·． \\” “"。]/,'').gsub(/[，、,；]/,';').split(";").uniq.compact.each do |s|
         s.strip!
         next if s.blank?

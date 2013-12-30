@@ -10,6 +10,11 @@ namespace :init do
       r.import_companies
     end
   end
+  task :publish_companies => :environment do
+    Topic.where(published: nil).find_each do |r|
+      r.update_attribute :published,true
+    end
+  end
   desc "delete topics bytesize > 30"
   task :limit_topic_namesize => :environment do
     Topic.where("LENGTH(name) > 30").delete_all
