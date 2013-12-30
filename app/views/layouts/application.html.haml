@@ -16,6 +16,7 @@
     = yield(:head)
     =render "layouts/iefix"
     = javascript_include_tag "application"
+    =render "layouts/iefixjs"
   -@body_class ||= "#{controller_name} #{action_name} #{controller_name}_#{action_name}"
   -@body_class += " nonav " if @nonav
   %body{:class=>@body_class}
@@ -56,6 +57,5 @@
           -if is_home?
             =':'
             =Snip.get('home').html_safe
-    =render "layouts/iefixjs"
     -if Rails.env.production?
       .hide= render :partial => 'layouts/ga'

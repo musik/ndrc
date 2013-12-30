@@ -1,6 +1,6 @@
 #encoding: utf-8
 class CompaniesController < ApplicationController
-  authorize_resource
+  authorize_resource :except=>%w(recent city)
   caches_action :show,:expires_in => 1.day
   caches_action :city,:expires_in => 1.hour, :cache_path => Proc.new { |c| c.params }
   caches_action :index,:expires_in => 1.day, :cache_path => Proc.new { |c| c.params }
