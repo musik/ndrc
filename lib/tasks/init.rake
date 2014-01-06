@@ -13,6 +13,7 @@ namespace :init do
   task :publish_companies => :environment do
     Topic.where(published: nil).find_each do |r|
       r.update_attribute :published,true
+      r.import_companies
     end
   end
   desc "delete topics bytesize > 30"

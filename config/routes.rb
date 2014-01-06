@@ -1,13 +1,15 @@
 class CityConstraint
   include CityHelper::ViewHelper
-  def initialize
+  def initialize k = 'city_name'
+    @k = k
   end
   def matches? request
     #Rails.logger.debug request.params
-   is_city_or_state? request.params[:city_name]
+   is_city_or_state? request.params[@k]
   end
 end
 Hy::Application.routes.draw do
+  get "/s-:location-:id" => "topics#city" ,as: 'topic_city',:constraints=>CityConstraint.new('location')
   match 's-:id'=>'topics#show',:as=>'topic'
   match 'zeig(-:c(-:page))'=>'topics#zeig',:as=>'zeig',:constraints=>{:page=>/[0-9]+/,:c=>/./}
   #match 'zeig-:c'=>'topics#zeig',:as=>'zeig'

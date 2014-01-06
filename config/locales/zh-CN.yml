@@ -24,5 +24,8 @@ zh-CN:
       description: "%{city}黄页网收录%{city}各行各业的公司企业信息,提供快捷的%{city}公司搜索服务。并面向%{city}公司企业,提供免费黄页登录、公司信息推广的服务。"
   topics:
     show:
-      title: "【%{name}】_%{name}生产厂家/供应商"
+      title: "%{name}_%{name}生产厂家/供应商"
       keywords: "%{name},%{name}生产厂家,%{name}供应商"
+      description: "<strong>%{name}</strong>企业名录，收集%{count}家%{name}相关企业，涵盖%{name}生产厂家、%{name}供应商信息。"
+      summary: "<strong>%{name}</strong>企业名录，收集%{count}家%{name}相关企业，涵盖%{name}生产厂家、%{name}供应商信息。"
+      notice: "<strong>%{name}</strong>企业名录所有信息都来自公开来源，如有涉及阁下隐私，请联系我们删除。"

@@ -52,9 +52,33 @@ class TopicsController < ApplicationController
         )
     @relates = Topic.search(@topic.name,
                             without: {id: @topic.id},
-                            match_mode: :any,per_page: 8)
+                            match_mode: :any,per_page: 30)
     breadcrumbs.add :sitemap,zeig_url
     breadcrumbs.add @topic.name,nil
+  end
+  def city
+    @topic = Topic.find_by_slug params[:id]
+    with = {}
+    @province = Province.find_by_pinyin(params[:location])
+    with[:province_id] = @province.id if @province.present?
+    @name = @province.short_name + @topic.name
+
+    @q= @topic.name
+    @companies =  Company.search(
+        @topic.name,
+        with: with,
+        :page=>params[:page],
+        :include=>[:text],
+        :sort_mode => :extended,
+        :order => "@relevance DESC",
+        :per_page => 10
+        )
+    @relates = Topic.search(@topic.name,
+                            without: {id: @topic.id},
+                            match_mode: :any,per_page: 30)
+    breadcrumbs.add :sitemap,zeig_url
+    breadcrumbs.add @topic.name,topic_url(@topic.slug)
+    breadcrumbs.add @province.name
   end
 
   def zeig

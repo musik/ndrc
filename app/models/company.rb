@@ -2,7 +2,7 @@
 class Company < ActiveRecord::Base
     include CityHelper::ViewHelper
   attr_accessible :ali_url, :fuwu, :hangye, :location, :name , :text_attributes , :metas_attributes,:province_id,:city_id,:district_id,
-    :contact,:address,:phone,:mobile
+    :contact,:address,:phone,:mobile, :companies_count
   validates_uniqueness_of :ali_url
   has_one :text , :dependent => :destroy , :class_name => "CompanyText"
   has_many :metas , :dependent => :destroy , :class_name => "CompanyMeta"
@@ -69,6 +69,14 @@ class Company < ActiveRecord::Base
     match = str.match(patts)
     return nil if match.nil?
     hash.key(match.to_s)
+  end
+  def self.province_facets q
+    @province_counts = Company.facets(q,facets: :province_id)[:province_id]
+    @provinces = Province.where(id: @province_counts.keys)
+    @provinces.collect! do |r|
+      [r,@province_counts[r.id]]
+    end
+    Hash[@provinces.sort{|a,b| b[1] <=> a[1]}]
   end
   
   class << self

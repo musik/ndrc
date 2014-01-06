@@ -1,20 +1,20 @@
--title t(".title",:name=>@topic.name),@topic.name
--meta :keywords,t(".keywords",:name=>@topic.name)
--meta :description,t("topics.show.description",:name=>@topic.name,count: @companies.total_entries)
+-title t("topics.show.title",:name=>@name),@name
+-meta :keywords,t("topics.show.keywords",:name=>@name)
+-meta :description,t("topics.show.description",:name=>@name,count: @companies.total_entries)
 -meta :robots,"noindex" if @companies.total_entries == 0
 -@cols = :col2r
 -@hide_recent = true
 -@hide_ad = true if @companies.total_entries == 0
 
 
-%p.description=t('.summary',:name=>@topic.name,:count=>@companies.total_entries).html_safe
+%p.description=t('topics.show.summary',:name=>@name,:count=>@companies.total_entries).html_safe
 %p.stats
   ="找到#{@companies.total_entries}项结果,耗时(#{@companies.query_time * 1000}毫秒)"
 = render :partial => 'companies/list',:locals=>{:results=>@companies,:q=>@q}
 .pull-right=nofollow_sub paginate(@companies,window: 5)
 -#.pull-right=xpaginate(@companies,theme: "etao",window: 10)
 .clearfix
-%p.description=t('.notice',:name=>@topic.name,:count=>@companies.total_entries).html_safe
+%p.description=t('topics.show.notice',:name=>@name,:count=>@companies.total_entries).html_safe
 -content_for :sidebar do
   -@provinces = Company.province_facets(@topic.name)
   -if @provinces.present?
