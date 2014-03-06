@@ -14,6 +14,9 @@ zh-CN:
     city:
       title: "%{city}%{name}厂家_%{city}%{name}黄页"
   home:
+    welcome:
+      keywords: 企业搜索,企业搜,企业名录,企业名录搜索,企业黄页,公司黄页,黄页大全
+      description: "企业搜索网收录各行各业的公司企业信息，提供快捷的企业搜索服务。并面向公司企业，提供免费黄页登录、信息发布、企业推广等服务。"
     index:
       title: "NDRC"
       keywords: "公司大全,企业名录,免费黄页"

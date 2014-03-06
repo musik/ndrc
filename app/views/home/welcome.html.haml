@@ -2,7 +2,9 @@
 -@nonav = true
 -@hide_search = true
 -@hide_cities = true
--title "企业搜索——企业名录搜索"
+-title "企业搜索——企业名录搜索/查询,产品供求信息发布,企业宣传推广"
+-meta :description,t('.description')
+-meta :keywords,t('.keywords')
 -@title_suffix = ""
 .welcome
   .container
@@ -20,3 +22,5 @@
       %p.stats
         收录企业: #{Company.search_count}
         今日新增: #{Company.where("created_at > ?",1.day.ago).count}
+      %p.description
+        =@meta[:description]
