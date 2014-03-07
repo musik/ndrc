@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131124155440) do
+ActiveRecord::Schema.define(:version => 20140307080023) do
 
   create_table "categories", :force => true do |t|
     t.string  "name"
@@ -61,6 +61,8 @@ ActiveRecord::Schema.define(:version => 20131124155440) do
     t.string   "address",       :limit => 120
     t.string   "phone",         :limit => 30
     t.string   "mobile",        :limit => 30
+    t.string   "short"
+    t.string   "logo"
   end
 
   add_index "companies", ["ali_url"], :name => "index_companies_on_ali_url"

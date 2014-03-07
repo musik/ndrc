@@ -3,7 +3,7 @@
 -#-rcats =  Category.search_pair [@company.fuwu,@company.hangye].join(',').truncate(600)
 -#-patt = Regexp.new(rcats.keys.join("|"))
 .contact
-  %h2 #{@company.short}联系信息
+  %h2 #{@company.short_name}联系信息
   -if @company.province.present?
     %p
       %strong 所在:
@@ -32,7 +32,7 @@
     =@company.hangye
     -#=@company.hangye.gsub(patt){|s|"<a href=\"/fenlei-#{rcats[s].to_params}\">#{s}</a>"}.html_safe
 -if @company.text.body.present?
-  %h2 #{@company.short}简介
+  %h2 #{@company.short_name}简介
   .entry-content
     =js_write @company.text.body
   -#-@arr = [@company.text.body[0,255],@company.text.body[255,@company.text.body.length]].compact
@@ -43,7 +43,7 @@
 
   -#=@company.text.body.gsub(patt){|s|"<a href=\"/fenlei-#{rcats[s].to_params}\">#{s}</a>"}.html_safe
 -if @company.metas.present?
-  %h2 #{@company.short}注册信息
+  %h2 #{@company.short_name}注册信息
   %table.metas.table
     -@company.metas.sort{|a,b| a.mkey.length<=>b.mkey.length}.each do |m|
       -next if m.mval.blank?
@@ -51,9 +51,9 @@
         %th=m.mkey
         %td=m.mval.sub(/\[已认证\]/,'')
 
-= render :partial => 'topics/relates',:locals=>{q: @company.fuwu,limit: 20,title: "#{@company.short}相关搜索"}
+= render :partial => 'topics/relates',:locals=>{q: @company.fuwu,limit: 20,title: "#{@company.short_name}相关搜索"}
 -if @related.present?      
-  %h2 #{@company.short}相关企业
+  %h2 #{@company.short_name}相关企业
   %ul.unstyled
     -@related.each do |c|
       %li

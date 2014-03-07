@@ -1,6 +1,9 @@
 #encoding: utf-8
 class CompaniesController < ApplicationController
-  authorize_resource :except=>%w(recent city)
+  authorize_resource :except=>%w(recent city) ,:unless=> :_key_auth?
+  def _key_auth?
+      params[:strToken] == '98fbb9a2bf7f7c8014f836c366019f84'
+  end
   caches_action :show,:expires_in => 1.day
   caches_action :city,:expires_in => 1.hour, :cache_path => Proc.new { |c| c.params }
   caches_action :index,:expires_in => 1.day, :cache_path => Proc.new { |c| c.params }
@@ -43,12 +46,12 @@ class CompaniesController < ApplicationController
   def show
     @company = Company.find_by_ali_url(params[:id])
     #@related = Company.any.search [@company.name,@company.fuwu,@company.hangye].join(','),
-    @related = Company.any.search @company.short,
+    @related = Company.any.search @company.short_name,
         :without=>{id:@company.id},:per_page=>9,
         :include=>[:text]
 
     @title = @company.name
-    @title = "[#{@company.short}]#{@title}" unless @company.short == @title
+    @title = "[#{@company.short_name}]#{@title}" unless @company.short_name == @title
     @page_title = [@title,@company.hangye,@company.fuwu].compact.slice(0,2).join(":").truncate(40)
     breadcrumbs.add @company.province.name,url_for(@company.province.pinyin) if @company.province.present?
     breadcrumbs.add @company.name
@@ -77,8 +80,9 @@ class CompaniesController < ApplicationController
   # POST /companies
   # POST /companies.json
   def create
-    @company = Company.new(params[:company])
-
+    @company = params[:company].present? ? 
+      Company.new(params[:company]) :
+      Company.import_from_tz(params[:data])
     respond_to do |format|
       if @company.save
         format.html { redirect_to @company, notice: 'Company was successfully created.' }

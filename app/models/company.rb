@@ -2,8 +2,10 @@
 class Company < ActiveRecord::Base
     include CityHelper::ViewHelper
   attr_accessible :ali_url, :fuwu, :hangye, :location, :name , :text_attributes , :metas_attributes,:province_id,:city_id,:district_id,
-    :contact,:address,:phone,:mobile, :companies_count
+    :contact,:address,:phone,:mobile, :companies_count,
+    :short,:logo
   validates_uniqueness_of :ali_url
+  validates_presence_of :name
   has_one :text , :dependent => :destroy , :class_name => "CompanyText"
   has_many :metas , :dependent => :destroy , :class_name => "CompanyMeta"
   accepts_nested_attributes_for :text,:metas
@@ -17,7 +19,8 @@ class Company < ActiveRecord::Base
   def to_params
     ali_url
   end
-  def short
+  def short_name
+    return short if short.present?
     return @short if @short.present?
     @short = name.gsub(/有限责任公司|有限公司/,'')
     @short = @short.gsub(/厂|门市部$/,'')
@@ -152,5 +155,40 @@ class Company < ActiveRecord::Base
       e.save
       Topic.import_from_str [e.fuwu,e.hangye].join(";")
     end
+  end
+  def self.import_from_tz data
+    ali_url = "sm" + data.delete('cpID')
+    e = where(ali_url: ali_url).first
+    return e if e.present?
+    r = {ali_url: ali_url}
+    attr_map = {
+      fuwu: "cpMasterProduct",
+      hangye: "B2BIndustryName",
+      location: "B2BAreaNamePlace",
+      phone: "cpTel",
+      short: "cpShortName"
+    }
+    attr_map.each do |k,v|
+      r[k] = data.delete(v) if data.has_key?(v)
+    end
+    attribute_names.each do |k|
+      tk = "cp" + k.camelize
+      if data.has_key?(tk)
+        r[k] = data.delete(tk)
+      end
+    end
+    r[:text_attributes] = {:body=>data.delete("cpAbout")}
+    meta_map = {
+      'cpMember'=> "联系人",
+      'cpSite'=> "官方网站",
+    }
+    metas_attributes = []
+    meta_map.each do |dk,k|
+      metas_attributes << {:mkey=>k,:mval=>data.delete(dk)}  if data[dk].present?
+    end
+    r[:metas_attributes] = metas_attributes
+    r = new(r)
+    r.auto_province
+    r
   end
 end
