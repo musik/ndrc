@@ -43,12 +43,14 @@ class CompaniesController < ApplicationController
   def show
     @company = Company.find_by_ali_url(params[:id])
     #@related = Company.any.search [@company.name,@company.fuwu,@company.hangye].join(','),
-    @related = Company.any.search @company.name,
+    @related = Company.any.search @company.short,
         :without=>{id:@company.id},:per_page=>9,
         :include=>[:text]
 
     @title = @company.name
-    @page_title = [@title,@company.hangye,@company.fuwu].compact.slice(0,2).join(":").truncate(30)
+    @title = "[#{@company.short}]#{@title}" unless @company.short == @title
+    @page_title = [@title,@company.hangye,@company.fuwu].compact.slice(0,2).join(":").truncate(40)
+    breadcrumbs.add @company.province.name,url_for(@company.province.pinyin) if @company.province.present?
     breadcrumbs.add @company.name
     respond_to do |format|
       format.html # show.html.erb

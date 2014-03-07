@@ -1,8 +1,9 @@
 -limit ||= 8
+-title ||= "相关搜索"
 -relates = Topic.search(q,match_mode: :any,per_page: limit)
 -if relates.present? && relates.size > 1
   %p.links
-    相关搜索
+    %strong=title
     -relates.each do |r|
       -next if r.nil? or r.name == q
       =link_to r.name,topic_url(r)

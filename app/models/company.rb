@@ -11,9 +11,21 @@ class Company < ActiveRecord::Base
   has_many :entries
 
   scope :recent,order("id desc")
+  belongs_to :city
+  belongs_to :province
 
   def to_params
     ali_url
+  end
+  def short
+    return @short if @short.present?
+    @short = name.gsub(/有限责任公司|有限公司/,'')
+    @short = @short.gsub(/厂|门市部$/,'')
+    if(city.present?)
+      @short.gsub!(/^#{city.name}|#{city.short_name}/,'')
+    end
+    @short.gsub!(/^..市/,'')
+    @short
   end
   define_index do
     indexes :name,:fuwu,:hangye,:location,:address
