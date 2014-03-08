@@ -8,7 +8,7 @@
     %title
       -#=content_for?(:title) ? [yield(:title),'(NDRC)'].join('') : t('appname')
       -if content_for?(:title)
-        =[yield(:title),@title_suffix || "(企业搜索)"].join()
+        =[yield(:title),@title_suffix || "(企业搜索)"].join().html_safe
       -else
         =t('appname')
     = stylesheet_link_tag    "application", :media => "all"
@@ -50,7 +50,7 @@
         -#=link_to "分类","/fenlei"
         -#=link_to "企业","/qiye"
         =link_to "网站地图","/zeig"
-        =link_to "最新注册","/qiye/recent"
+        =link_to "最新索引","/qiye/recent"
         =link_to "最新搜索","/topics/recent"
         #links
           =link_to "友情链接",'/links'

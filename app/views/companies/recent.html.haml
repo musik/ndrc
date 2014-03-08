@@ -1,7 +1,8 @@
--title "最新注册"
+-title "最新索引"
 -@cols="col1"
 %ul.comlist
   -@companies.each do |c|
+    -next if c.nil?
     %li=link_to c.name.truncate(18),company_link(c)
 .clearfix
 = xpaginate(@companies,:theme=>"etao",:window=>100)

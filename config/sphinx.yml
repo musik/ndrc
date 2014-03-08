@@ -1,6 +1,6 @@
 development:
   bin_path: /usr/local/coreseek/bin
-  #max_children: 1
+  max_children: 1
   mem_limit: 128M
   charset_type: zh_cn.utf-8
   charset_dictpath: /usr/local/mmseg3/etc/

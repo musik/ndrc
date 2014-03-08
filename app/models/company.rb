@@ -70,15 +70,16 @@ class Company < ActiveRecord::Base
   end
   def auto_province
     return if location.nil? && address.nil?
-    str = address || location
+    str = location || address
     pid = _detect_id(str,Province.cached_all)
     return nil if pid.nil?
     self.province_id = pid
-    cid = _detect_id(str,City.where(province_id: pid).all)
+    cid = _detect_id("#{location},#{address}",City.where(province_id: pid).all)
     self.city_id = cid unless cid.nil?
   end
   async_method :detect_locations
   def _detect_id str,results
+    return nil if results.empty?
     hash = Hash[results.collect{|r| [r.id,r.short_name]}]
     patts = Regexp.new(hash.values.join('|'))
     match = str.match(patts)
@@ -166,7 +167,8 @@ class Company < ActiveRecord::Base
       hangye: "B2BIndustryName",
       location: "B2BAreaNamePlace",
       phone: "cpTel",
-      short: "cpShortName"
+      short: "cpShortName",
+      contact: "cpMember"
     }
     attr_map.each do |k,v|
       r[k] = data.delete(v) if data.has_key?(v)
@@ -179,7 +181,6 @@ class Company < ActiveRecord::Base
     end
     r[:text_attributes] = {:body=>data.delete("cpAbout")}
     meta_map = {
-      'cpMember'=> "联系人",
       'cpSite'=> "官方网站",
     }
     metas_attributes = []

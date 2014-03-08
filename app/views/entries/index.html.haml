@@ -1,2 +1,17 @@
-%h1 Entries#index
-%p Find me in app/views/entries/index.html.haml
+-title "供应信息"
+-@cols = "col2r"
+-manage = can? :manage,Entry
+.items
+  - @entries.each do |entry|
+    .item
+      %h3= link_to entry.title, entry
+      %p=clean_excerpt(entry.text.body).truncate(120)
+      -if manage
+        %p
+          = link_to 'Edit', edit_entry_path(entry)
+          = link_to 'Destroy', entry, :method => :delete, :data => { :confirm => 'Are you sure?' }
+
+%br
+
+-if can? :new,Entry
+  = link_to 'New Entry', new_entry_path

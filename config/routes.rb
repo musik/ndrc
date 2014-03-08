@@ -15,7 +15,7 @@ Hy::Application.routes.draw do
   #match 'zeig-:c'=>'topics#zeig',:as=>'zeig'
   #match 'zeig'=>'topics#zeig',:as=>'zeig'
   get "tc-:id" => "topics#category"
-  #resources :entries
+  resources :entries,:path=>"sell"
   #match 'entry/:id'=>'entries#show',:as=>'entry'
 
   #match ':controller(/:action)', :controller => /topics|entries/

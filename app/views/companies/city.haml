@@ -3,6 +3,7 @@
 -params.delete :l
 = xpaginate(@companies,:window=>50)
 -@companies.each do |c|
+  -next if c.nil?
   .company
     %strong.fn=link_to c.name,company_link(c)
     %small

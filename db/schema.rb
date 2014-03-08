@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140307080023) do
+ActiveRecord::Schema.define(:version => 20140308064339) do
 
   create_table "categories", :force => true do |t|
     t.string  "name"
@@ -116,14 +116,22 @@ ActiveRecord::Schema.define(:version => 20140307080023) do
   create_table "entries", :force => true do |t|
     t.string   "title"
     t.decimal  "price",         :precision => 10, :scale => 2
-    t.integer  "ali_id"
+    t.string   "ali_url"
     t.integer  "company_id"
     t.string   "location_name"
     t.datetime "created_at",                                   :null => false
     t.datetime "updated_at",                                   :null => false
+    t.integer  "kind"
+    t.string   "keywords"
+    t.string   "photo"
+    t.string   "hangye"
+    t.string   "pinpai"
+    t.integer  "district_id"
+    t.integer  "city_id"
+    t.integer  "province_id"
   end
 
-  add_index "entries", ["ali_id"], :name => "index_entries_on_ali_id"
+  add_index "entries", ["ali_url"], :name => "index_entries_on_ali_url"
   add_index "entries", ["company_id"], :name => "index_entries_on_company_id"
 
   create_table "entry_meta", :force => true do |t|

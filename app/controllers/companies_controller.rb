@@ -1,9 +1,6 @@
 #encoding: utf-8
 class CompaniesController < ApplicationController
   authorize_resource :except=>%w(recent city) ,:unless=> :_key_auth?
-  def _key_auth?
-      params[:strToken] == '98fbb9a2bf7f7c8014f836c366019f84'
-  end
   caches_action :show,:expires_in => 1.day
   caches_action :city,:expires_in => 1.hour, :cache_path => Proc.new { |c| c.params }
   caches_action :index,:expires_in => 1.day, :cache_path => Proc.new { |c| c.params }

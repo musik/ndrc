@@ -8,6 +8,7 @@
     %p
       %strong 所在:
       =link_to @company.province.name,url_for(@company.province.pinyin)
+      =link_to @company.city.name,url_for(@company.city.pinyin)
   -elsif @company.locs.present?    
     .location
       %strong 所在地

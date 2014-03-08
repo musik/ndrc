@@ -26,4 +26,7 @@ class ApplicationController < ActionController::Base
       breadcrumbs.add @city_title,city_link(@city_name),:rel=>"nofollow" if @city_name
     end
   end
+  def _key_auth?
+      params[:strToken] == '98fbb9a2bf7f7c8014f836c366019f84'
+  end
 end

@@ -1,4 +1,44 @@
--title @entry.title
+-title "#{@entry.title}_#{@entry.hangye} < #{@entry.company_name}",@entry.title,false
+-meta :keywords,@entry.keywords
+-@cols = "col2r"
+%h1.entry-title=@entry.title
+.entry
+  .pull-left
+    =image_tag @entry.photo,class: "photo img-rounded",width: 300,height: 200
+  .details
+    %ul.attrs
+      %li
+        %strong 价格
+        =@entry.price || "--"
+      %li
+        %strong 公司
+        =link_to @entry.company.name,company_link(@entry.company)
+      %li
+        %strong 所在
+        -if @entry.province.present? or @entry.city.present?
+          =link_to @entry.province.name,url_for("/"+@entry.province.pinyin)
+          =link_to @entry.city.name,url_for("/"+@entry.city.pinyin)
+        -else
+          \--
+      %li
+        %strong 行业
+        =@entry.hangye || "--"
+      %li
+        %strong 品牌
+        =@entry.pinpai || "--"
 
+= render :partial => 'topics/relates',:locals=>{q: @entry.q,limit: 15,title: "相关搜索"}
 .entry-content
-  =@entry.text.body.html_safe
+  -#=@entry.text.body.gsub(/\\n|\\t/,'').html_safe
+  -#=simple_format(@entry.text.body.gsub(/\\n|\\t/,'').truncate(255))
+  -text = clean_body(@entry.text.body)
+  -@arr = [text[0,255],text[255,text.length]].compact
+  =simple_format @arr[0]
+  -if @arr[1].present?
+    =js_write simple_format(@arr[1])
+
+
+-if can? :edit,@entry
+  = link_to 'Edit', edit_entry_path(@entry)
+  \|
+= link_to 'Back', entries_path
