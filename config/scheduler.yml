@@ -2,7 +2,7 @@ index_delta_by_time:
   cron: "17 * * * *"
   class: CustomIndexDelta
   queue: 'daemon'
-index1688:
-  cron: "17 2 * * *"
-  class: IndexJob
-  queue: 'daemon'
+#index1688:
+  #cron: "17 2 * * *"
+  #class: IndexJob
+  #queue: 'daemon'

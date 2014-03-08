@@ -56,6 +56,7 @@
   %h2 #{@company.short_name}相关企业
   %ul.unstyled
     -@related.each do |c|
+      -next if c.nil?
       %li
         =link_to c.name,company_link(c)
         %br

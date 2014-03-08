@@ -24,3 +24,6 @@
         今日新增: #{Company.where("created_at > ?",1.day.ago).count}
       %p.description
         =@meta[:description]
+    %h2 最新收录  
+    = render :partial => 'companies/recent',:locals=>{:limit=>30}
+    .clearfix

@@ -56,7 +56,7 @@ module LayoutHelper
     </script>".html_safe
   end
   def js_write text
-    text = text.split("\r").collect{|str|
+    text = text.split(/[\r\n]/).collect{|str|
       "document.write('#{str}<br />');"
     }.join("\r")
     "<script type='text/javascript'>
