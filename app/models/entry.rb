@@ -9,6 +9,7 @@ class Entry < ActiveRecord::Base
   has_many :metas , :dependent => :destroy , :class_name => "EntryMeta"
   accepts_nested_attributes_for :text,:metas
   validates_presence_of :title
+  scope :recent,order("id desc")
 
   belongs_to :city
   belongs_to :province

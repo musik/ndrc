@@ -25,3 +25,11 @@
       -@recent.each do |c|
         %li=link_to c.name,company_link(c)
 
+-unless @hide_recent_entries
+  -limit=15
+  -cache ["sidebar_recent_entries",limit],:expires_in=>1.minutes do
+    -@recent = Entry.recent.limit(limit)
+    %tt 最新信息
+    %ul.unstyled
+      -@recent.each do |e|
+        %li=link_to e.title.truncate(20),e,title: e.title
