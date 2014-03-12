@@ -45,7 +45,7 @@ class EntriesController < ApplicationController
   def create
     @entry = params[:entry].present? ? 
       Entry.new(params[:entry]) :
-      Entry.build_from_tz(params[:data])
+      Entry.build_from_tz(params[:data],true)
 
     respond_to do |format|
       if @entry.save
