@@ -3,7 +3,7 @@ class Entry < ActiveRecord::Base
   belongs_to :company,:counter_cache=>true
   attr_accessible :location_name, :price, :title, :company_id, :ali_id, :metas_attributes, :text_attributes,
     :ali_url,:kind,:keywords,:photo,:hangye,:pinpai,:district_id,
-    :city_id,:province_id
+    :city_id,:province_id,:description
 
   has_one :text , :dependent => :destroy , :class_name => "EntryText"
   has_many :metas , :dependent => :destroy , :class_name => "EntryMeta"
@@ -13,6 +13,14 @@ class Entry < ActiveRecord::Base
 
   belongs_to :city
   belongs_to :province
+  before_save :gen_description
+
+  def gen_description
+    return if self[:decription].present? 
+    self[:description] = ActionController::Base.helpers.strip_tags(text.body)
+    self[:description].gsub!(/\n|\t|&nbsp;|\\n|\\t/,'')
+    self[:description].gsub!(/\s/,'')
+  end
   @queue = "entry"
   include ResqueEx
   define_index do
@@ -81,6 +89,11 @@ class Entry < ActiveRecord::Base
       #pp data
       r.price = nil  if r.price.zero?
       r
+    end
+  end
+  def self.update_all_description
+    where(description: nil).includes(:text).find_each do |r|
+      r.save
     end
   end
 end

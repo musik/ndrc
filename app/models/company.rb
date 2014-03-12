@@ -3,7 +3,7 @@ class Company < ActiveRecord::Base
     include CityHelper::ViewHelper
   attr_accessible :ali_url, :fuwu, :hangye, :location, :name , :text_attributes , :metas_attributes,:province_id,:city_id,:district_id,
     :contact,:address,:phone,:mobile, :companies_count,
-    :short,:logo
+    :short,:logo,:description
   validates_uniqueness_of :ali_url
   validates_presence_of :name
   has_one :text , :dependent => :destroy , :class_name => "CompanyText"
@@ -15,6 +15,15 @@ class Company < ActiveRecord::Base
   scope :recent,order("id desc")
   belongs_to :city
   belongs_to :province
+
+  before_save :gen_description
+
+  def gen_description
+    return if self[:decription].present? 
+    self[:description] = ActionController::Base.helpers.strip_tags(text.body)
+    self[:description].gsub!(/\n|\t|&nbsp;|\\n|\\t/,'')
+    self[:description].gsub!(/\s/,'')
+  end
 
   def to_params
     ali_url
@@ -94,6 +103,7 @@ class Company < ActiveRecord::Base
     end
     Hash[@provinces.sort{|a,b| b[1] <=> a[1]}]
   end
+  
   
   class << self
     def detect_all_locations
@@ -224,6 +234,11 @@ class Company < ActiveRecord::Base
       r.auto_province
       r.save
       r
+    end
+  end
+  def self.update_all_description
+    where(description: nil).includes(:text).find_each do |r|
+      r.save
     end
   end
 end
