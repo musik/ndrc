@@ -17,7 +17,7 @@
         %strong 所在
         -if @entry.province.present? or @entry.city.present?
           =link_to @entry.province.name,url_for("/"+@entry.province.pinyin)
-          =link_to @entry.city.name,url_for("/"+@entry.city.pinyin)
+          =link_to @entry.city.name,url_for("/"+@entry.city.pinyin) if @entry.city.present?
         -else
           \--
       %li

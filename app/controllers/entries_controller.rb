@@ -3,7 +3,7 @@ class EntriesController < ApplicationController
   # GET /entries
   # GET /entries.json
   def index
-    @entries = Entry.includes(:text).page().per(20)
+    @entries = Entry.order('id desc').includes(:text).page().per(20)
 
     respond_to do |format|
       format.html # index.html.erb

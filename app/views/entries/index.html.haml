@@ -11,7 +11,6 @@
           = link_to 'Edit', edit_entry_path(entry)
           = link_to 'Destroy', entry, :method => :delete, :data => { :confirm => 'Are you sure?' }
 
-%br
-
+=paginate @entries
 -if can? :new,Entry
   = link_to 'New Entry', new_entry_path
