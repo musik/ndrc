@@ -1,6 +1,6 @@
 -limit ||= 8
 -title ||= "供求信息"
--results = company.entries.order('id desc').limit(limit).all
+-results = Entry.search(q,match_mode: :any,per_page: limit)
 -if results.present?
   %h2=title
   .items
@@ -11,3 +11,4 @@
           %p=clean_excerpt(entry.description).truncate(120)
         -else
           %p= link_to entry.title, entry,target: '_blank'
+

@@ -41,7 +41,8 @@ class Company < ActiveRecord::Base
   end
   define_index do
     indexes :name,:fuwu,:hangye,:location,:address
-    indexes text(:body),:as=>:description
+    #indexes text(:body),:as=>:description
+    indexes :description
     has :id
     has :province_id,:city_id,:facet=>true
     #set_property :delta => ThinkingSphinx::Deltas::ResqueDelta

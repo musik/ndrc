@@ -12,7 +12,10 @@
         =@entry.price || "--"
       %li
         %strong 公司
-        =link_to @entry.company.name,company_link(@entry.company)
+        -if @entry.company.present?
+          =link_to @entry.company.name,company_link(@entry.company)
+        -else
+          \--
       %li
         %strong 所在
         -if @entry.province.present? or @entry.city.present?
@@ -28,6 +31,8 @@
         =@entry.pinpai || "--"
 
 = render :partial => 'topics/relates',:locals=>{q: @entry.q,limit: 15,title: "相关搜索"}
+-if @entry.description.present?
+  .summary=@entry.description
 -if @entry.text.present?
   .entry-content
     -text = clean_body(@entry.text.body)
@@ -36,6 +41,7 @@
     -if @arr[1].present?
       =js_write simple_format(@arr[1])
 
+= render :partial => 'entries/relates',:locals=>{q: @entry.q,limit: 10,title: "相关信息"}
 
 -if can? :edit,@entry
   = link_to 'Edit', edit_entry_path(@entry)

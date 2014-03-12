@@ -25,7 +25,8 @@ class Entry < ActiveRecord::Base
   include ResqueEx
   define_index do
     indexes :title,:location_name,:keywords
-    indexes text(:body),:as=>:description
+    #indexes text(:body),:as=>:description
+    indexes :description
     indexes company(:name),:as=>:company_name
     has :id
     has :company_id
