@@ -7,8 +7,8 @@ describe Entry do
     #c = Company.import_from_tz(data)
     #c.save
     #pp c
-    #xml = File.read("#{Rails.root}/db/test/sell.xml")
-    #hash = Hash.from_xml(xml)
-    #pp Entry.build_from_tz(hash["XMLData"])
+    xml = File.read("#{Rails.root}/db/test/sell.xml")
+    hash = Hash.from_xml(xml)
+    pp Entry.build_from_tz(hash["XMLData"],true)
   end
 end

@@ -39,9 +39,14 @@ class Entry < ActiveRecord::Base
       #logm data
       create data
     end
-    def build_from_tz data
-      company_ali_url = "sm" + data.delete('bsCompanyID')
+    def build_from_tz data,fix_company=nil
+      cid = data.delete('bsCompanyID')
+      company_ali_url = "sm" + cid
       company = Company.where(ali_url: company_ali_url).first
+      return new if company.nil? && !fix_company
+      if company.nil?
+        company = Company.fetch_from_tz_id(cid,data.delete('subdomain'))
+      end
       return new if company.nil?
       ali_url = "sm" + data.delete('bsID')
       e = where(ali_url: ali_url).first
@@ -62,14 +67,18 @@ class Entry < ActiveRecord::Base
       attribute_names.each do |k|
         tk = "bs" + k.camelize
         if data.has_key?(tk)
-          r[k] = data.delete(tk)
+          r[k.to_sym] = data.delete(tk)
         end
       end
       r[:text_attributes] = {:body=>data.delete("bsContent")}
+      r[:title] = r[:title].gsub(/[【】]/,'')
+      r[:title] = r[:title].gsub(/[_|、，]/,',')
+      e = company.entries.where(title: r[:title]).first
+      return e if e.present?
       r = company.entries.new(r)
       r.province_id = company.province_id if r.province_id.nil?
       r.city_id = company.city_id if r.city_id.nil?
-      pp data
+      #pp data
       r.price = nil  if r.price.zero?
       r
     end

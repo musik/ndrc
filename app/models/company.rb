@@ -192,4 +192,38 @@ class Company < ActiveRecord::Base
     r.auto_province
     r
   end
+  def self.fetch_from_tz_id tzid,subdomain
+    return nil if subdomain.nil?
+    if subdomain == 'zs'
+      fetch_from_zs(tzid)
+    end
+  end
+  def self.fetch_from_zs tzid
+    ali_url = "sm#{tzid}"
+    e = where(ali_url: ali_url).first
+    return e if e.present?
+    url = "http://tztz#{tzid}.zhaoshang100.com/gongsijianjie/"
+    response = Typhoeus.get(url)
+    if response.success?
+      doc = Nokogiri::HTML(response.body)
+      keys = %w(公司名称 公司地址 联系电话 公司主页 联系人)
+      data = {ali_url: ali_url}
+      data["text_attributes"] = {body: doc.css('#bodyright .left-border table')[0].text.strip}
+      hash = {}
+      doc.css('#bodyright .left-border table')[1].css('td').each do |node|
+        str = node.text.strip.sub("：",'')
+        next unless keys.include?(str)
+        hash[str]= node.next().next().text.strip
+      end
+      {name: "公司名称",address: "公司地址",phone: "联系电话",
+        contact: "联系人"}.each do |k,v|
+        data[k] = hash[v]
+        end
+      data[:metas_attributes] = [{mkey: "官方网站",mval: hash["公司主页"]}] if hash["公司主页"].present?
+      r= new(data)
+      r.auto_province
+      r.save
+      r
+    end
+  end
 end

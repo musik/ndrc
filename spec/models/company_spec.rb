@@ -3,6 +3,7 @@ require 'spec_helper'
 
 describe Company do
   it "should detect_locations" do
+    #pp Company.fetch_from_tz_id(74829,'ys')
     #c = Company.create :location=>"江苏徐州"
     #c.detect_locations
     #Company.ali_search "美体仪器"
