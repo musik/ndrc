@@ -1,0 +1,7 @@
+-limit ||= 15
+-cache "recent_sell_#{limit}",:expires_in=>1.minutes do
+  -results = Entry.recent.limit(limit)
+  -if results
+    %ul.sell.unstyled
+      -results.each do |e|
+        %li=link_to e.title.truncate(36),e,title: e.title

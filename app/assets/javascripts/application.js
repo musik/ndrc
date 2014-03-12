@@ -13,9 +13,14 @@
 //= require jquery
 //= require jquery_ujs
 //= require bootstrap-alert
+//= require bootstrap-tab
 
 $(function(){
   $('#check_all').on('click',function(){
     $(this).closest('fieldset').find(':checkbox').prop('checked',this.checked);
+  })
+  $('#homeTab a').click(function (e) {
+      e.preventDefault();
+        $(this).tab('show');
   })
 })

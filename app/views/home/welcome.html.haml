@@ -24,6 +24,17 @@
         今日新增: #{Company.where("created_at > ?",1.day.ago).count}
       %p.description
         =@meta[:description]
-    %h2 最新收录  
-    = render :partial => 'companies/recent',:locals=>{:limit=>30}
-    .clearfix
+    %ul.nav.nav-tabs#homeTab
+      %li.active 
+        %a{href: "#qiye"} 最新收录
+      %li
+        %a{href: "#sell"} 供求信息
+    .tab-content
+      .tab-pane.active#qiye
+        %h2 最新收录  
+        = render :partial => 'companies/recent',:locals=>{:limit=>30}
+        .clearfix
+      .tab-pane#sell
+        %h2 供求信息  
+        = render :partial => 'entries/recent',:locals=>{:limit=>15}
+        .clearfix

@@ -4,4 +4,4 @@
   -if results
     %ul.comlist
       -results.each do |c|
-        %li=link_to c.name,company_link(c)
+        %li=link_to c.name.truncate(16),company_link(c),title: c.name
