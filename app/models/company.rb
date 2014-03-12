@@ -19,7 +19,7 @@ class Company < ActiveRecord::Base
   before_save :gen_description
 
   def gen_description
-    return if self[:decription].present? 
+    return if self[:decription].present? or text.body.nil?
     self[:description] = ActionController::Base.helpers.strip_tags(text.body)
     self[:description].gsub!(/\n|\t|&nbsp;|\\n|\\t/,'')
     self[:description].gsub!(/\s/,'')

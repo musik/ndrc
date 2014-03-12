@@ -1,0 +1,10 @@
+-limit ||= 8
+-title ||= "供求信息"
+-results = company.entries.order('id desc').limit(limit).all
+-if results.present?
+  %h2=title
+  .items
+    - results.each do |entry|
+      .item
+        %h3= link_to entry.title, entry,target: '_blank'
+        %p=clean_excerpt(entry.description).truncate(120)

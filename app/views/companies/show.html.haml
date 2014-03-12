@@ -52,7 +52,8 @@
         %th=m.mkey
         %td=m.mval.sub(/\[已认证\]/,'')
 
-= render :partial => 'topics/relates',:locals=>{q: @company.fuwu,limit: 20,title: "#{@company.short_name}相关搜索"}
+= render :partial => 'topics/relates',:locals=>{q: (@company.fuwu ||@company.name),limit: 10,title: "#{@company.short_name}相关搜索"}
+= render :partial => 'entries/company',:locals=>{company: @company,limit: 20,title: "#{@company.short_name}供求信息"}
 -if @related.present?      
   %h2 #{@company.short_name}相关企业
   %ul.unstyled
