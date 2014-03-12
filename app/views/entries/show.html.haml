@@ -16,7 +16,7 @@
       %li
         %strong 所在
         -if @entry.province.present? or @entry.city.present?
-          =link_to @entry.province.name,url_for("/"+@entry.province.pinyin)
+          =link_to @entry.province.name,url_for("/"+@entry.province.pinyin) if @entry.province.present?
           =link_to @entry.city.name,url_for("/"+@entry.city.pinyin) if @entry.city.present?
         -else
           \--
@@ -28,14 +28,13 @@
         =@entry.pinpai || "--"
 
 = render :partial => 'topics/relates',:locals=>{q: @entry.q,limit: 15,title: "相关搜索"}
-.entry-content
-  -#=@entry.text.body.gsub(/\\n|\\t/,'').html_safe
-  -#=simple_format(@entry.text.body.gsub(/\\n|\\t/,'').truncate(255))
-  -text = clean_body(@entry.text.body)
-  -@arr = [text[0,255],text[255,text.length]].compact
-  =simple_format @arr[0]
-  -if @arr[1].present?
-    =js_write simple_format(@arr[1])
+-if @entry.text.present?
+  .entry-content
+    -text = clean_body(@entry.text.body)
+    -@arr = [text[0,255],text[255,text.length]].compact
+    =simple_format @arr[0]
+    -if @arr[1].present?
+      =js_write simple_format(@arr[1])
 
 
 -if can? :edit,@entry

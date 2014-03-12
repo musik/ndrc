@@ -15,7 +15,7 @@ class EntriesController < ApplicationController
   # GET /entries/1.json
   def show
     @entry = Entry.find(params[:id])
-    breadcrumbs.add @entry.company.name,company_link(@entry.company)
+    breadcrumbs.add @entry.company.name,company_link(@entry.company) unless @entry.company.nil?
     breadcrumbs.add @entry.title
 
     respond_to do |format|
@@ -69,7 +69,10 @@ class EntriesController < ApplicationController
         format.json { head :no_content }
       else
         format.html { render action: "edit" }
-        format.json { render json: @entry.errors, status: :unprocessable_entity }
+        format.json { 
+          logger.info @entry.errors
+          render json: @entry.errors, status: :unprocessable_entity 
+        }
       end
     end
   end
