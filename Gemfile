@@ -59,7 +59,7 @@ gem 'thinking-sphinx', '2.0.13'
 #gem "ts-resque-delta", "~> 1.2.2"
 gem 'ts-datetime-delta', '1.0.3',:require => 'thinking_sphinx/deltas/datetime_delta'
 #gem 'ts-delayed-delta', '1.1.3',:require => 'thinking_sphinx/deltas/delayed_delta'
-#gem 'whenever'
+gem 'whenever'
 
 gem 'chinese_pinyin', "0.4.1"
 gem "RedCloth", "~> 4.2.9"

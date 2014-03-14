@@ -113,6 +113,9 @@ set :resque_environment_task, true
 #after "deploy:restart", "resque:restart"
 #after "deploy:restart", "resque:scheduler:restart"
 
+set :whenever_command, "bundle exec whenever"
+require "whenever/capistrano"
+
 
 
 require "bundler/capistrano"

@@ -31,6 +31,7 @@ class Entry < ActiveRecord::Base
     has :id
     has :company_id
     #set_property :delta => ThinkingSphinx::Deltas::ResqueDelta
+    set_property :delta => :datetime, :threshold => 40.minutes
   end
   def company_name
     company.present? ? company.name : nil
