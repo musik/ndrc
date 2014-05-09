@@ -90,7 +90,7 @@ set :unicorn_user,:muzik
 require './lib/recipes/unicorn.rb'
 
 after "deploy:create_symlink","unicorn:symlink"
-#after "deploy:create_symlink","app:whenever"
+after "deploy:create_symlink","app:whenever"
 after 'deploy:start','unicorn:start'
 after 'deploy:restart', 'unicorn:restart' # app IS NOT preloaded
 #require 'recipes/unicorn'
@@ -113,8 +113,8 @@ set :resque_environment_task, true
 #after "deploy:restart", "resque:restart"
 #after "deploy:restart", "resque:scheduler:restart"
 
-set :whenever_command, "bundle exec whenever"
-require "whenever/capistrano"
+#set :whenever_command, "bundle exec whenever"
+#require "whenever/capistrano"
 
 
 
