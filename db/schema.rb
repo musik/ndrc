@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140312071858) do
+ActiveRecord::Schema.define(:version => 20140508075918) do
 
   create_table "categories", :force => true do |t|
     t.string  "name"
@@ -25,6 +25,15 @@ ActiveRecord::Schema.define(:version => 20140312071858) do
 
   add_index "categories", ["parent_id", "lft", "rgt"], :name => "plr"
   add_index "categories", ["slug"], :name => "index_categories_on_slug"
+
+  create_table "cats", :force => true do |t|
+    t.string   "name"
+    t.string   "slug"
+    t.integer  "priority"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+    t.string   "recommended"
+  end
 
   create_table "cities", :force => true do |t|
     t.string   "name"
@@ -204,6 +213,9 @@ ActiveRecord::Schema.define(:version => 20140312071858) do
     t.integer  "companies_count"
     t.string   "abbr",            :limit => 1
     t.datetime "imported_at"
+    t.integer  "cat_id"
+    t.integer  "priority"
+    t.integer  "level"
   end
 
   add_index "topics", ["abbr"], :name => "index_topics_on_abbr"

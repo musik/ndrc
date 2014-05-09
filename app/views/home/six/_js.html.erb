@@ -1,0 +1,54 @@
+<script>
+  window.bds = {
+    se: new Object,
+    su: {
+      urdata: [],
+      urSendClick: function (){}
+    },
+    util: {},
+    use: {},
+    comm: {}
+  };
+
+  window.Hunter = { };
+
+  require.config({
+    'baseUrl': 'http://vs-static.baidu.com/edu/newjuhe/asset',
+    'urlArgs': {
+    }
+  });
+
+  require(['common/data'], function (data) {
+    <%#data.set('ipcity', '曲靖');%>
+    <%#data.set('ipcityid', '288');%>
+    <%#data.set('curcity', '上课城市');%>
+    <%#data.set('curcityid', '0');%>
+    <%#data.set('signtime', '44');%>
+    <%#data.set('sessionID', '1399552714489990');%>
+    <%#data.set('sid', '0');%>
+    <%#data.set('subqid', '1399552714489990');%>
+    data.set('originQuery', '');
+    data.set({
+      srcid: '0',
+      assetUrl: 'http://vs-static.baidu.com/edu/newjuhe'
+      <%#city: data.get('curcity'),%>
+      <%#cityid: data.get('curcityid')%>
+    });
+
+    <%#var commonParams = { };%>
+
+    <%#commonParams['qid'] = '1399552714489990';%>
+    <%#commonParams['pvid'] = '1399552714489990';%>
+    <%#commonParams['zt'] = 'self';%>
+    <%#commonParams['pssid'] = '0';%>
+    <%#commonParams['tn'] = 'NONE';%>
+
+    <%#if (!$.isEmptyObject(commonParams)) {%>
+      <%#data.setStore('commonParams', commonParams);%>
+    <%#}%>
+    <%#window.recordLog = {%>
+      <%#requestInfo : 'ZXlKb2IzTjBJam9pWTNFd01pMWtjaTEyYzJGeVkyZ3RiV2xrZFdrd01TNWpjVEF5TG1KaGFXUjFMbU52YlNJc0lucDRYM0ZwWkNJNk1UTTVPVFUxTWpjeE5EUTRPVGs1TUgwPQ%3D%3D'%>
+    <%#};%>
+  });
+
+</script>

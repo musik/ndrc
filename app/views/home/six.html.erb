@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta http-equiv="pragma" content="no-cache" />
+    <meta http-equiv="cache-control" content="no-cache" />
+    <meta http-equiv="expires" content="0" />
+    <link href="/favicon.ico" rel="shortcut icon">
+    <title>
+      <%=content_for?(:title) ? 
+        [yield(:title),@title_suffix || "(企业搜索)"].join().html_safe : t('appname')  %>
+      </title>
+      <link href="/assets/new-index.css" rel="stylesheet" />
+      <meta content='width=device-width, initial-scale=1, maximum-scale=1' name='viewport'>
+      <meta name="baidu-site-verification" content="k1Oxej4vzIPBL6De" />
+      <%=yield(:head)%>
+    </head>
+    <body class="result-op">
+      <%#<div id="platform-header">%>
+      <%#</div>%>
+      <div id="header">
+        <div id="header-wrapper" class="wrapper-without-img" data-click='{"mod":"search_box"}'>
+
+          <a href="/">
+            <span id="logo"><%=t('appname')%></span>
+          </a>
+
+          <div class="wrapper">
+
+            <form action="/search" method="GET">
+            <input id="search-input" class="OP_LOG_BTN" type="text" value="" maxlength="100" autocomplete="off" name="q" />
+            <b id="search-button">企业搜索</b>
+          </form>
+          </div>
+          <div class="header-op">
+            <b class="op-login">
+              <a href="">免费发布信息</a>
+            </b>
+          </div>
+          <ul id="header-recwords"></ul>
+        </div>
+      </div>
+
+      <div id="nav">
+        <ul class="menu">
+          <li class="menu-item menu-category">
+          <a class="menu-name" data-name="category">
+            分类
+          </a>
+          </li>
+          <li class="menu-item first active">
+          <a class="menu-name" data-name="index" href="/" >
+            首页
+          </a>
+          </li>
+          <%#<li class="menu-item ">%>
+            <%#<a class="menu-name" data-name="dxt" href="" >水果</a>%>
+          <%#</li>%>
+        </ul>
+      </div>        
+      <div id="index-content">
+        <div id="index-floor-wrapper">
+          <div class="first-floor floors">
+            <%#= render :partial => 'home/six/exam_calendar' %>
+            <%= render :partial => 'home/six/recent' %>
+            <%= render :partial => 'home/six/category_main' %>
+            <%#= render :partial => 'home/six/center_carousel' %>
+            <%= render :partial => 'home/six/center_content' %>
+            <%= render :partial => 'home/six/content_sells' %>
+            <%#= render :partial => 'home/six/content_banner' %>
+            <div class="bottom-shadow"></div>
+          </div>
+        </div>
+        <div id="index-bottom-wrapper"></div>
+        <%#= render :partial => 'home/six/general_floor'%>
+        <%#= render :partial => 'home/six/learn_floor'%>
+        <%#= render :partial => 'home/six/work_floor'%>
+        <%#= render :partial => 'home/six/other_floor'%>
+      </div>
+      <div class="edu-widgets">
+        <%#<b title="意见反馈" id="advice"></b>%>
+      </div>        
+      <%#<div class="footer-img"></div>%>
+      <div id="footer">
+      <%= render :partial => 'home/six/footer' %>
+      </div>        
+      <%= javascript_include_tag "six"%>
+      <div style="display:none;">
+      </div>
+    </body>
+  </html>

@@ -1,0 +1,40 @@
+<div class="cb">
+            <div class="warp">
+                <div class="c_b2 cauto ">
+                    <h2>
+                        <a href="#shuiguo" target="_self">
+                            水果
+                        </a>
+                    </h2>
+                <div class="c_b c_b_col4 ">
+                    <%@shuiguo.each do |url,name|%>
+                      <a href="/s-<%=url%>"><%=name%></a>
+                  <%end %>
+                </div>
+                </div>
+                <div class="c_b2 cauto">
+                    <h2>
+                        <a href="#shucai" target="_self">
+                            蔬菜
+                        </a>
+                    </h2>
+                <div class="c_b c_b_col4 ">
+                    <%@shucai.each do |url,name|%>
+                      <a href="/s-<%=url%>"><%=name%></a>
+                  <%end %>
+                </div>
+                </div>
+            </div>
+            <div id="cbright" class="cauto lh28">
+                    <h2>
+                        <a href="#liangyou" target="_self">
+                            粮油饲料
+                        </a>
+                    </h2>
+                <div class="c_b c_b_col4 ">
+                    <%@liangyou.each do |url,name|%>
+                      <a href="/s-<%=url%>"><%=name%></a>
+                  <%end %>
+                </div>
+            </div>
+        </div>

@@ -1,0 +1,25 @@
+<div class="exam-calendar">
+  <div class="exam-mask"></div>
+  <div class="exam-info"  data-click='{"act":"b_click_calendar", "mod":"content_calendar", "fr":"ns","cat":"calendar"} '>
+    <div class="exam-title">
+      <h2>
+        最新加入
+      </h2>
+    </div>
+    <%#<div class="month-slide"  data-click='{"act":"b_click_calendar", "mod":"content_calendar", "fr":"ns","cat":"calendar"}'>%>
+    <%#</div>%>
+    <div class="exam-viewport"  data-click='{"act":"a_click_exam", "mod":"content_calendar", "fr":"ns","cat":"exam_calendar"} '>
+      <%= render :partial => 'home/six/companies',:locals=>{:limit=>10}%>
+    </div>
+    <div class="exam-footer">
+      <div class="footer-wrapper">
+        <h2>常用工具</h2>
+        <div class="footer-images">
+          <%#<a class="images-left" target="_blank" href=""></a>%>
+          <%#<a class="images-middle" target="_blank" href=""></a>%>
+          <%#<a class="images-right" target="_blank" href=""></a>%>
+        </div>
+      </div>
+    </div>
+  </div>
+  </div>    

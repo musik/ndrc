@@ -9,6 +9,9 @@ class CityConstraint
   end
 end
 Hy::Application.routes.draw do
+  resources :cats
+
+
   get "/s-:location-:id" => "topics#city" ,as: 'topic_city',:constraints=>CityConstraint.new('location')
   match 's-:id'=>'topics#show',:as=>'topic'
   match 'zeig(-:c(-:page))'=>'topics#zeig',:as=>'zeig',:constraints=>{:page=>/[0-9]+/,:c=>/./}
@@ -58,7 +61,7 @@ Hy::Application.routes.draw do
     root :to=>"home#city"
   end
   match 'links' => 'snips#links',:as=>'links'
-  root :to => "home#welcome"
+  root :to => "home#six"
   devise_for :users
   resources :users, :only => [:show, :index]
   resque_constraint = lambda do |request|

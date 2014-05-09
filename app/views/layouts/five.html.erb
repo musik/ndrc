@@ -1,0 +1,107 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <base target="_blank" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>
+          <%=content_for?(:title) ? 
+        [yield(:title),@title_suffix || "(企业搜索)"].join().html_safe : t('appname')  %>
+        </title>
+        <meta content='IE=edge,chrome=1' http-equiv='X-UA-Compatible'>
+        <meta content='width=device-width, initial-scale=1, maximum-scale=1' name='viewport'>
+        <meta name="baidu-site-verification" content="k1Oxej4vzIPBL6De" />
+        <%=yield(:head)%>
+        <link href="/images/style.css" media="all" rel="stylesheet" type="text/css" />
+        <script type="text/javascript">
+            if (screen.width >= 1280) {
+                document.write("<style type='text/css'>#headerinside,.cb,.morelink,#headerinside,.morelink,#footer{width:1190px;}.cb{width:1188px}.cc{width:1190px}#searchbar{left:407px;}#keyword{width:450px;}.navcon{width:1190px;}.warp{_width:847px;overflow:hidden;}.c_b{width:178px;}#cbright{width:250px;}#topbannercontent_t,#topbannercontent_b{width:1190px}#cbright .c_b{width:300px;}.cbp2{width:200px;}.c_b2{width:368px;padding-left:20px;padding-right:20px;float:left;_margin-left:0px;}.c_b_ews em{width:38%}#cbright{width:300px;padding-left:20px;}#topbar .w, #topbar .warp{width:1190px}#sidead{display:block}#cbright .h2con{margin-left:-20px}.tooltip{width:463px}.adpic img{width:230px;height:80px;border:1px solid #dedfe0}.cb a.lad{width:1190px;background:url(http://pic2.58.com/ui6/index/banner/bottom_zhuangxiu_1190_2.jpg) no-repeat;}.cb a.ladt{width:1190px;background:url(http://pic2.58.com/ui6/index/banner/topbanner_fc_1190.jpg?v=3) no-repeat;}.cb a.sqz{background:url(http://pic2.58.com/ui6/index/banner/topbanner_sqz_1190.jpg) no-repeat;}.cb a.ladb{width:1190px;background:url(http://pic2.58.com/ui6/index/banner/bottom_anniversary_1190.gif) no-repeat;}.promotion{display:block;}#nine{margin-left:10px}.w3 a{width:32%}.cb h2 .j_rad{margin-left:24px;}.embed01,.embed02,.embed03{display:block;}.embed{display:block}.cbp3{width:216px;}.tab .hide{display:inline-block;}.cp_2 h5{width:65px;}.cp_1{margin-right:12px;width:460px;}.cp_2{width:384px;}.cp_3{width:255px;}.cp_2 em{width:16%;}.cp_3 em{width:36%;}.cp .c_b{padding-left:19px;}.cp a{margin-right:3px;}.szc_em em{width:13%;}.search-fix #searchbar{left:315px;}#mobile a{padding-right:26px;}.c_b_esc{line-height:30px;}.c_b_esc em{width:50%;}.cb .c_b_esc h2 .dp{margin: 0 3px 0 15px;}.c_b_esc .esctit{display:inline-block;}.eszfbg{display:inline-block;}.tg span.hd{display:inline;}</style>");
+            }
+        </script>
+    </head>
+    
+    <body class="newcrop">
+        <div id="topbarx">
+        </div>
+        <div id="homeWrap" class="wrapper">
+            <div id="header">
+                <div id="headerinside">
+                    <a href="http://static.58.com/listed/index.html" id="logo" target="_target">
+                      <img src="/images/logo.png" alt="<%=t('appname')%>" title="<%=t('appname')%>"
+                        width="137" height="52">
+                    </a>
+                    <form action="/search" target="_self" method="get">                        <div id="searchbar">
+                            <div id="saerkey">
+                                <span id="key">
+                                    <input type="text" id="keyword" name="q" class="keyword" value="请输入类别名称或关键字"
+                                    onBlur="win.closeToolTipWindow();if(this.value=='')this.value='请输入类别名称或关键字',this.className='keyword'"
+                                    onKeyUp="win.GetContentData();" onFocus="if(this.value=='请输入类别名称或关键字')this.value='',this.className='keyword2'"
+                                    autocomplete="off" />
+                                </span>
+                            </div>
+                            <div class="inputcon">
+                                <input type="submit" name="button" id="searchbtn" class="btnall" value="企业搜索"
+                                onMouseMove="this.className='btnal2'" onMouseOut="this.className='btnall'"
+                                />
+                            </div>
+                            <div class="clear">
+                            </div>
+                            <div class="search-no">
+                                <span id="hot">
+                                </span>
+                                <span class="hot2">
+                                </span>
+                            </div>
+                        </div>
+                    </form>
+                    <%#<a href="/post" id="fabu" rel="nofollow">%>
+                      <%#<i></i>免费发布信息%>
+                    <%#</a>%>
+                </div>
+            </div>
+            <div class="hShadow">
+            </div>
+            <div class="navcon" id="nav">
+                <ul class="nav">
+                    <li class="on">
+                        <a href="/" target="_self">
+                            首页
+                        </a>
+                    </li>
+                    <% Cat.all.each do |cat|%>
+                      <li><a href="/<%=cat.slug%>"><%=cat.name%></a></li>
+                    <%end %>
+                    
+                </ul>
+                <ul class="rightside">
+                </ul>
+                <div class="ad_nav">
+                </div>
+            </div>
+        </div>
+        <%=yield %>
+        <div class="morelink">
+        </div>
+        <div id="footer">
+            <div class="bg">
+                <div id="contact">
+                    <a href="http://sighttp.qq.com/authd?IDKEY=f62e57b812e5ba6bcabb95e781a841ed8edb5efa46c90997"  title="有问题请与客服进行对话" class="fduihua" rel="nofollow">
+                        客服
+                    </a>
+                    <span>|</span>
+                    <a href="/zeig" target="_self">网站地图</a>
+                    <span>|</span>
+                    <a href="/qiye/recent" target="_self">最新索引</a>
+                    <span>|</span>
+                    <a href="/topics/recent" target="_self">最新搜索</a>
+                    <br />
+                    &copy; www.ndrc.ac.cn
+                    <a href="http://www.miibeian.gov.cn/" style="color:#666" rel="nofollow">
+                      京ICP备05050413号
+                    </a>
+                    <%=Time.now%>
+                </div>
+            </div>
+        </div>
+    </body>
+
+</html>

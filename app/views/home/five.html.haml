@@ -1,0 +1,30 @@
+-@nocontent = true
+-@nonav = true
+-@hide_search = true
+-@hide_cities = true
+-title "企业搜索——企业名录搜索/查询,产品供求信息发布,企业宣传推广"
+-meta :description,t('home.welcome.description')
+-meta :keywords,t('home.welcome.keywords')
+-@title_suffix = ""
+.cb
+  .warp
+    .c_b2xcauto
+      %h2
+        %a{href: "shuiguo",target: "_self"} 水果
+      .c_b.c_b_col8
+        -@shuiguo.each do |url,name|
+          %a{href: "/s-#{url}"}=name
+    .line
+    .c_b2xcauto
+      %h2
+        %a{href: "shucai",target: "_self"} 蔬菜
+      .c_b.c_b_col8
+        -@shucai.each do |url,name|
+          %a{href: "/s-#{url}"}=name
+    .line
+    .c_b2xcauto
+      %h2
+        %a{href: "liangyou",target: "_self"} 粮油
+      .c_b.c_b_col8
+        -@liangyou.each do |url,name|
+          %a{href: "/s-#{url}"}=name

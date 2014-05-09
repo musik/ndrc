@@ -1,0 +1,13 @@
+= simple_form_for(@cat) do |f|
+  = f.error_notification
+
+  .form-inputs
+    = f.input :name
+    = f.input :slug
+    = f.input :priority
+    =f.input :recommended ,as: "text",input_html: {class: "input-xxlarge",rows: 4}
+    =label_tag :topics
+    =text_area_tag :topics,@cat.topic_names,class: "input-xxlarge",rows: 8
+
+  .form-actions
+    = f.button :submit

@@ -1,0 +1,9 @@
+.content-banner
+  %h2 供求信息  
+  -limit ||= 8
+  -cache "six_recent_sell_#{limit}",:expires_in=>1.minutes do
+    -results = Entry.recent.limit(limit)
+    -if results
+      %ul.six-sells
+        -results.each do |e|
+          %li=link_to e.title.truncate(36),e,title: e.title

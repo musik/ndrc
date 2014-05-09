@@ -1,12 +1,14 @@
 #encoding: utf-8
 class Topic < ActiveRecord::Base
   paginates_per 100
-  attr_accessible :name, :published, :slug,:companies_count,:abbr
+  attr_accessible :name, :published, :slug,:companies_count,:abbr,
+    :priority,:level,:cat_id
   validates_presence_of :name
   #after_initialize :gen_slug
   #after_save :import_companies_when_publish
   after_create :import_companies
   before_create :ensure_uniq
+  belongs_to :cat
 
   scope :published,where(:published=>true)
   scope :recent,order("id desc")

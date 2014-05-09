@@ -1,0 +1,18 @@
+-#= render :partial => 'layouts/belt'
+.text-center
+  =yield :partners
+  &copy; 2012 
+  www.ndrc.ac.cn
+  京ICP备05050413号 
+  -#=link_to "分类","/fenlei"
+  -#=link_to "企业","/qiye"
+  =link_to "网站地图","/zeig"
+  =link_to "最新索引","/qiye/recent"
+  =link_to "最新搜索","/topics/recent"
+  #links
+    =link_to "友情链接",'/links'
+    -if is_home?
+      =':'
+      =Snip.get('home').html_safe
+-if Rails.env.production?
+  .hide= render :partial => 'layouts/ga'
