@@ -7,10 +7,10 @@
 $(function(){
   $('.list-item').hover(function(){
     $(this).find('.hot-query-layer').show()
-    $(this).toggleClass('learn-item-hover')
+    $(this).addClass('learn-item-hover')
   },function(){
     $(this).find('.hot-query-layer').hide()
-    $(this).toggleClass('learn-item-hover')
+    $(this).removeClass('learn-item-hover')
   })
   //$('.carousel').carousel();
 })

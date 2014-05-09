@@ -18,7 +18,7 @@ class HomeController < ApplicationController
     @shuiguo = _parse_arr(%w(苹果 香蕉 西瓜 甜瓜 梨 甘蔗 蜜桃 油桃 蜜桔 沙糖桔 椪柑 脐橙 山楂 葡萄 菠萝 草莓 龙眼 杏子 李子 核桃 板栗 葵花 哈密瓜 柿子 荔枝 柚子 枣 芒果 樱桃 枇杷 火龙果 石榴 猕猴桃 圣女果 杨梅)).to_a
     @shucai = _parse_arr(%w(白菜 辣椒 大蒜 蒜薹 四季豆 土豆 小白菜 油麦菜 生菜 芦笋 蒜苗 茼蒿 西红柿 萝卜 大葱 冬瓜 韭菜 黄瓜 茄子 菜花 豆角 南瓜 芹菜 生姜 洋葱 甘蓝 香菜 西葫芦 菠菜 莴苣 莲藕 山药 芥菜 红薯 芋头 苦瓜 丝瓜 西兰花 木耳 香菇)).to_a
     @liangyou = _parse_arr(%w(大米 小麦 玉米 棉花 杂粮 大豆 花生 芝麻 菜籽 棉籽 菜油 花生油 芝麻油 棉油 豆油 棕榈油 玉米油 豆粕 菜粕 棉粕 花生粕 杂粕 )).to_a
-    @xumu = _parse_arr(%w(猪 牛 羊 马 驴 骡 鸡 鸭 鹅 兔 蜂 骆驼 梅花鹿 孔雀 鹿 貂 麝 水獭)).to_a
+    @xumu = _parse_arr(%w(猪 牛 羊 马 驴 骡子 鸡 鸭 鹅 兔 蜂 骆驼 梅花鹿 孔雀 鹿 貂 蛇 水獭)).to_a
     @cats = {
       shuiguo: ['水果',@shuiguo],
       shucai: ['蔬菜',@shucai],
