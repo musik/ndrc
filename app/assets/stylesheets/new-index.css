@@ -774,3 +774,9 @@ ul.six-sells li {
 ul.six-sells li a{
   color: #444;
 }
+.hide{
+  display: none;
+}
+button{
+  border: 0;
+}
