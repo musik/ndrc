@@ -219,7 +219,7 @@ ul{margin:0;padding:0;list-style:none}
 #header{background-color:#FFF;*zoom:1}
 #logo{background:url("/images/logo.png") no-repeat;_background-image:url("/six/logo137.gif");position:absolute;top:18px;width:137px;height:52px;text-decoration:none}
 #logo:hover{text-decoration:none!important}
-#search-input{border:2px solid #40b019;border-right:none;float:left;width:326px;height:24px;font-size:1em;line-height:23px;*line-height:26px;line-height:26px\0/;padding:5px 10px}
+#search-input{border:2px solid #40b019;border-right:none;float:left;width:326px;height:24px;font-size:1em;line-height:23px;*line-height:26px;line-height:26px;padding:5px 10px}
 #search-input:focus{outline:0}
 #header-recwords{width:346px}
 #search-button{background-color:#3fb118;background-image:-webkit-gradient(linear,0 0,0 100%,from(#3fb118),to(#40af1a));background-image:-webkit-linear-gradient(top,#3fb118,#40af1a);background-image:-moz-linear-gradient(top,#3fb118,#40af1a);background-image:linear-gradient(to bottom,#3fb118,#40af1a);background-repeat:repeat-x;cursor:pointer;color:#FFF;font-size:14px;text-align:center;float:left;width:86px;height:38px;line-height:38px}
