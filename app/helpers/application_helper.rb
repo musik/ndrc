@@ -67,4 +67,16 @@ module ApplicationHelper
     }
     render :partial=>'layouts/adsense',:locals=>defaults.merge(args)
   end
+  def ubaidu id,name,cls,t=''
+    #return if Rails.env.development?
+    <<-AD.html_safe
+<div class="#{cls}">
+<script type="text/javascript">
+/*#{name}*/
+var cpro_id = "u#{id}";
+</script>
+<script src="http://cpro.baidustatic.com/cpro/ui/c#{t}.js" type="text/javascript"></script>
+</div>
+AD
+  end
 end

@@ -84,17 +84,34 @@ class HomeController < ApplicationController
 
   end
   def cities
-    @results = {}
-    CityHelper::CITIES[:china].keys.each do |state|
-      @results[CGI.escape(I18n.t("states.#{state}"))] = state.to_s
-    end
-    CityHelper::CITIES[:china].values.flatten.each do |state|
-      @results[CGI.escape(I18n.t("cities.#{state}"))] = state.to_s
-    end
-    respond_to do |format|
-      format.text {render :layout=>false}
-      #format.text { render text: CGI.unescape(_join_cities(@results)) }
-      format.json { render json: CGI.unescape(@results.to_json) }
+    if params[:dump]
+      @results = {}
+      CityHelper::CITIES[:china].keys.each do |state|
+        @results[state.to_s] = {areaname: CGI.escape(I18n.t("states.#{state}")), slug: state.to_s,children: []}
+        #@results[state.to_s] = {name: CGI.escape(I18n.t("states.#{state}")), slug: state.to_s}
+      end
+      CityHelper::CITIES[:china].each do |state,vals|
+        vals.each do |v|
+          @results[state.to_s][:children] << {areaname: CGI.escape(I18n.t("cities.#{v}")),slug: v.to_s}
+          #@results[v.to_s] = {name: CGI.escape(I18n.t("cities.#{v}")),slug: v.to_s, parent: state.to_s}
+        end
+      end
+      respond_to do |format|
+        format.json { render json: CGI.unescape(@results.to_json) }
+      end
+    else
+      @results = {}
+      CityHelper::CITIES[:china].keys.each do |state|
+        @results[CGI.escape(I18n.t("states.#{state}"))] = state.to_s
+      end
+      CityHelper::CITIES[:china].values.flatten.each do |state|
+        @results[CGI.escape(I18n.t("cities.#{state}"))] = state.to_s
+      end
+      respond_to do |format|
+        format.text {render :layout=>false}
+        #format.text { render text: CGI.unescape(_join_cities(@results)) }
+        format.json { render json: CGI.unescape(@results.to_json) }
+      end
     end
   end
   def topic
