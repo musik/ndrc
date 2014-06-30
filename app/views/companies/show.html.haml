@@ -1,4 +1,6 @@
 -title @page_title,@company.name
+-if @company.text.present?
+  -meta :description,@company.text.body
 -@cols = "col2r"
 -#-rcats =  Category.search_pair [@company.fuwu,@company.hangye].join(',').truncate(600)
 -#-patt = Regexp.new(rcats.keys.join("|"))

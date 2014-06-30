@@ -17,6 +17,7 @@ class EntriesController < ApplicationController
     @entry = Entry.find(params[:id])
     breadcrumbs.add @entry.company.name,company_link(@entry.company) unless @entry.company.nil?
     breadcrumbs.add @entry.title
+    jisuan_houzhui
 
     respond_to do |format|
       format.html # show.html.erb

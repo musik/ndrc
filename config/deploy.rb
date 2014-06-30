@@ -5,9 +5,9 @@ set :repository,  "git@github.com:musik/ndrc.git"
 set :scm, :git
 
 set :deploy_to, "/dat/www/ndrc"
-role :web, "gxr"                          # Your HTTP server, Apache/etc
-role :app, "gxr"                          # This may be the same as your `Web` server
-role :db,  "gxr", :primary => true # This is where Rails migrations will run
+role :web, "nxr"                          # Your HTTP server, Apache/etc
+role :app, "nxr"                          # This may be the same as your `Web` server
+role :db,  "nxr", :primary => true # This is where Rails migrations will run
 #role :db,  "your slave db-server here"
 set :user, "muzik"
 set :group, "muzik"
@@ -106,8 +106,8 @@ after 'deploy:restart', 'unicorn:restart' # app IS NOT preloaded
 #role :resque_scheduler, "rho"
 #set :workers, { "update_keywords,update_items" => 1 }
 require 'capistrano-resque'
-role :resque_worker, "gxr"
-role :resque_scheduler, "gxr"
+role :resque_worker, "nxr"
+role :resque_scheduler, "nxr"
 set :workers, {daemon: 1,topics: 3 , index: 1}
 set :resque_environment_task, true
 #after "deploy:restart", "resque:restart"

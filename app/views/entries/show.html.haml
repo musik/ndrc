@@ -1,5 +1,7 @@
 -title "#{@entry.title}_#{@entry.hangye} < #{@entry.company_name}",@entry.title,false
 -meta :keywords,@entry.keywords
+-if @entry.text.present?
+  -meta :description,strip_tags(@entry.text.body).gsub("\"","'").gsub(/\s*/,'').truncate(160)
 -@cols = "col2r"
 %h1.entry-title=@entry.title
 .entry

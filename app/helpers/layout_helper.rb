@@ -31,6 +31,7 @@ module LayoutHelper
   def meta(name,content)
     @meta ||= {}
     content_for(:head){
+      content += @suffix if name.to_s == "description" and @suffix.present?
       @meta[name] = content
       "<meta name=\"#{name}\" content=\"#{content}\" />".html_safe
     }
