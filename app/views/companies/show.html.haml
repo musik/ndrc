@@ -38,6 +38,7 @@
   %h2 #{@company.short_name}简介
   .entry-content
     =js_write @company.text.body
+    =@suffix
   -#-@arr = [@company.text.body[0,255],@company.text.body[255,@company.text.body.length]].compact
   -#=@arr[0]
   -#-if @arr[1].present?

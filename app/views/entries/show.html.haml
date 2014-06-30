@@ -34,7 +34,9 @@
 
 = render :partial => 'topics/relates',:locals=>{q: @entry.q,limit: 15,title: "相关搜索"}
 -if @entry.description.present?
-  .summary=@entry.description
+  .summary
+    =@entry.description
+    =@suffix
 -if @entry.text.present?
   .entry-content
     -text = clean_body(@entry.text.body)
