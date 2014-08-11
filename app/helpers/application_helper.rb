@@ -68,6 +68,7 @@ module ApplicationHelper
     render :partial=>'layouts/adsense',:locals=>defaults.merge(args)
   end
   def ubaidu id,name,cls,t=''
+    return
     #return if Rails.env.development?
     <<-AD.html_safe
 <div class="#{cls}">
