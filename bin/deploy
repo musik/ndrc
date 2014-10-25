@@ -1,0 +1,6 @@
+#!/usr/bin/env ruby
+msg = ARGV[0]
+cmd = []
+cmd << "git commit -am \"#{msg}\"" unless msg.nil?
+cmd << "git push -u origin master && rvm 1.9.3 do bundle exec cap deploy"
+exec cmd.join(" && ")

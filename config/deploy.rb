@@ -102,8 +102,8 @@ after 'deploy:restart', 'unicorn:restart' # app IS NOT preloaded
 #role :botword, "nxr"
 #san_juan.role :botword,%w()
 #before :deploy,"god:app:botword:stop"
-#after "god:app:botword:stop","god:app:botword:quit"
-#after "deploy:restart","god:app:botword:start"
+before "deploy","god:stop"
+after "deploy:restart","god:start"
 
 #Resque
 

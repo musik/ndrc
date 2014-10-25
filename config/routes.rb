@@ -9,6 +9,8 @@ class CityConstraint
   end
 end
 Hy::Application.routes.draw do
+  get "words/dump"
+
   resources :cats
 
 
