@@ -69,6 +69,14 @@ class Topic < ActiveRecord::Base
         Topic.find_by_name(s) || Topic.create(name: s,published: publish)
       end
     end
+    def dump_to_csv
+      File.open("#{Rails.root}/db/topics_dump.csv",'w') do |f|
+        Topic.where('length(name) < 22').order('char_length(name) asc').find_each do |t|
+          f.write(t.name + "\r\n")
+        end
+      end
+      nil
+    end
     def import_from_csv
       file = "#{Rails.root}/db/topics.csv"
       File.read(file).split("\n").collect{|r| r.split(",")}.each do |arr|

@@ -9,8 +9,8 @@ role :web, "nxr"                          # Your HTTP server, Apache/etc
 role :app, "nxr"                          # This may be the same as your `Web` server
 role :db,  "nxr", :primary => true # This is where Rails migrations will run
 #role :db,  "your slave db-server here"
-set :user, "muzik"
-set :group, "muzik"
+set :user, "deploy"
+set :group, "deploy"
 set :sockets_path,File.join(shared_path, "sockets")
 set :use_sudo,false
 set :using_rvm,false
@@ -95,6 +95,13 @@ after 'deploy:start','unicorn:start'
 after 'deploy:restart', 'unicorn:restart' # app IS NOT preloaded
 #require 'recipes/unicorn'
 #require 'capistrano-unicorn'
+
+#God
+require 'san_juan'
+san_juan.role :app, %w(botword)
+before :deploy,"god:app:botword:stop"
+after "god:app:botword:stop","god:app:botword:quit"
+after :restart,"god:app:botword:start"
 
 #Resque
 

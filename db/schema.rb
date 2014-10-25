@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140508075918) do
+ActiveRecord::Schema.define(:version => 20141025014632) do
 
   create_table "categories", :force => true do |t|
     t.string  "name"
@@ -251,5 +251,14 @@ ActiveRecord::Schema.define(:version => 20140508075918) do
   end
 
   add_index "users_roles", ["user_id", "role_id"], :name => "index_users_roles_on_user_id_and_role_id"
+
+  create_table "words", :force => true do |t|
+    t.string   "name"
+    t.string   "url"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "words", ["url"], :name => "index_words_on_url", :unique => true
 
 end

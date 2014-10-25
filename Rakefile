@@ -5,7 +5,7 @@
 require File.expand_path('../config/application', __FILE__)
 
 require 'resque/tasks'
-require 'resque_scheduler/tasks'
+#require 'resque_scheduler/tasks'
 #require 'capistrano-resque'
 
 require 'thinking_sphinx/deltas/datetime_delta/tasks'

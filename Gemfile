@@ -1,6 +1,8 @@
 require 'rbconfig'
 HOST_OS = RbConfig::CONFIG['host_os']
 source 'http://ruby.taobao.org'
+ruby '1.9.3'
+gem 'rb-readline'
 gem 'rails', '3.2.14'
 gem 'mysql2'
 gem 'sqlite3',:group=> :test
@@ -43,9 +45,9 @@ gem 'redis-rails'
 gem 'breadcrumbs'
 gem 'kaminari'
 
-gem 'resque','~> 1.25'
-gem "rufus-scheduler", "~> 2.0"
-gem 'resque-scheduler', :require => 'resque_scheduler'
+gem 'resque'#,'~> 1.25'
+#gem "rufus-scheduler"#, "~> 2.0"
+#gem 'resque-scheduler', :require => 'resque_scheduler'
 #gem 'resque-retry'
 gem 'resque-cleaner'
 #gem 'resque-pool'
@@ -88,3 +90,5 @@ gem 'settingslogic'
 gem 'high_voltage'
 gem "stringex"
 gem 'roo'
+
+gem 'jnewland-san_juan'

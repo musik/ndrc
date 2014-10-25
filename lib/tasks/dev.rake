@@ -27,4 +27,9 @@ namespace :dev do
       t.update_attribute :abbr,abbr
     end
   end
+  desc "topics dump"
+  task :topics_dump => :environment do
+    Topic.dump_to_csv
+  end
+
 end

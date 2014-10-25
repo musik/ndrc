@@ -10,7 +10,7 @@ module Anemone
     end
     def ali_links
       return @links unless @links.nil?
-      conv('gb2312')
+      conv('gbk')
       @links = []
       return @links if !doc
 
