@@ -1,6 +1,6 @@
 class WordsController < ApplicationController
   def dump
-    @per_page = 10
+    @per_page = 10000
     if params[:page].present?
       @words = Word.where("name is not null").page(params[:page]).per(@per_page).pluck(:name)
       respond_to do |f|
