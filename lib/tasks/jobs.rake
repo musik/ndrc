@@ -7,7 +7,7 @@ namespace :jobs do
   end
   desc "wordbot"
   task :wordbot => :environment do
-    #Word::Ali.new.fetch_words
-    sleep 120
+    Word::Ali.new.fetch_words
+    #sleep 120
   end
 end

@@ -9,7 +9,7 @@ God.watch do |w|
   #w.start_grace = 20.seconds
   #w.restart_grace = 20.seconds
   #w.pid_file = pid_file
-  #w.env = { 'RAILS_ENV' => "production" }
+  w.env = { 'RAILS_ENV' => "production" }
   w.name = "botword"
   w.dir = RAILS_ROOT
   w.start = "rake jobs:wordbot"

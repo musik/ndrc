@@ -168,8 +168,6 @@ GEM
     httpi (2.0.2)
       rack
     i18n (0.6.11)
-    jnewland-san_juan (0.0.4)
-      capistrano
     journey (1.0.4)
     jquery-rails (3.1.2)
       railties (>= 3.0, < 5.0)
@@ -457,7 +455,6 @@ DEPENDENCIES
   haml (>= 3.1.6)
   haml-rails (>= 0.3.4)
   high_voltage
-  jnewland-san_juan
   jquery-rails
   kaminari
   libnotify

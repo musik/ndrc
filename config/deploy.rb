@@ -22,8 +22,9 @@ set :deploy_via, :remote_cache
 #set :git_shallow_clone, 1
 
 set :default_environment, {
-    'GEM_HOME' => '/home/muzik/.gem',
-    'PATH' => "/home/muzik/.gem/bin:$PATH",
+    #'GEM_HOME' => '/home/muzik/.gem',
+    #'PATH' => "/home/muzik/.gem/bin:$PATH",
+    'RAILS_ENV' => 'production'
 }
 #recipes
 require 'helpers'
@@ -97,11 +98,12 @@ after 'deploy:restart', 'unicorn:restart' # app IS NOT preloaded
 #require 'capistrano-unicorn'
 
 #God
-require 'san_juan'
-san_juan.role :app, %w(botword)
-before :deploy,"god:app:botword:stop"
-after "god:app:botword:stop","god:app:botword:quit"
-after :restart,"god:app:botword:start"
+#require 'san_juan'
+#role :botword, "nxr"
+#san_juan.role :botword,%w()
+#before :deploy,"god:app:botword:stop"
+#after "god:app:botword:stop","god:app:botword:quit"
+#after "deploy:restart","god:app:botword:start"
 
 #Resque
 

@@ -91,4 +91,4 @@ gem 'high_voltage'
 gem "stringex"
 gem 'roo'
 
-gem 'jnewland-san_juan'
+#gem 'jnewland-san_juan'

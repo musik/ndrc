@@ -24,6 +24,16 @@ Capistrano::Configuration.instance.load do
       "cd #{current_path} && bundle exec rake whenever -w"
     end
   end
+  namespace :god do
+    desc "god start"
+    task :start do
+      run "cd #{current_path} && bundle exec god -c config/botword.god"
+    end
+    desc "god stop"
+    task :stop do
+      run "cd #{current_path} && bundle exec god stop botword && bundle exec god quit"
+    end
+  end
   namespace :unicorn do
     task :symlink do
       run "rm -rf #{current_path}/config/unicorn.rb && ln -nfs #{shared_path}/config/unicorn.rb #{current_path}/config/unicorn.rb"
