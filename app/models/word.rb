@@ -17,7 +17,7 @@ class Word < ActiveRecord::Base
         sleep 1
       end
     end
-    def fetch_words max = 1000,looop = false
+    def fetch_words max = 1000,looop = true
       urls = Word.where(name: nil).limit(100).pluck(:url)
       urls = "http://www.1688.com" if urls.empty?
       begin
