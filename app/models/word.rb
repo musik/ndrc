@@ -13,9 +13,9 @@ class Word < ActiveRecord::Base
       begin
         run urls,max do |page|
           m = page.doc.title.match(/(.+?)_(.+?)批发_/)
-          next unless m.present?
+          #next unless m.present?
           e = Word.where(url: page.url.to_s).first
-          name = m[1].gsub(" ",'')
+          name = m.present? ? m[1].gsub(" ",'') : '--'
           pp name if Rails.env.test?
           e.present? ? e.update_attributes(name: name) : Word.create(url: page.url.to_s,name: name)
         end
