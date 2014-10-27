@@ -12,12 +12,18 @@ class Word < ActiveRecord::Base
       urls = "http://www.1688.com" if urls.empty?
       begin
         run urls,max do |page|
-          m = page.doc.title.match(/(.+?)_(.+?)批发_/)
-          #next unless m.present?
           e = Word.where(url: page.url.to_s).first
-          name = m.present? ? m[1].gsub(" ",'') : '--'
-          pp name if Rails.env.test?
-          e.present? ? e.update_attributes(name: name) : Word.create(url: page.url.to_s,name: name)
+          if page.code == 200 and page.doc.title.present?
+            m = page.doc.title.match(/(.+?)_(.+?)批发_/)
+            if m.present? 
+              name = m[1].gsub(" ",'')
+              pp name if Rails.env.test?
+              e.present? ? e.update_attributes(name: name) : Word.create(url: page.url.to_s,name: name)
+              next
+            end
+          end
+          name ||= '--'
+          e.update_attributes(name: name) if e.present?
         end
         urls = Word.where(name: nil).limit(100).pluck(:url)
       end while once and urls.present? and !Rails.env.test?
