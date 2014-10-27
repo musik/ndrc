@@ -7,7 +7,7 @@ class Word < ActiveRecord::Base
     def initialize
       @http = Anemone::HTTP.new
     end
-    def fetch_words max = 1000
+    def fetch_words max = 1000,once = false
       urls = Word.where(name: nil).limit(100).pluck(:url)
       urls = "http://www.1688.com" if urls.empty?
       begin
@@ -20,7 +20,7 @@ class Word < ActiveRecord::Base
           e.present? ? e.update_attributes(name: name) : Word.create(url: page.url.to_s,name: name)
         end
         urls = Word.where(name: nil).limit(100).pluck(:url)
-      end while urls.present? and !Rails.env.test?
+      end while once and urls.present? and !Rails.env.test?
       Word.count
     end
     def run url,max = 10
