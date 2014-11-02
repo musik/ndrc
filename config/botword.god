@@ -12,7 +12,7 @@ God.watch do |w|
   w.env = { 'RAILS_ENV' => "production" }
   w.name = "botword"
   w.dir = RAILS_ROOT
-  w.start = "rake jobs:wordbot"
+  w.start = "bundle exec rake jobs:wordbot"
   #w.pid_file = File.join(RAILS_ROOT, "/tmp/pids/botword.pid")
   w.stop = "kill -9 $(cat #{w.pid_file})"
   w.restart = "kill -s HUP $(cat #{w.pid_file})"

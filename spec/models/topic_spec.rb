@@ -3,6 +3,7 @@ require 'spec_helper'
 
 describe Topic do
   it "should ensure slug uniq" do
+    #Topic.filter_dump_csv
     #pp Topic.create :name=>'b',:slug=>'a'
     #pp Topic.create :name=>'a-1',:slug=>'a'
     #pp Topic.create :name=>'a-1',:slug=>'a',:published=>true

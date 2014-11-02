@@ -83,3 +83,5 @@ pickle-email-*.html
 **.swp
 /db/topics_dump.csv
 config/production.sphinx.conf
+/db/*.txt
+/public/*.txt

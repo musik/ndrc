@@ -33,6 +33,10 @@ Capistrano::Configuration.instance.load do
     task :stop do
       run "cd #{current_path} && bundle exec god stop botword && bundle exec god quit"
     end
+    desc "god test"
+    task :testbot do
+      run "cd #{current_path} && bundle exec rails runner 'Word::Ali.new.test'"
+    end
   end
   namespace :unicorn do
     task :symlink do

@@ -77,6 +77,29 @@ class Topic < ActiveRecord::Base
       end
       nil
     end
+    def filter_dump_csv_pe
+      cats = File.readlines("#{Rails.root}/public/pecats.txt")
+      pattern = Regexp.new( cats.join("|").gsub(/[\r\n]/,''),Regexp::IGNORECASE)
+      f1 = File.open("#{Rails.root}/db/petopics.txt",'w')
+      Topic.order('char_length(name) asc').find_each do |t|
+        f1.write(t.name + "\r\n") if t.name.match(pattern).present?
+      end
+      nil
+
+    end
+    def filter_dump_csv
+      cats = File.readlines("#{Rails.root}/public/yscats.txt")
+      pattern = Regexp.new( cats.join("|").encode('UTF-8','GBK').gsub(/\r\n/,''),Regexp::IGNORECASE)
+      f1 = File.open("#{Rails.root}/db/topics1.txt",'w')
+      f2 = File.open("#{Rails.root}/db/topics2.txt",'w')
+      Topic.order('char_length(name) asc').find_each do |t|
+        t.name.match(pattern).present? ?
+          f1.write(t.name + "\r\n") :
+          f2.write(t.name + "\r\n")
+      end
+      nil
+
+    end
     def import_from_csv
       file = "#{Rails.root}/db/topics.csv"
       File.read(file).split("\n").collect{|r| r.split(",")}.each do |arr|
