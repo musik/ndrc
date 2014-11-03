@@ -12,8 +12,8 @@
   ="找到#{@companies.total_entries}项结果,耗时(#{@companies.query_time * 1000}毫秒)"
 = render :partial => 'companies/list',:locals=>{:results=>@companies,:q=>@q}
 .pull-right=nofollow_sub paginate(@companies,window: 5)
--@provinces = Company.province_facets(@topic.name)
 .clearfix
+-@provinces = Company.province_facets(@topic.name)
 -if @provinces.present?
   %h4 #{@topic.name}分省浏览
   %ul.list-inline

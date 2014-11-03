@@ -52,7 +52,7 @@ class CompaniesController < ApplicationController
     @page_title = [@title,@company.hangye,@company.fuwu].compact.slice(0,2).join(":").truncate(40)
     breadcrumbs.add @company.province.name,url_for(@company.province.pinyin) if @company.province.present?
     breadcrumbs.add @company.name
-    jisuan_houzhui
+    #jisuan_houzhui
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @company }

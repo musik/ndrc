@@ -7,6 +7,7 @@ class ApplicationController < ActionController::Base
   before_filter :init_city#,:jisuan_houzhui
   include CityHelper::ViewHelper,ApplicationHelper
   def jisuan_houzhui
+    return
     keywords = %w(www.00game.net tianyanmao.cn www.taoyutaole.com taoyutaole.com 重庆方言网 028成都交友网 www.361.cm 0871交友网 重庆方言网站 上海yy房产网 重庆中学生网 0731长沙交友网 重庆中学生网高考 0773桂林交友网 重庆学生网高考 027旅游招聘网 028成都新闻 blwzd重庆方言 重庆中学生学习网 重庆言子儿网站 blwzd www.yingyuxuexi.net 广场舞wagcw www.anedc.com)
     @key = Digest::MD5.new.hexdigest(request.url)[30,2].to_i(16)
     @suffix = keywords[@key]
