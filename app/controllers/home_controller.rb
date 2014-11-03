@@ -35,6 +35,12 @@ class HomeController < ApplicationController
       redirect_to root_url
       return
     end
+    @topic = Topic.where(name: @q).first
+    if @topic.present?
+      @prov = Province.where('name like ?', "%#{params[:l]}%").first if params[:l].present?
+      redirect_to @prov.present? ? topic_city_url(@prov.pinyin,@topic.slug) : topic_url(@topic.slug)
+      return
+    end
     @title = @q
     conditions = {}
     if params[:l].present?

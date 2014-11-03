@@ -34,25 +34,25 @@ class TopicsController < ApplicationController
   def show
     @topic = Topic.find_by_slug params[:id]
     @q= @topic.name
-    #@entries =  Entry.search(
-        #@topic.name,
-        #:page=>params[:page] || 1,
-        #:include=>[:text],
-        #:sort_mode => :extended,
-        #:order => "@relevance DESC",
-        #:per_page => 10
-        #)
     @companies =  Company.search(
         @topic.name,
-        :page=>params[:page],
+        :page=>params[:page] || 1,
         :include=>[:text],
+        :sort_mode => :extended,
+        :order => "@relevance DESC",
+        :per_page => 10
+        )
+    @entries =  Entry.search(
+        @topic.name,
+        :page=>1,
+        #:include=>[:text],
         :sort_mode => :extended,
         :order => "@relevance DESC",
         :per_page => 10
         )
     @relates = Topic.search(@topic.name,
                             without: {id: @topic.id},
-                            match_mode: :any,per_page: 30)
+                            match_mode: :any,per_page: 20)
     breadcrumbs.add :sitemap,zeig_url
     breadcrumbs.add @topic.name,nil
   end

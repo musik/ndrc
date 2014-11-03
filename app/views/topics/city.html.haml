@@ -10,21 +10,23 @@
 %p.description=t('topics.show.summary',:name=>@name,:count=>@companies.total_entries).html_safe
 %p.stats
   ="找到#{@companies.total_entries}项结果,耗时(#{@companies.query_time * 1000}毫秒)"
-= render :partial => 'companies/list',:locals=>{:results=>@companies,:q=>@q}
 .pull-right=nofollow_sub paginate(@companies,window: 5)
+= render :partial => 'companies/list',:locals=>{:results=>@companies,:q=>@q}
 -#.pull-right=xpaginate(@companies,theme: "etao",window: 10)
+-@provinces = Company.province_facets(@topic.name)
+-if @provinces.present?
+  %h4 #{@topic.name}分省浏览
+  %ul.list-inline
+    -@provinces.each do |p,count|
+      %li
+        =link_to "#{p.short_name}#{@topic.name}",topic_city_url(p.pinyin,@topic.slug),:rel=>(count > 1 ? "" : "nofollow")
+        %small (#{count})
 .clearfix
 %p.description=t('topics.show.notice',:name=>@name,:count=>@companies.total_entries).html_safe
 -content_for :sidebar do
-  -@provinces = Company.province_facets(@topic.name)
-  -if @provinces.present?
-    %h2 #{@topic.name}分省浏览
-    %ul.unstyled
-      -@provinces.each do |p,count|
-        %li=link_to "#{p.short_name} (#{count})",topic_city_url(p.pinyin,@topic.slug),:rel=>"nofollow"
   -if @relates.present?
     %h2 #{@topic.name}相关搜索
     %ul.unstyled
       -@relates.each do |r|
         -next if r.nil?
-        %li=link_to r.name,topic_url(r)
+        %li=link_to "#{@province.short_name}#{r.name}",topic_city_url(@province.pinyin,r)
